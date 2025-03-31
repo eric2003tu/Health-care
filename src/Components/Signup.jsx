@@ -1,0 +1,434 @@
+import React, { useState} from 'react'
+import { FaStar } from "react-icons/fa";
+import { BrowserRouter as Navigate, Link } from 'react-router-dom';
+import { Eye, EyeOff,Mail, User } from "lucide-react";
+import profile from '../Bg.jpg';
+import { color } from 'framer-motion';
+import { FaUpload } from "react-icons/fa";  // Upload Icon
+import { FaCheckCircle } from "react-icons/fa"; // Up Tick (Checkmark)
+import { MdKeyboardArrowUp } from "react-icons/md"; // Up Arrow
+
+const Signup = () => {
+    const [rate1, setRate1] = useState('gray')
+    const [rate2, setRate2] = useState('gray')
+    const [rate3, setRate3] = useState('gray')
+    const [rate4, setRate4] = useState('gray')
+    const [rate5, setRate5] = useState('gray')
+    const [rate,setRate] = useState(0)
+    const [completed, setCompleted] = useState(false)
+    const [completed2, setCompleted2] = useState(false)
+    const [completed3, setCompleted3] = useState(false)
+    const [selectError, setSelectError] = useState('')
+    const [step1, setStep1] = useState(false)
+    const [role, setRole] = useState('')
+    const [showPassword, setShowPassword] = useState(false);
+    const [confPassword, setConfPassword] = useState(false)
+    const [password, setPassword] = useState('')
+    const [checkPass, setCheckPass] = useState('')
+    const [fName, setfName] = useState('')
+    const [lName, setLName] = useState('')
+    const [email, setEmail] = useState('')
+    const [error, seterrors] = useState('')
+    const [submiterror, setSubmitError] = useState('')
+    const [errorColor, setErrorColor] = useState('red')
+    const [disabled, setDisabled] = useState(true)
+    const [dates, setDates] = useState('')
+    const [passError, setPassError] = useState('')
+    const [province, setProvince] = useState('')
+
+    const handleValidation = function(event){
+        event.preventDefault()
+        setDisabled(true);
+
+        if(!fName || fName === ''){
+            setDisabled(true)
+            setErrorColor('red')
+            return;
+        }
+        else if(!lName){
+            setDisabled(true)
+            setErrorColor('red')
+            return;
+        }
+        else if(!email){
+            setDisabled(true)
+            setErrorColor('red')
+            return;
+        }
+        else if(!password){
+            setDisabled(true)
+            setErrorColor('red')
+            return;
+        }
+         else if(password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)){
+            setPassError('Password must be atlest 8 long and strong')
+            setErrorColor('red');
+            setDisabled(true)
+            return;
+        }
+        else if(!checkPass){
+            setDisabled(true)
+            setErrorColor('red')
+            return;
+        }
+        else if(password !== checkPass){
+            setDisabled(true)
+            setErrorColor('red')
+            return;
+        }
+        else{
+            setDisabled(false)
+    }}
+    const hanleSubmit = function(event){
+        event.preventDefault();
+        if(handleValidation){
+       
+        fetch('https://www.Example.com',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstname : fName,
+                lastname : lName,
+                email : email,
+                password : password,
+                role : role,
+                date : dates
+            }),
+        })
+        .then(function(response){
+            if(!response.ok){
+                if(response.status === 404){
+                    setSubmitError('Invalid inputs')
+                    setErrorColor('red')
+                    throw new Error("Invalid inputs")
+                }
+                else if(response.status === 500){
+                    setSubmitError('Internal server error')
+                    setErrorColor('red')
+                    throw new Error('Internal server error')
+                }
+            }
+            return response.json()
+        })
+        .then(function(data){
+            if(data){
+                setSubmitError("Registration gone successfully!")
+                setErrorColor('green')
+                return;
+            }
+            else{
+                setSubmitError('Registration not completed, try again')
+                setErrorColor('red');
+            }
+        })
+        .catch(function(error){
+            console.error('Failed to register, try again later: ', error)
+            setSubmitError('Failed to register, try again later.')
+            setErrorColor('red')
+        })
+    }
+    }
+
+  return (
+    <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
+        <div className='w-full h-full flex flex-col bg-[#0dab66] text-white p-[30px] pt-[30px]'>
+            <h1 className='font-bold text-white text-center text-[47px] p-[10px]'>
+                Welcome to Baho Health
+            </h1>
+            <p className='text-white text-center p-[10px] text-[20px]'>
+                Where you can discover a wide range of healthcare
+                 services to meet your needs
+            </p>
+            <div className='grid grid-cols-6 gap-0'>
+                <FaStar size = {30} className={rate1 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
+                    if(rate1 === 'gray'){
+                    setRate1('orange')
+                    setRate(rate + 1)
+                    }
+                    else {
+                        setRate1('gray')
+                        setRate(rate - 1)
+                    }
+                }}/>
+                <FaStar size={30} className={rate2 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
+                    if(rate2 === 'gray'){
+                    setRate2('orange')
+                    setRate(rate + 1)
+                    }
+                    else {
+                        setRate2('gray')
+                        setRate(rate - 1)
+                    }
+                }}/>
+                <FaStar size = {30} className={rate3 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
+                    if(rate3 === 'gray'){
+                    setRate3('orange')
+                    setRate(rate + 1)
+                    }
+                    else {
+                        setRate3('gray')
+                        setRate(rate - 1)
+                    }
+                }}/>
+                <FaStar size = {30} className={rate4 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
+                    if(rate4 === 'gray'){
+                    setRate4('orange')
+                    setRate(rate + 1)
+                    }
+                    else {
+                        setRate4('gray')
+                        setRate(rate - 1)
+                    }
+                }}/>
+                <FaStar size = {30} className = {rate5 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
+                    if(rate5 === 'gray'){
+                    setRate5('orange')
+                    setRate(rate + 1)
+                    }
+                    else {
+                        setRate5('gray')
+                        setRate(rate - 1)
+                    }
+                }}/>
+            </div>
+            <p className = 'text-white text-center p-[10px] text-[20px] mt-[30px]'>
+                <i>This is a good project cause it saved me a lot of times,
+                 you are time saver. Very convenient to use.</i>
+            </p>
+            <div className='w-fit grid grid-cols-2 gap-0'>
+                <img src={profile} className='w-[60px] h-[60px] rounded-full'/>
+                <div className='ml-[-25px]'>
+                    <h1 className='font-bold text-[20px]'>Devon Lane</h1>
+                    <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
+                </div>
+            </div>
+            </div>
+        <div className = ' flex flex-col '>
+        <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr]' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
+        <div className = {!completed ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
+                1
+        </div>
+        <div className={!step1 ? 'w-full h-[9px] bg-gray-600 mt-[33px] transition-colors duration-1000' : 'w-full h-[9px] bg-[#1da857] mt-[33px] transition-colors duration-1000'}>
+
+        </div>
+        
+            <div className = {!completed2 ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
+            2</div>
+            <div className = 'w-full h-[6px] bg-gray-600 mt-[33px] '></div>
+            <div className = {!completed3 ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
+            3</div>
+            <div className = {role ==='Doctor' ? 'w-full h-[6px] bg-gray-600 mt-[33px] ' : role ==='Patient' ? 'hidden':  'hidden'}></div>
+            <div className = {!completed3 && role ==='Doctor' ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :completed3 && role === 'Doctor' ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]' : 'hidden'}>
+            4</div>
+        </div>
+        <form className={!step1 ? 'w-full h-fit self-center border text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+                <h1 className='font-bold text-black text-[27px] mb-[15px] w-full self-start'>User Role Selection</h1>
+                <label htmlFor = 'role' className = 'text-[20px] self-start ml-[25.4%]'>Role</label>
+                <select name = 'role' value = {role} onChange = {function(e){
+                    setRole(e.target.value)
+                    if(e.target.value){
+                        setCompleted(true)
+                        setSelectError('')
+                    }
+                    else{
+                        setCompleted(false)
+                    }
+                }} className='w-1/2 p-[10px] border rounded-[7px] self-center'>
+                <option value = '' disabled selected> Select role </option>
+                <option value = 'Patient'> Patient</option>
+                <option value = 'Doctor'>Doctor</option>
+                </select>
+                <p style={{color : errorColor}}>{selectError}</p>
+                 <div className='text-[20px] self-start ml-[33.4%] mt-[65px] grid grid-cols-2 gap-16'>
+                    <Link to = '/' className=' text-[#1da857] ml-[-100%]'>Sign in instead</Link>
+                    <button type='button'onClick={function(){
+                        if(role){
+                        setStep1(true)
+                        setSelectError('')
+                        setCompleted2(true)
+                        }
+                        else{
+                            setStep1(false)
+                            setSelectError('Please select role first!')
+                            setCompleted2(false)
+                        }
+                    }} className='text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'>Next</button>
+                 </div>
+            </form>
+            <form className={step1 && role === 'Doctor' ?  'w-full h-fit self-center border text-center flex flex-col pl-[60px] pr-[60px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit} onInput={handleValidation}>
+                <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's Personal info</h1>
+                <p style={{color : errorColor}}>{submiterror}</p>
+
+          <div className='grid grid-cols-[2fr_2fr] gap-3'>
+          <div  className='relative flex flex-col'>
+          <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
+          <input type='text' name='First name' value={fName} onChange={function(e){
+            setfName(e.target.value)
+          }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <User/>
+           </button>
+          </div>
+          <div  className='relative flex flex-col'>
+          <label htmlFor='last name' className=' text-gray-600'>Last name</label>
+          <input type='text' name='last name' value={lName} onChange={function(e){
+            setLName(e.target.value)
+          }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <User/>
+         </button>
+        </div>
+        </div>
+        <div className='relative'>
+          <label htmlFor='email' className=' text-gray-600'>Email address</label>
+          <input type='email' name='email' value={email} onChange={function(e){
+            setEmail(e.target.value)
+          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <Mail/>
+           </button>
+          </div>
+          <div className='grid grid-cols-2 w-full gap-3'>
+          <div className="relative">
+          <label htmlFor='Password' className=' text-gray-600'>Password</label>
+          <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
+            setPassword(e.target.value)
+          }} placeholder='Create password' className={passError ? 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500' :
+           'w-full border border-red-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'}/>
+          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
+          onClick={() => setShowPassword(!showPassword)}>
+            {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
+           </button>
+          </div>
+          <div className="relative">
+          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password</label>
+          <input type={confPassword ? "text" : "password"} name='confirm password' value={checkPass} onChange={function(e){
+            setCheckPass(e.target.value)
+          }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
+          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
+          onClick={() => setConfPassword(!confPassword)}>
+            {(!confPassword || !checkPass) ? <EyeOff/> : <Eye/>}
+           </button>
+          </div>
+          </div>
+          <div>
+          <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
+          <input type='date' name='date' value={dates} onChange={function(e){
+            setDates(e.target.value)
+          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          </div>
+          <select name='dropdown' value={province} onChange={function(e){
+                    setProvince(e.target.value)
+                 }} className='w-1/2 border border-gray-400  p-[10px] mt-[15px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'>
+                    <option value='' disabled selected> Select your province of living</option>
+                    <option value="kigali">Kigali</option>
+                    <option value="northern">Northern Province</option>
+                    <option value="southern">Southern Province</option>
+                    <option value="eastern">Eastern Province</option>
+                    <option value="western">Western Province</option>
+            </select>
+          <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
+                    <button className=' text-[#1da857] text-start' onClick={function(){
+                        setCompleted2(false)
+                        setStep1(false)
+                        setPassError('')
+                        setRole('')
+
+                    }}>Previous</button>
+                    <button type='submit'onClick={function(){
+                        if(role){
+                        setStep1(true)
+                        }
+                        else{
+                            setStep1(false)
+                        }
+                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>Next</button>
+                 </div>
+        </form>
+        <form className={step1 && role === 'Patient' ?  'w-full h-fit self-center border text-center flex flex-col pl-[60px] pr-[60px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit} onInput={handleValidation}>
+                <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
+                <p style={{color : errorColor}}>{submiterror}</p>
+
+          <div className='grid grid-cols-[2fr_2fr] gap-3'>
+          <div  className='relative flex flex-col'>
+          <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
+          <input type='text' name='First name' value={fName} onChange={function(e){
+            setfName(e.target.value)
+          }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <User/>
+           </button>
+          </div>
+          <div  className='relative flex flex-col'>
+          <label htmlFor='last name' className=' text-gray-600'>Last name</label>
+          <input type='text' name='last name' value={lName} onChange={function(e){
+            setLName(e.target.value)
+          }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <User/>
+         </button>
+        </div>
+        </div>
+        <div className='relative'>
+          <label htmlFor='email' className=' text-gray-600'>Email address</label>
+          <input type='email' name='email' value={email} onChange={function(e){
+            setEmail(e.target.value)
+          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <Mail/>
+           </button>
+          </div>
+          <div className='grid grid-cols-2 w-full gap-3'>
+          <div className="relative">
+          <label htmlFor='Password' className=' text-gray-600'>Password</label>
+          <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
+            setPassword(e.target.value)
+          }} placeholder='Create password' className={passError ? 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500' :
+           'w-full border border-red-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'}/>
+          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
+          onClick={() => setShowPassword(!showPassword)}>
+            {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
+           </button>
+          </div>
+          <div className="relative">
+          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password</label>
+          <input type={confPassword ? "text" : "password"} name='confirm password' value={checkPass} onChange={function(e){
+            setCheckPass(e.target.value)
+          }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
+          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
+          onClick={() => setConfPassword(!confPassword)}>
+            {(!confPassword || !checkPass) ? <EyeOff/> : <Eye/>}
+           </button>
+          </div>
+          </div>
+          <div>
+          <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
+          <input type='date' name='date' value={dates} onChange={function(e){
+            setDates(e.target.value)
+          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          </div>
+          <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
+                    <button className=' text-[#1da857] text-start' onClick={function(){
+                        setCompleted2(false)
+                        setStep1(false)
+                        setPassError('')
+                        setRole('')
+                    }}>Previous</button>
+                    <button type='submit'onClick={function(){
+                        if(role){
+                        setStep1(true)
+                        }
+                        else{
+                            setStep1(false)
+                        }
+                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed ' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>Sign up</button>
+                 </div>
+        </form>
+        </div>
+    </div>
+  )
+}
+
+export default Signup

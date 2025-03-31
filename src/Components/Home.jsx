@@ -22,8 +22,8 @@ const Home = () => {
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/home'>More</Link> </li>
         </ul>
         <ul className='absolute  flex flex-row gap-10 text-[24px]  right-5 justify-items-center'>
-          <li className='border-2  border-green-400 p-1.5 pl-7 pr-7 hover:text-green-500 cursor-pointer'><button type='button'> Sign Up</button></li>
-          <li className='hidden sm:hidden md:hidden lg:flex border border-green-400 hover:bg-green-300  bg-emerald-500 p-1.5 pl-7 pr-7 text-white cursor-pointer'><button type='button'> Learn More</button></li>
+          <li className='border-2  border-green-400 p-1.5 pl-7 pr-7 hover:text-green-500 cursor-pointer'><Link to='signup'> Sign Up</Link></li>
+          <li className='hidden sm:hidden md:hidden lg:flex border border-green-400 hover:bg-green-300  bg-emerald-500 p-1.5 pl-7 pr-7 text-white cursor-pointer'><Link type='button'> Learn More</Link></li>
         </ul>
         </div>
         <Link to ='/'><img src={logo} className='absolute flex sm:flex md:hidden lg:hidden w-[65px] cursor-pointer'/></Link>
