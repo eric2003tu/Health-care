@@ -3,7 +3,6 @@ import { FaStar } from "react-icons/fa";
 import { BrowserRouter as Navigate, Link } from 'react-router-dom';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import profile from '../Bg.jpg';
-import { color } from 'framer-motion';
 import { FaUpload } from "react-icons/fa";  // Upload Icon
 import { FaCheckCircle } from "react-icons/fa"; // Up Tick (Checkmark)
 import { MdKeyboardArrowUp } from "react-icons/md"; // Up Arrow
@@ -54,7 +53,7 @@ const Signup = () => {
     const [school, setSchool] = useState('')
     const [previousEmployer, setPreviousEmployer] = useState('')
     const [medicalLicence, setMedicalLicense] = useState(null)
-    const [dNext2, setDNext2] = useState(false)
+    const [dNext2, setDNext2] = useState(true)
     const [dstep2, setDstep2] = useState(false)
 
      {/* Doctor Step 3 */}
@@ -62,7 +61,7 @@ const Signup = () => {
     const [bio, setBio] = useState('')
     const [Languages , setLanguages] = useState([])
     const [id, setId] = useState(null)
-    const [dnext3, setDdNext] = useState(false)
+    const [dnext3, setDdNext] = useState(true)
     const [dstep3, setDstep3] = useState(false)
 
     const handleCheckboxChange = (event) => {
@@ -78,66 +77,44 @@ const Signup = () => {
     };
 
 
-    {/* Doctor Step1 validation */}
+    {/* Doctor Step2 validation */}
+
+    {/* Doctor step1 validation */}
 
     useEffect(() => {
-        if (!FirstName || !lastName || !dEmail || !dPassword || !dConfirmPassword || !dOb || !province || dPassword !== dConfirmPassword) {
+        if(dstep1){
+        if ((!FirstName || !lastName || !dEmail || !dPassword || !dConfirmPassword || !dOb || !province || dPassword !== dConfirmPassword)) {
             setDNext1(true); // Disable button
         } else {
             setDNext1(false); // Enable button
+        }}
+        else if(dstep2){
+        if(!specialization || !employer || !graduationYear || !school || !previousEmployer || !medicalLicence) {
+            setDNext2(true); // Disable button
+        } else {
+            setDNext2(false); // Enable button
+        }}
+        else if(dstep3){
+            if(!bio || Languages.length ===0 || !id) {
+                setDdNext(true); // Disable button
+            } else {
+                setDdNext(false); // Enable button
+            }
         }
-    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province]);
+        else if(step1 && role === 'Patient'){
+            if ((!fName || !lName || !email || !password || !checkPass || !dates || password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password))) {
+                setDisabled(true); // Disable button
+            } else {
+                setDisabled(false); // Enable button
+            }
+        }
+    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,email,password,checkPass,dates,step1,role]);
 
-    {/* Patient form Validation */}
-
-    const handleValidation = function(event){
-        event.preventDefault()
-        setDisabled(false);
-
-        if(!fName || fName === ''){
-            setDisabled(true)
-            setErrorColor('red')
-            return;
-        }
-        else if(!lName){
-            setDisabled(true)
-            setErrorColor('red')
-            return;
-        }
-        else if(!email){
-            setDisabled(true)
-            setErrorColor('red')
-            return;
-        }
-        else if(!password){
-            setDisabled(true)
-            setErrorColor('red')
-            return;
-        }
-         else if(password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)){
-            setErrorColor('red');
-            setDisabled(true)
-            return;
-        }
-        else if(!checkPass){
-            setDisabled(true)
-            setErrorColor('red')
-            return;
-        }
-        else if(password !== checkPass){
-            setDisabled(true)
-            setErrorColor('red')
-            return;
-        }
-        else{
-            setDisabled(false)
-    }}
 
     {/* Patient Form Submission */}
 
     const hanleSubmit = function(event){
         event.preventDefault();
-        if (!disabled){
        
         fetch('https://www.Example.com',{
             method:'POST',
@@ -200,7 +177,7 @@ const Signup = () => {
             },4000)
         })
     }
-    }
+    
 
   return (
     <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
@@ -331,7 +308,7 @@ const Signup = () => {
 
             {/* Patient Form */}
 
-            <form className={step1 && role === 'Patient' ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit} onInput={handleValidation}>
+            <form className={step1 && role === 'Patient' ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit}>
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
                 <p style={{color : errorColor}}>{submiterror}</p>
 
@@ -398,17 +375,12 @@ const Signup = () => {
                         setStep1(false)
                         setRole('')
                     }}>Previous</button>
-                    <button type='submit'onClick={function(){
-                        if(role){
-                        setStep1(true)
-                        }
-                        else{
-                            setStep1(false)
-                        }
-                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed ' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>Sign up</button>
+                    <button type='submit'onClick={function(e){
+                        e.preventDefault()
+                    }} className={disabled ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed ' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'} disabled= {disabled} >Sign up</button>
                  </div>
         </form>
-        <form onInput={handleValidation} onSubmit={hanleSubmit}>
+        <form  onSubmit={hanleSubmit}>
 
 
                                      {/* Doctor's Personal Info */}
@@ -584,11 +556,12 @@ const Signup = () => {
                 setDstep1(true)
                 setDstep3(false)
             }}>Previous</button>
-            <button className='bg-[#20B573] ml-[85%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end' onClick={function(){
+            <button className={dNext2 ? 'bg-green-200 ml-[85%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed disabled-true:' : 'bg-[#20B573] ml-[85%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] cursor-pointer rounded-[8px] w-fit text-end'} onClick={function(e){
+                e.preventDefault()
                 setDstep1(false)
                 setDstep2(false)
                 setDstep3(true)
-        }}>Next</button>
+        }} disabled={dNext2}>Next</button>
           </div>
           </div>
         </div>
@@ -630,7 +603,7 @@ const Signup = () => {
                 setDstep1(false)
                 setDstep3(false)
             }}>Previous</button>
-            <button className='bg-[#20B573] ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end' type='submit'>Submit</button>
+            <button className={ dnext3 ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' : 'bg-[#20B573] ml-[39%] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end'} type='submit' disabled={dnext3} >Submit</button>
           </div>
           
         </div>
