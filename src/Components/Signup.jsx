@@ -7,6 +7,8 @@ import { color } from 'framer-motion';
 import { FaUpload } from "react-icons/fa";  // Upload Icon
 import { FaCheckCircle } from "react-icons/fa"; // Up Tick (Checkmark)
 import { MdKeyboardArrowUp } from "react-icons/md"; // Up Arrow
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { MdLocalHospital } from "react-icons/md";
 
 const Signup = () => {
     const [rate1, setRate1] = useState('gray')
@@ -20,6 +22,8 @@ const Signup = () => {
     const [completed3, setCompleted3] = useState(false)
     const [selectError, setSelectError] = useState('')
     const [step1, setStep1] = useState(false)
+    const [step2Doctor, setStep2Doctor] = useState(true)
+    const [step3Doctor, setStep3Doctor] = useState(true)
     const [role, setRole] = useState('')
     const [showPassword, setShowPassword] = useState(false);
     const [confPassword, setConfPassword] = useState(false)
@@ -35,10 +39,18 @@ const Signup = () => {
     const [dates, setDates] = useState('')
     const [passError, setPassError] = useState('')
     const [province, setProvince] = useState('')
+    const [specialization, setSpecialization] = useState('')
+    const [employer, setEmployer] = useState('')
+    const [graduationYear, setGraduationYear] = useState('')
+    const [school, setSchool] = useState('')
+    const [previousEmployer, setPreviousEmployer] = useState('')
+    const [bio, setBio] = useState('')
+    const [id, setId] = useState('')
+    const [myBio, setMyBio] = useState('')
 
     const handleValidation = function(event){
         event.preventDefault()
-        setDisabled(true);
+        setDisabled(false);
 
         if(!fName || fName === ''){
             setDisabled(true)
@@ -61,7 +73,6 @@ const Signup = () => {
             return;
         }
          else if(password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)){
-            setPassError('Password must be atlest 8 long and strong')
             setErrorColor('red');
             setDisabled(true)
             return;
@@ -81,7 +92,7 @@ const Signup = () => {
     }}
     const hanleSubmit = function(event){
         event.preventDefault();
-        if(handleValidation){
+        if (!disabled){
        
         fetch('https://www.Example.com',{
             method:'POST',
@@ -102,11 +113,19 @@ const Signup = () => {
                 if(response.status === 404){
                     setSubmitError('Invalid inputs')
                     setErrorColor('red')
+                    setStep2Doctor(false)
+                    setTimeout(function(){
+                        setSubmitError('')
+                    },4000)
                     throw new Error("Invalid inputs")
                 }
                 else if(response.status === 500){
                     setSubmitError('Internal server error')
                     setErrorColor('red')
+                    setStep2Doctor(false)
+                    setTimeout(function(){
+                        setSubmitError('')
+                    },4000)
                     throw new Error('Internal server error')
                 }
             }
@@ -116,17 +135,28 @@ const Signup = () => {
             if(data){
                 setSubmitError("Registration gone successfully!")
                 setErrorColor('green')
+                setStep2Doctor(true)
+                setTimeout(function(){
+                    setSubmitError('')
+                },4000)
                 return;
             }
             else{
                 setSubmitError('Registration not completed, try again')
                 setErrorColor('red');
+                setTimeout(function(){
+                    setSubmitError('')
+                },4000)
             }
         })
         .catch(function(error){
             console.error('Failed to register, try again later: ', error)
             setSubmitError('Failed to register, try again later.')
             setErrorColor('red')
+            setStep2Doctor(false)
+            setTimeout(function(){
+                setSubmitError('')
+            },4000)
         })
     }
     }
@@ -257,7 +287,85 @@ const Signup = () => {
                     }} className='text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'>Next</button>
                  </div>
             </form>
-            <form className={step1 && role === 'Doctor' ?  'w-full h-fit self-center border text-center flex flex-col pl-[60px] pr-[60px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit} onInput={handleValidation}>
+            <form className={step1 && role === 'Patient' ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit} onInput={handleValidation}>
+                <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
+                <p style={{color : errorColor}}>{submiterror}</p>
+
+          <div className='grid grid-cols-[2fr_2fr] gap-3'>
+          <div  className='relative flex flex-col'>
+          <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
+          <input type='text' name='First name' value={fName} onChange={function(e){
+            setfName(e.target.value)
+          }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <User/>
+           </button>
+          </div>
+          <div  className='relative flex flex-col'>
+          <label htmlFor='last name' className=' text-gray-600'>Last name</label>
+          <input type='text' name='last name' value={lName} onChange={function(e){
+            setLName(e.target.value)
+          }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <User/>
+         </button>
+        </div>
+        </div>
+        <div className='relative'>
+          <label htmlFor='email' className=' text-gray-600'>Email address</label>
+          <input type='email' name='email' value={email} onChange={function(e){
+            setEmail(e.target.value)
+          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <Mail/>
+           </button>
+          </div>
+          <div className='grid grid-cols-2 w-full gap-3'>
+          <div className="relative">
+          <label htmlFor='Password' className=' text-gray-600'>Password</label>
+          <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
+            setPassword(e.target.value)
+          }} placeholder='Create password' className= 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
+          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
+          onClick={() => setShowPassword(!showPassword)}>
+            {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
+           </button>
+          </div>
+          <div className="relative">
+          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password</label>
+          <input type={confPassword ? "text" : "password"} name='confirm password' value={checkPass} onChange={function(e){
+            setCheckPass(e.target.value)
+          }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
+          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
+          onClick={() => setConfPassword(!confPassword)}>
+            {(!confPassword || !checkPass) ? <EyeOff/> : <Eye/>}
+           </button>
+          </div>
+          </div>
+          <div>
+          <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
+          <input type='date' name='date' value={dates} onChange={function(e){
+            setDates(e.target.value)
+          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          </div>
+          <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
+                    <button className=' text-[#1da857] text-start' onClick={function(){
+                        setCompleted2(false)
+                        setStep1(false)
+                        setPassError('')
+                        setRole('')
+                    }}>Previous</button>
+                    <button type='submit'onClick={function(){
+                        if(role){
+                        setStep1(true)
+                        }
+                        else{
+                            setStep1(false)
+                        }
+                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed ' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>Sign up</button>
+                 </div>
+        </form>
+        <form className={step1 && role === 'Doctor' && !step2Doctor ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onInput={handleValidation} onSubmit={hanleSubmit}>
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's Personal info</h1>
                 <p style={{color : errorColor}}>{submiterror}</p>
 
@@ -295,8 +403,7 @@ const Signup = () => {
           <label htmlFor='Password' className=' text-gray-600'>Password</label>
           <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
             setPassword(e.target.value)
-          }} placeholder='Create password' className={passError ? 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500' :
-           'w-full border border-red-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'}/>
+          }} placeholder='Create password' className= 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
           <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
           onClick={() => setShowPassword(!showPassword)}>
             {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
@@ -344,88 +451,130 @@ const Signup = () => {
                         else{
                             setStep1(false)
                         }
-                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>Next</button>
+                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'} >Next</button>
                  </div>
         </form>
-        <form className={step1 && role === 'Patient' ?  'w-full h-fit self-center border text-center flex flex-col pl-[60px] pr-[60px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit} onInput={handleValidation}>
-                <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
-                <p style={{color : errorColor}}>{submiterror}</p>
-
-          <div className='grid grid-cols-[2fr_2fr] gap-3'>
-          <div  className='relative flex flex-col'>
-          <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
-          <input type='text' name='First name' value={fName} onChange={function(e){
-            setfName(e.target.value)
-          }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
-          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
-            <User/>
-           </button>
-          </div>
-          <div  className='relative flex flex-col'>
-          <label htmlFor='last name' className=' text-gray-600'>Last name</label>
-          <input type='text' name='last name' value={lName} onChange={function(e){
-            setLName(e.target.value)
-          }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
-          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
-            <User/>
-         </button>
+        <form className={step1 && role === 'Doctor' && step2Doctor && !step3Doctor?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's professional info</h1>
+        <div className='grid grid-cols-[2fr_2fr] gap-3'>
+            <div className='w-full flex flex-col'>
+                <label htmlFor='specialization' className='text-gray-600'>Specialization <span className='text-red-500 ml-[3px]'> * </span></label>
+                <select name='specialization' value={specialization} className='w-full p-[7px] border border-gray-400 rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' onChange={function(e){
+                    setSpecialization(e.target.value)
+                }}>
+                    <option value="" disabled> speciatization</option>
+                    <option value='cardiology'> cardiology</option>
+                    <option value='respiration'>respiration</option>
+                    <option value='reproduction'> reproduction</option>
+                    <option value='digestion'>digestion</option>
+                    <option value='consultation'>consultation</option>
+                </select>
+            </div>
+            <div className='w-full flex flex-col'>
+            <label htmlFor='employer' className='text-gray-600'>Current Employer <span className='text-red-500 ml-[3px]'> * </span></label>
+            <input type='text' name='employer' placeholder='Current Employer' value={employer} onChange={function(e){
+                setEmployer(e.target.value)
+            }} className='wifull border border-gray-400 p-[7px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50'/>
+            </div>
+            <div className='w-full flex flex-col'>
+                <label htmlFor='graduationYear' className=' text-gray-600 '>Graduation Year<span className='text-red-500 ml-[3px]'> * </span></label>
+                <select name='graduationYear' value={graduationYear} className='w-full border border-gray-400 rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50 p-[7px]' onChange={function(e){
+                    setGraduationYear(e.target.value)
+                }}>
+                    <option value="" disabled> Graduation year</option>
+                    <option value='2024'> 2024</option>
+                    <option value='2023'>2023</option>
+                    <option value='2022'>2022</option>
+                    <option value='2021'>2021</option>
+                    <option value='2020'>2020</option>
+                    <option value='2019'> 2019</option>
+                    <option value='2018'>2018</option>
+                    <option value='2017'>2017</option>
+                    <option value='2016'>2016</option>
+                    <option value='2015'>2015</option>
+                    <option value='below'>below</option>
+                </select>
+            </div>
+            <div className='w-full flex flex-col'>
+                <label htmlFor='school' className='text-gray-600'>Medical School<span className='text-red-500 ml-[3px]'> * </span></label>
+                <select name='school' value={school} className='w-full p-[7px] border border-gray-400 rounded-[3px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' onChange={function(e){
+                    setSchool(e.target.value)
+                }}>
+                    <option value="" disabled> Medical school</option>
+                    <option value='University of Rwana'>University of Rwanda</option>
+                    <option value='University of Kigali'>University of Kigali</option>
+                    <option value='University of Byumba'>University of Byumba</option>
+                    <option value='Mount Kenya University'>Mount Kenya University</option>
+                    <option value='Mount Kigali University'>Mount Kigali University</option>
+                </select>
+            </div>
         </div>
-        </div>
-        <div className='relative'>
-          <label htmlFor='email' className=' text-gray-600'>Email address</label>
-          <input type='email' name='email' value={email} onChange={function(e){
-            setEmail(e.target.value)
-          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+        <div  className='relative flex flex-col'>
+          <label htmlFor='previousEmployer' className=' w-full text-gray-600'>Previous employer <span className='text-red-500 ml-[3px]'> * </span> </label>
+          <input type='text' name='previousEmployer' value={previousEmployer} onChange={function(e){
+            setPreviousEmployer(e.target.value)
+          }} placeholder='eg: CHUK' className='w-full border border-gray-400 p-[7px] pl-[2px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
-            <Mail/>
+            <MdLocalHospital size={30} className='text-green-400'/>
            </button>
           </div>
-          <div className='grid grid-cols-2 w-full gap-3'>
-          <div className="relative">
-          <label htmlFor='Password' className=' text-gray-600'>Password</label>
-          <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
-            setPassword(e.target.value)
-          }} placeholder='Create password' className={passError ? 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500' :
-           'w-full border border-red-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'}/>
-          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
-          onClick={() => setShowPassword(!showPassword)}>
-            {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
-           </button>
+          <div  className='relative flex flex-col m-[30px] gap-2'>
+          <label htmlFor='medicalLicence' className=' w-full text-gray-600'>Medical License<span className='text-red-500 ml-[3px]'> * </span> </label>
+          <div className='border border-gray-400 p-[30px] flex flex-col rounded-[7px]'>
+            <FaCloudUploadAlt size={55} className='self-center text-[#20B573]'/>
+          <input type='file' name='medicalLicense' value={previousEmployer} onChange={function(e){
+            setPreviousEmployer(e.target.value)
+          }}  className='  self-center pr-[14%] pl-[33%] p-[10px] rounded-[3px] text-center  text-blue-950 focus:border-b focus:border-white placeholder:text-gray-400 ' />
+          <button className='bg-[#20B573] self-center text-white font-bold p-[9px] pr-[15px] pl-[15px] text-[20px] rounded-[8px]'>Upload</button>
           </div>
-          <div className="relative">
-          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password</label>
-          <input type={confPassword ? "text" : "password"} name='confirm password' value={checkPass} onChange={function(e){
-            setCheckPass(e.target.value)
-          }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
-          <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
-          onClick={() => setConfPassword(!confPassword)}>
-            {(!confPassword || !checkPass) ? <EyeOff/> : <Eye/>}
-           </button>
+          <div className='w-full grid grid-cols-2 pl-[40px] pr-[40px]'>
+            <button className='self-start text-[#20B573] ml-[-99%] text-[20px]' type='button' onClick={function(){
+                setStep2Doctor(false)
+            }}>Previous</button>
+            <button className='bg-[#20B573] ml-[85%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end' onClick={function(){
+                setStep3Doctor(true)
+        }}>Next</button>
           </div>
           </div>
-          <div>
-          <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
-          <input type='date' name='date' value={dates} onChange={function(e){
-            setDates(e.target.value)
-          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
-          </div>
-          <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
-                    <button className=' text-[#1da857] text-start' onClick={function(){
-                        setCompleted2(false)
-                        setStep1(false)
-                        setPassError('')
-                        setRole('')
-                    }}>Previous</button>
-                    <button type='submit'onClick={function(){
-                        if(role){
-                        setStep1(true)
-                        }
-                        else{
-                            setStep1(false)
-                        }
-                    }} className={disabled === true ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed ' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>Sign up</button>
-                 </div>
         </form>
+        <form className={step1 && role === 'Doctor' && step2Doctor && step3Doctor ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's additional info</h1>
+            <div className='w-full flex flex-col items-start text-[20px]'>
+                <label htmlFor='specialization' className='text-gray-600'>Languages <span className='text-red-500 ml-[3px]'> * </span></label>
+                <div><input type='checkbox' name='language' value='English' className='size-[20px] mr-[9px]'/> English</div>
+                <div><input type='checkbox' name='language' value='Kinyarwand' className='size-[20px] mr-[9px]'/> Kinyarwanda</div>
+                <div><input type='checkbox' name='language' value='French' className='size-[20px] mr-[9px]'/> French</div>
+                <div><input type='checkbox' name='language' value='Swahili' className='size-[20px] mr-[9px]'/> Swahili</div>
+                <label htmlFor='Bio' className='text-gray-600'>Your Bio(in not morethan 100 words) <span className='text-red-500 ml-[3px]'> * </span></label>
+                <textarea  name='Bio' value={bio} placeholder='Type your Bio here!' onChange={function(e){
+                  setMyBio(e.target.value);
+                  const wordArray = e.target.value.split(" "); 
+                  if (wordArray.length >= 100) {
+                      setBio(wordArray.slice(0, 100).join(" "));  
+                  } else {
+                      setBio(e.target.value); 
+                  }
+                }} className='p-[10px] border border-gray-400 w-4/5 h-fit text-ster rounded-[7px]'></textarea>
+                          
+            <label htmlFor='medicalLicence' className=' w-full text-start mt-[7px] text-gray-600'>National Id<span className='text-red-500 ml-[3px]'> * </span> </label>
+          <div className='border border-gray-400 p-[30px] flex flex-col rounded-[7px] w-4/5'>
+            <FaCloudUploadAlt size={55} className='self-center text-[#20B573]'/>
+          <input type='file' name='medicalLicense' value={previousEmployer} onChange={function(e){
+            setPreviousEmployer(e.target.value)
+          }}  className='  self-center pr-[14%] pl-[33%] p-[10px] rounded-[3px] text-center  text-blue-950 focus:border-b focus:border-white placeholder:text-gray-400 ' />
+          <button className='bg-[#20B573] self-center text-white font-bold p-[9px] pr-[15px] pl-[15px] text-[20px] rounded-[8px]'>Upload</button>
+          </div>
+          <div className='w-full grid grid-cols-2 pl-[40px] pr-[40px] mt-[10px] mb-[30px]'>
+            <button className='self-start text-[#20B573] ml-[-99%] text-[20px]' type='button' onClick={function(){
+                setStep3Doctor(false)
+            }}>Previous</button>
+            <button className='bg-[#20B573] ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end' onClick={function(){
+                setStep3Doctor(false)
+        }}>Submit</button>
+          </div>
+          
+        </div>
+        </form >
         </div>
     </div>
   )
