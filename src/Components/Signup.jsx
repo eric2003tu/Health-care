@@ -1,6 +1,6 @@
 import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
-import { BrowserRouter as Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import profile from '../Bg.jpg';
 import { FaUpload } from "react-icons/fa";  // Upload Icon
@@ -22,6 +22,12 @@ const Signup = () => {
     const [selectError, setSelectError] = useState('')
     const [step1, setStep1] = useState(false)
     const [role, setRole] = useState('')
+    const [submiterror, setSubmitError] = useState('')
+    const [errorColor, setErrorColor] = useState('red')
+    
+
+    {/* Patient's form */}
+
     const [showPassword, setShowPassword] = useState(false);
     const [confPassword, setConfPassword] = useState(false)
     const [password, setPassword] = useState('')
@@ -29,10 +35,11 @@ const Signup = () => {
     const [fName, setfName] = useState('')
     const [lName, setLName] = useState('')
     const [email, setEmail] = useState('')
-    const [submiterror, setSubmitError] = useState('')
-    const [errorColor, setErrorColor] = useState('red')
-    const [disabled, setDisabled] = useState(true)
     const [dates, setDates] = useState('')
+    const [pNext, setPNext] = useState(true)
+    const [pStep1, setPStep1] = useState(false)
+    const navigate = useNavigate();
+
 
     {/* Doctor's step 1 */}
     const [FirstName, setFirstName] = useState('')
@@ -43,7 +50,7 @@ const Signup = () => {
     const [dConfirmPassword, setDConfirmPassword] = useState('')
     const [dOb, setDOb] = useState('')
     const [dNext1, setDNext1] = useState(true)
-    const [dstep1, setDstep1] = useState(true)
+    const [dstep1, setDstep1] = useState(false)
 
     {/* Doctor step 2 */}
 
@@ -77,7 +84,6 @@ const Signup = () => {
     };
 
 
-    {/* Doctor Step2 validation */}
 
     {/* Doctor step1 validation */}
 
@@ -101,33 +107,33 @@ const Signup = () => {
                 setDdNext(false); // Enable button
             }
         }
-        else if(step1 && role === 'Patient'){
-            if ((!fName || !lName || !email || !password || !checkPass || !dates || password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password))) {
-                setDisabled(true); // Disable button
+        else if(pStep1){
+            if ((!fName || !lName || !email || !password || !checkPass || !dates || password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) || password !== checkPass) {
+                setPNext(true); // Disable button
             } else {
-                setDisabled(false); // Enable button
+                setPNext(false); // Enable button
             }
         }
-    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,email,password,checkPass,dates,step1,role]);
+    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,email,password,checkPass,dates,pNext,pStep1]);
 
 
     {/* Patient Form Submission */}
 
-    const hanleSubmit = function(event){
+    const handleSubmit = function(event){
         event.preventDefault();
        
-        fetch('https://www.Example.com',{
+        fetch('http://localhost:5000/api/patient/signup',{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
+                
             },
+            credentials: 'include',
             body: JSON.stringify({
-                firstname : fName,
-                lastname : lName,
+                Fname : fName,
+                Lname : lName,
                 email : email,
                 password : password,
-                role : role,
-                date : dates
             }),
         })
         .then(function(response){
@@ -157,6 +163,7 @@ const Signup = () => {
                 setErrorColor('green')
                 setTimeout(function(){
                     setSubmitError('')
+                    navigate('/home')
                 },4000)
                 return;
             }
@@ -271,7 +278,7 @@ const Signup = () => {
             <div className = {!completed3 && role ==='Doctor' ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :completed3 && role === 'Doctor' ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]' : 'hidden'}>
             4</div>
         </div>
-        <form className={!step1 ? 'w-full h-fit self-center border text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <form className={!pStep1 && !dstep1 && !dstep2 && !dstep3 ?  'w-full h-fit self-center border text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
                 <h1 className='font-bold text-black text-[27px] mb-[15px] w-full self-start'>User Role Selection</h1>
                 <label htmlFor = 'role' className = 'text-[20px] self-start ml-[25.4%]'>Role</label>
                 <select name = 'role' value = {role} onChange = {function(e){
@@ -292,15 +299,19 @@ const Signup = () => {
                  <div className='text-[20px] self-start ml-[33.4%] mt-[65px] grid grid-cols-2 gap-16'>
                     <Link to = '/' className=' text-[#1da857] ml-[-100%]'>Sign in instead</Link>
                     <button type='button'onClick={function(){
-                        if(role){
+                        if(role === 'Doctor'){
                         setStep1(true)
-                        setSelectError('')
-                        setCompleted2(true)
+                        setDstep1(true)
+
+                        }
+                        else if(role === 'Patient'){
+                            setPStep1(true)
+                            setStep1(true)
                         }
                         else{
                             setStep1(false)
-                            setSelectError('Please select role first!')
-                            setCompleted2(false)
+                            setPStep1(false)
+                            setDstep1(false)
                         }
                     }} className='text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'>Next</button>
                  </div>
@@ -308,7 +319,7 @@ const Signup = () => {
 
             {/* Patient Form */}
 
-            <form className={step1 && role === 'Patient' ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={hanleSubmit}>
+            <form className={ role === 'Patient' && pStep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={handleSubmit}>
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
                 <p style={{color : errorColor}}>{submiterror}</p>
 
@@ -371,24 +382,22 @@ const Signup = () => {
           </div>
           <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
                     <button className=' text-[#1da857] text-start' onClick={function(){
-                        setCompleted2(false)
-                        setStep1(false)
+                        setPStep1(false)
                         setRole('')
                     }}>Previous</button>
-                    <button type='submit'onClick={function(e){
-                        e.preventDefault()
-                    }} className={disabled ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed ' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'} disabled= {disabled} >Sign up</button>
+                    <button type='submit' disabled = {pNext} className={pNext ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'} onClick={function(e){
+                        e.preventDefault();
+                    }} >Sign up</button>
                  </div>
         </form>
-        <form  onSubmit={hanleSubmit}>
+        <form >
 
 
                                      {/* Doctor's Personal Info */}
 
 
-        <div className={step1 && role === 'Doctor' && dstep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} >
+        <div className={role === 'Doctor' && dstep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} >
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's Personal info</h1>
-                <p style={{color : errorColor}}>{submiterror}</p>
 
           <div className='grid grid-cols-[2fr_2fr] gap-3'>
           <div  className='relative flex flex-col'>
@@ -459,7 +468,7 @@ const Signup = () => {
             </select>
           <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
                     <button className=' text-[#1da857] text-start' onClick={function(){
-                        setStep1(false)
+                        setDstep1(false)
                         setRole('')
 
                     }}>Previous</button>
@@ -477,7 +486,7 @@ const Signup = () => {
                                   {/* Doctor's Professional info */}
 
 
-        <div className={step1 && role === 'Doctor' && dstep2 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <div className={dstep2?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
         <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's professional info</h1>
         <div className='grid grid-cols-[2fr_2fr] gap-3'>
             <div className='w-full flex flex-col'>
@@ -571,7 +580,7 @@ const Signup = () => {
 
 
 
-        <div className={step1 && role === 'Doctor'  && dstep3 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <div className={dstep3 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
         <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's additional info</h1>
             <div className='w-full flex flex-col items-start text-[20px]'>
                 <label htmlFor='specialization' className='text-gray-600'>Languages <span className='text-red-500 ml-[3px]'> * </span></label>
