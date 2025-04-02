@@ -85,7 +85,8 @@ const Signup = () => {
 
 
 
-    {/* Doctor step1 validation */}
+    {/* Sign up Forms validation */}
+
 
     useEffect(() => {
         if(dstep1){
@@ -178,6 +179,80 @@ const Signup = () => {
         .catch(function(error){
             console.error('Failed to register, try again later: ', error)
             setSubmitError('Failed to register, try again later.')
+            setErrorColor('red')
+            setTimeout(function(){
+                setSubmitError('')
+            },4000)
+        })
+    }
+
+    {/* Doctor's form submission */}
+
+    const doctorSignup = function(event){
+        event.preventDefault()
+        fetch('http://localhost:5000/api/doctor/signup', {
+            method : 'POST',
+            headers:{
+                'Content-Type' : 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+               FirstName: FirstName,
+               LastName: lastName,
+               email: dEmail,
+               password: dPassword,
+               DOB: dOb,
+               province: province,
+               specialization: specialization,
+               employer: employer,
+               previousEmployer: previousEmployer,
+               graduationYear: graduationYear,
+               school: school,
+               medicalLicence: medicalLicence,
+            })
+        })
+        .then(function(response){
+            if(!response.ok){
+                if(response.status === 404){
+                    setSubmitError('Invalid inputs')
+                    setErrorColor('red')
+                    setTimeout(function(){
+                        setSubmitError('')
+                    },4000)
+                    throw new Error("Invalid inputs")
+                }
+                else if(response.status === 500){
+                    setSubmitError('Internal server error')
+                    setErrorColor('red')
+                    setTimeout(function(){
+                        setSubmitError('')
+                    },4000)
+                    throw new Error('Internal server error')
+                }
+            }
+            return response.json()
+        })
+        .then(function(data){
+            if(data){
+                setSubmitError("Doctor Registration gone successfully!")
+                setErrorColor('green')
+                setTimeout(function(){
+                    setSubmitError('')
+                    navigate('/home')
+                },4000)
+                return;
+            }
+            else{
+                setSubmitError('Registration of doctor not completed, try again')
+                setErrorColor('red');
+                setTimeout(function(){
+                    setSubmitError('')
+                },4000)
+            }
+        })
+        .catch(function(error){
+            console.error('Failed to register the doctor, try again later: ', error)
+            setSubmitError('Failed to register the Doctor, try again later.')
             setErrorColor('red')
             setTimeout(function(){
                 setSubmitError('')
@@ -319,7 +394,8 @@ const Signup = () => {
 
             {/* Patient Form */}
 
-            <form className={ role === 'Patient' && pStep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={handleSubmit}>
+            <form className={ role === 'Patient' && pStep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]':
+                 ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={handleSubmit}>
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
                 <p style={{color : errorColor}}>{submiterror}</p>
 
@@ -390,7 +466,7 @@ const Signup = () => {
                     }} >Sign up</button>
                  </div>
         </form>
-        <form >
+        <form onSubmit={doctorSignup}>
 
 
                                      {/* Doctor's Personal Info */}
@@ -582,6 +658,7 @@ const Signup = () => {
 
         <div className={dstep3 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
         <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's additional info</h1>
+        <p style={{color : errorColor}}>{submiterror}</p>
             <div className='w-full flex flex-col items-start text-[20px]'>
                 <label htmlFor='specialization' className='text-gray-600'>Languages <span className='text-red-500 ml-[3px]'> * </span></label>
                 <div><input type='checkbox' name='language' value='English' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> English</div>
