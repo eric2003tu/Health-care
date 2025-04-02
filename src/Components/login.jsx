@@ -23,67 +23,52 @@ const Login = () => {
             }
         },[email,password,disabled])
 
-        const handleLogin = function(event){
-            event.preventDefault()
-            fetch('http://localhost:5000/api/patient/signup',{
+        const handleLogin = function(event) {
+            event.preventDefault();
+            fetch('http://localhost:5000/api/patient/signup', {
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/json',
-                    autholisation: 'Bearer',
+                    'Authorization': 'Bearer <your-token-here>',
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    email : email,
+                    email: email,
                     password: password
                 }),
             })
-            .then(function(response){
-                if(!response.ok){
-                    if(response.status === 404){
+            .then(function(response) {
+                if (!response.ok) {
+                    if (response.status === 404) {
                         setSubmitError('Invalid inputs');
-                        setSubmitColor('red')
-                        setTimeout(function(){
-                            setSubmitError('')
-                        },3000)
-                        throw new Error('Invalid inputs');
-                    }
-                    if(response.status === 500){
+                        setSubmitColor('red');
+                    } else if (response.status === 500) {
                         setSubmitError('Internal server error');
-                        setTimeout(function(){
-                            setSubmitError('')
-                            setSubmitColor('red')
-                        },3000)
-                        throw new Error('Invalid inputs');
+                        setSubmitColor('red');
                     }
+                    setTimeout(() => setSubmitError(''), 3000);
+                    throw new Error(`Error ${response.status}`);
                 }
-                return response.json()
+                return response.json();
             })
-            .then(function(data){
-                if(data){
-                    setSubmitError('Login is successfull');
-                    setSubmitColor('green')
-                    setTimeout(function(){
-                        setSubmitError('')
-                    },3000)
-                    return;
+            .then(function(data) {
+                if (data.success) { 
+                    setSubmitError('Login is successful');
+                    setSubmitColor('green');
+                } else {
+                    setSubmitError('Login failed');
+                    setSubmitColor('red');
                 }
-                else{
-                    setSubmitError('not yet done');
-                    setSubmitColor('red')
-                    setTimeout(function(){
-                        setSubmitError('')
-                    },3000)
-                }
+                setTimeout(() => setSubmitError(''), 3000);
             })
-            .catch(function(error){
-                console.error('an error occured while logging in: ', error)
-                setSubmitError('an error occured while logging in');
-                setSubmitColor('red')
-                setTimeout(function(){
-                    setSubmitError('')
-                },3000)
-            })
-        }
+            .catch(function(error) {
+                console.error('An error occurred while logging in: ', error);
+                setSubmitError('An error occurred while logging in');
+                setSubmitColor('red');
+                setTimeout(() => setSubmitError(''), 3000);
+            });
+        };
+        
 
   return (
         <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
