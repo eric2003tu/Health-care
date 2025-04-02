@@ -8,14 +8,11 @@ import { FaCheckCircle } from "react-icons/fa"; // Up Tick (Checkmark)
 import { MdKeyboardArrowUp } from "react-icons/md"; // Up Arrow
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { MdLocalHospital } from "react-icons/md";
+import { CheckCircle } from "lucide-react";
+import { IoIosClose } from "react-icons/io";
 
 const Signup = () => {
-    const [rate1, setRate1] = useState('gray')
-    const [rate2, setRate2] = useState('gray')
-    const [rate3, setRate3] = useState('gray')
-    const [rate4, setRate4] = useState('gray')
-    const [rate5, setRate5] = useState('gray')
-    const [rate,setRate] = useState(0)
+    
     const [completed, setCompleted] = useState(false)
     const [completed2, setCompleted2] = useState(false)
     const [completed3, setCompleted3] = useState(false)
@@ -70,6 +67,7 @@ const Signup = () => {
     const [id, setId] = useState(null)
     const [dnext3, setDdNext] = useState(true)
     const [dstep3, setDstep3] = useState(false)
+    const [success, setSuccess] = useState(false)
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
@@ -238,8 +236,8 @@ const Signup = () => {
                 setErrorColor('green')
                 setTimeout(function(){
                     setSubmitError('')
-                    navigate('/home')
-                },4000)
+                    setSuccess(true)
+                },1000)
                 return;
             }
             else{
@@ -262,6 +260,7 @@ const Signup = () => {
     
 
   return (
+    <div>
     <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
         <div className='w-full h-full flex flex-col bg-[#0dab66] text-white p-[30px] pt-[30px]'>
             <h1 className='font-bold text-white text-center text-[47px] p-[10px]'>
@@ -271,58 +270,13 @@ const Signup = () => {
                 Where you can discover a wide range of healthcare
                  services to meet your needs
             </p>
-            <div className='grid grid-cols-6 gap-0'>
-                <FaStar size = {30} className={rate1 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
-                    if(rate1 === 'gray'){
-                    setRate1('orange')
-                    setRate(rate + 1)
-                    }
-                    else {
-                        setRate1('gray')
-                        setRate(rate - 1)
-                    }
-                }}/>
-                <FaStar size={30} className={rate2 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
-                    if(rate2 === 'gray'){
-                    setRate2('orange')
-                    setRate(rate + 1)
-                    }
-                    else {
-                        setRate2('gray')
-                        setRate(rate - 1)
-                    }
-                }}/>
-                <FaStar size = {30} className={rate3 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
-                    if(rate3 === 'gray'){
-                    setRate3('orange')
-                    setRate(rate + 1)
-                    }
-                    else {
-                        setRate3('gray')
-                        setRate(rate - 1)
-                    }
-                }}/>
-                <FaStar size = {30} className={rate4 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
-                    if(rate4 === 'gray'){
-                    setRate4('orange')
-                    setRate(rate + 1)
-                    }
-                    else {
-                        setRate4('gray')
-                        setRate(rate - 1)
-                    }
-                }}/>
-                <FaStar size = {30} className = {rate5 === 'gray' ? 'text-gray-500' : 'text-orange-400'} onClick={function(){
-                    if(rate5 === 'gray'){
-                    setRate5('orange')
-                    setRate(rate + 1)
-                    }
-                    else {
-                        setRate5('gray')
-                        setRate(rate - 1)
-                    }
-                }}/>
-            </div>
+                <div className='grid grid-cols-6 gap-0'>
+                    <FaStar size = {30} className={ 'text-orange-400'} />
+                    <FaStar size={30} className={'text-orange-400'} />
+                    <FaStar size = {30} className={ 'text-orange-400'} />
+                    <FaStar size = {30} className={'text-orange-400'} />
+                    <FaStar size = {30} className = {'text-orange-400'} />
+                </div>
             <p className = 'text-white text-center p-[10px] text-[20px] mt-[30px]'>
                 <i>This is a good project cause it saved me a lot of times,
                  you are time saver. Very convenient to use.</i>
@@ -335,7 +289,7 @@ const Signup = () => {
                 </div>
             </div>
             </div>
-        <div className = ' flex flex-col '>
+        <div className = { success ? ' flex flex-col bg-blue-200/60 ' : 'flex flex-col'}>
         <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr]' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
         <div className = {!completed ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
                 1
@@ -353,7 +307,7 @@ const Signup = () => {
             <div className = {!completed3 && role ==='Doctor' ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :completed3 && role === 'Doctor' ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]' : 'hidden'}>
             4</div>
         </div>
-        <form className={!pStep1 && !dstep1 && !dstep2 && !dstep3 ?  'w-full h-fit self-center border text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <form className={!pStep1 && !dstep1 && !dstep2 && !dstep3 ?  'w-full h-fit self-center text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
                 <h1 className='font-bold text-black text-[27px] mb-[15px] w-full self-start'>User Role Selection</h1>
                 <label htmlFor = 'role' className = 'text-[20px] self-start ml-[25.4%]'>Role</label>
                 <select name = 'role' value = {role} onChange = {function(e){
@@ -370,23 +324,26 @@ const Signup = () => {
                 <option value = 'Patient'> Patient</option>
                 <option value = 'Doctor'>Doctor</option>
                 </select>
-                <p style={{color : errorColor}}>{selectError}</p>
+                <p className='text-red-500'>{selectError}</p>
                  <div className='text-[20px] self-start ml-[33.4%] mt-[65px] grid grid-cols-2 gap-16'>
-                    <Link to = '/' className=' text-[#1da857] ml-[-100%]'>Sign in instead</Link>
+                    <Link to = '/login' className=' text-[#1da857] ml-[-100%]'>Sign in instead</Link>
                     <button type='button'onClick={function(){
                         if(role === 'Doctor'){
                         setStep1(true)
                         setDstep1(true)
+                        setSelectError('')
 
                         }
                         else if(role === 'Patient'){
                             setPStep1(true)
                             setStep1(true)
+                            setSelectError('')
                         }
                         else{
                             setStep1(false)
                             setPStep1(false)
                             setDstep1(false)
+                            setSelectError('Please select role First')
                         }
                     }} className='text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'>Next</button>
                  </div>
@@ -695,7 +652,31 @@ const Signup = () => {
         </div>
         </div >
         </form>
+        <div className={success ? 'absolute justify-self-center border  grid grid-rows-2 w-[35%] h-fit ml-[16%] mt-[8.3%] rounded-[7px]' : 'hidden'}>
+            <div className='bg-[#0dab66] flex flex-col gap-2 w-full h-full text-center pb-[25px] rounded-t-[7px]'>
+            <IoIosClose size={50} className='self-end text-white cursor-pointer' onClick={function(){
+                setSuccess(false)
+            }}/>
+                <CheckCircle size={60} className='text-white self-center'/>
+                <h1 className='text-white font-bold text-[30px]'>Success</h1>
+            </div>
+            <div className='w-full h-full bg-[white] text-gray-400 text-center pr-[11%] pl-[11%] p-[5%] rounded-b-[7px]'>
+                <p className='text-gray-400 text-[15px] text-center flex flex-col'>
+                    you con now log in. but full access is limited until verification is complete
+                </p>
+                <p className='text-gray-400 text-[15px] text-center mt-[5%]'>Verification takes 2 business days</p>
+                <button type='button' className = 'bg-[#0dab66] w-full text-center text-[20px] text-white font-bold mt-[9%] p-[5px] rounded-[7px]' onClick={function(){
+                    if(success)
+                    {
+                    navigate('/home')
+                    }
+                }}on>
+                    ok
+                </button>
+            </div>
         </div>
+        </div>
+    </div>
     </div>
   )
 }
