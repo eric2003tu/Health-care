@@ -2,7 +2,7 @@ import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
 import profile from '../assets/Bg.jpg';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
-import {  HashRouter as Navigate, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { color } from 'framer-motion';
 
 const Login = () => {
