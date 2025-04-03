@@ -25,7 +25,7 @@ const Login = () => {
 
         const handleLogin = function(event) {
             event.preventDefault();
-            fetch('http://localhost:5000/api/patient/signup', {
+            fetch('http://localhost:5000/api/patient/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const Login = () => {
                 {/* Right Nav */}
 
                 <div className='w-full  p-[10%] pt-[3.5%] pb-[3.5%] flex flex-col'>
-                    <form className='w-full text-start pl-[10%] p-[8%]  border rounded-[7px]' onSubmit={handleLogin}>
+                    <form className='w-full text-start pl-[10%] p-[6.5%]  border rounded-[7px]' onSubmit={handleLogin}>
                         <h1 className='font-bold text-[25px] mb-[10px]'>Login</h1>
                         <p style={{color : submitColor}}>{submitError}</p>
                         <p className='text-gray-400 mt-[5px] mb-[20px]'>Login with the credentials that you used while registering</p>
@@ -135,9 +135,7 @@ const Login = () => {
                             <Link to='/' className='text-green-500 ml-[40.8%]'>Forgot password?</Link>
                         </div>
                         <button type='submit' disabled= {disabled} className={disabled? 'bg-[#a6ebcd] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-not-allowed' 
-                            : 'bg-[#1aa569] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-pointer'} onClick={function(e){
-                                e.preventDefault()
-                            }}>
+                            : 'bg-[#1aa569] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-pointer'} >
                             Login
                             </button>
                         <p className='text-gray-600 mt-[20px]'>Do not have an account? <Link to ='/signup' className='text-green-500'>Create free account</Link></p>

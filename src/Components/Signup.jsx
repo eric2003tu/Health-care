@@ -418,9 +418,9 @@ const Signup = () => {
                         setPStep1(false)
                         setRole('')
                     }}>Previous</button>
-                    <button type='submit' disabled = {pNext} className={pNext ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'} onClick={function(e){
-                        e.preventDefault();
-                    }} >Sign up</button>
+                    <button type='submit' disabled = {pNext} className={pNext ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>
+                        Sign up
+                        </button>
                  </div>
         </form>
         <form onSubmit={doctorSignup}>
@@ -434,7 +434,7 @@ const Signup = () => {
 
           <div className='grid grid-cols-[2fr_2fr] gap-3'>
           <div  className='relative flex flex-col'>
-          <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
+          <label htmlFor='Fist name' className=' text-gray-600'>First name <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='text' name='First name' value={FirstName} onChange={function(e){
             setFirstName(e.target.value)
           }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -443,7 +443,7 @@ const Signup = () => {
            </button>
           </div>
           <div  className='relative flex flex-col'>
-          <label htmlFor='last name' className=' text-gray-600'>Last name</label>
+          <label htmlFor='last name' className=' text-gray-600'>Last name <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='text' name='last name' value={lastName} onChange={function(e){
             setLastName(e.target.value)
           }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -453,7 +453,7 @@ const Signup = () => {
         </div>
         </div>
         <div className='relative'>
-          <label htmlFor='email' className=' text-gray-600'>Email address</label>
+          <label htmlFor='email' className=' text-gray-600'>Email address <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='email' name='email' value={dEmail} onChange={function(e){
             setDEmail(e.target.value)
           }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
@@ -463,7 +463,7 @@ const Signup = () => {
           </div>
           <div className='grid grid-cols-2 w-full gap-3'>
           <div className="relative">
-          <label htmlFor='Password' className=' text-gray-600'>Password</label>
+          <label htmlFor='Password' className=' text-gray-600'>Password <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type={showPassword ? "text" : "password"}  name='password' value={dPassword} onChange={function(e){
             setDPassword(e.target.value)
           }} placeholder='Create password' className= 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
@@ -473,7 +473,7 @@ const Signup = () => {
            </button>
           </div>
           <div className="relative">
-          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password</label>
+          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type={confPassword ? "text" : "password"} name='confirm password' value={dConfirmPassword} onChange={function(e){
             setDConfirmPassword(e.target.value)
           }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
@@ -484,11 +484,13 @@ const Signup = () => {
           </div>
           </div>
           <div>
-          <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
+          <label htmlFor='date' className=' text-gray-600'>Date of Birth <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='date' name='date' value={dOb} onChange={function(e){
             setDOb(e.target.value)
           }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           </div>
+          <div className='flex flex-col'>
+          <label htmlFor='date' className=' text-gray-600 '>Province <span className='text-red-500 self-start ml-[3px]'> * </span></label>
           <select name='dropdown' value={province} onChange={function(e){
                     setProvince(e.target.value)
                  }} className='w-1/2 border border-gray-400  p-[10px] mt-[15px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'>
@@ -499,6 +501,7 @@ const Signup = () => {
                     <option value="Eastern Province">Eastern Province</option>
                     <option value="Western Province">Western Province</option>
             </select>
+            </div>
           <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
                     <button className=' text-[#1da857] text-start' onClick={function(){
                         setDstep1(false)
@@ -622,15 +625,24 @@ const Signup = () => {
                 <div><input type='checkbox' name='language' value='Kinyarwand' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> Kinyarwanda</div>
                 <div><input type='checkbox' name='language' value='French' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> French</div>
                 <div><input type='checkbox' name='language' value='Swahili' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> Swahili</div>
-                <label htmlFor='Bio' className='text-gray-600'>Your Bio(in not morethan 100 words) <span className='text-red-500 ml-[3px]'> * </span></label>
+                <label htmlFor='Bio' className='text-gray-600'>Your Bio(in not more than 700 characters) <span className='text-red-500 ml-[3px]'> * </span></label>
                 <textarea  name='Bio' value={bio} placeholder='Type your Bio here!' onChange={function(e){
-                  const wordArray = e.target.value.split(" "); 
-                  if (wordArray.length >= 100) {
-                      setBio(wordArray.slice(0, 100).join(" "));  
-                  } else {
-                      setBio(e.target.value); 
-                  }
-                }} className='p-[10px] border border-gray-400 w-4/5 h-fit text-ster rounded-[7px]'></textarea>
+                  const wordArray = e.target.value; 
+                  if (wordArray.length <= 700) {
+                      setBio(wordArray);  
+                  } 
+                }} className='p-[10px] border border-gray-400 w-4/5 h-fit text-ster rounded-[7px]'/>
+                <p className="text-sm text-gray-500 mt-1">
+                {bio.length > 0 && (
+                <>
+                You've written <span className="font-medium">{bio.length}</span> characters. 
+                Remaining: <span className="font-medium">{700 - bio.length}</span>
+                {700 - bio.length <= 0 && (
+                <span className="text-red-500"> (Maximum reached)</span>
+                )}
+                </>
+                )}
+                </p>
                           
             <label htmlFor='nationalId' className=' w-full text-start mt-[7px] text-gray-600'>National Id<span className='text-red-500 ml-[3px]'> * </span> </label>
           <div className='border border-gray-400 p-[30px] flex flex-col rounded-[7px] w-4/5'>
