@@ -10,6 +10,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { MdLocalHospital } from "react-icons/md";
 import { CheckCircle } from "lucide-react";
 import { IoIosClose } from "react-icons/io";
+import { IoArrowBackCircle } from "react-icons/io5";
 
 const Signup = () => {
     
@@ -263,6 +264,7 @@ const Signup = () => {
     <div>
     <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
         <div className='w-full h-full flex flex-col bg-[#0dab66] text-white p-[30px] pt-[30px]'>
+            <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
             <h1 className='font-bold text-white text-center text-[47px] p-[10px]'>
                 Welcome to Baho Health
             </h1>
@@ -289,7 +291,7 @@ const Signup = () => {
                 </div>
             </div>
             </div>
-        <div className = { success ? ' flex flex-col bg-blue-200/60 ' : 'flex flex-col'}>
+        <div className = { success ? ' flex flex-col bg-blue-200/60 ' : 'overflow-y-auto h-full flex flex-col'}>
         <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr]' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
         <div className = {!completed ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
                 1
