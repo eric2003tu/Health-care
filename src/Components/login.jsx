@@ -1,5 +1,6 @@
 import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
+import profile from '../assets/Bg.jpg';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { color } from 'framer-motion';
@@ -12,7 +13,6 @@ const Login = () => {
         const [disabled, setDisabled] = useState(true)
         const [submitError, setSubmitError] = useState('')
         const [submitColor, setSubmitColor] = useState('red')
-        const profile = "/Bg.jpg";
 
         useEffect(()=>{
             if(!email || !password){

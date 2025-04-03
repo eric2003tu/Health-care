@@ -4,10 +4,10 @@ import "@fontsource/ubuntu/300.css";
 import "@fontsource/ubuntu/500.css"; 
 import "@fontsource/ubuntu/700.css"; 
 import { BrowserRouter as Navigate, Link } from 'react-router-dom';
-import logo from '../logo.png'
-import contact from '../contact.png'
-import Emergency from '../Emergency.jpg'
-import landing from '../home.jpg'
+import logo from '../assets/logo.png'
+import contact from '../assets/contact.png'
+import Emergency from '../assets/Emergency.jpg'
+import landing from '../assets/home.jpg'
 import { IoMdClose } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { GrLanguage } from "react-icons/gr";
