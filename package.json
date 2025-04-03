@@ -1,6 +1,5 @@
 {
   "name": "health_service",
-  "homepage": "https://eric2003tu.github.io/Health-care/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,15 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fontsource/ubuntu": "^5.2.5",
     "@tailwindcss/vite": "^4.0.17",
     "framer-motion": "^12.6.2",
-    "gh-pages": "^6.3.0",
     "lucide-react": "^0.486.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -7,7 +7,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: "/Health-care",
   build: {
     rollupOptions: {
       external: ['lucide-react']
