@@ -1,6 +1,5 @@
 import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
-import profile from '../Bg.jpg';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { color } from 'framer-motion';

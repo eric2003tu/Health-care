@@ -2,7 +2,6 @@ import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
 import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
-import profile from '../Bg.jpg';
 import { FaUpload } from "react-icons/fa";  // Upload Icon
 import { FaCheckCircle } from "react-icons/fa"; // Up Tick (Checkmark)
 import { MdKeyboardArrowUp } from "react-icons/md"; // Up Arrow
