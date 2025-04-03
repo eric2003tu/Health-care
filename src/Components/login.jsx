@@ -4,6 +4,7 @@ import profile from '../assets/Bg.jpg';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { color } from 'framer-motion';
+import { IoArrowBackCircle } from "react-icons/io5";
 
 const Login = () => {
         const [showPassword, setShowPassword] = useState(false);
@@ -73,6 +74,7 @@ const Login = () => {
   return (
         <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
             <div className='w-full h-full flex flex-col bg-[#0dab66] text-white p-[30px] pb-[10px] pt-[10px]'>
+                <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
                 <h1 className='font-bold text-white text-center text-[47px] p-[10px]'>
                     Welcome to Baho Health
                 </h1>
