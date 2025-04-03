@@ -67,6 +67,8 @@ const Signup = () => {
     const [dnext3, setDdNext] = useState(true)
     const [dstep3, setDstep3] = useState(false)
     const [success, setSuccess] = useState(false)
+    const profile = "/Bg.jpg";
+
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;

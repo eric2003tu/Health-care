@@ -12,6 +12,7 @@ const Login = () => {
         const [disabled, setDisabled] = useState(true)
         const [submitError, setSubmitError] = useState('')
         const [submitColor, setSubmitColor] = useState('red')
+        const profile = "/Bg.jpg";
 
         useEffect(()=>{
             if(!email || !password){
