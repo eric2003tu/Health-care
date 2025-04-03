@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import "@fontsource/ubuntu";
 import "@fontsource/ubuntu/300.css"; 
 import "@fontsource/ubuntu/500.css"; 
 import "@fontsource/ubuntu/700.css"; 
-import { BrowserRouter as Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import contact from '../assets/contact.png'
 import Emergency from '../assets/Emergency.jpg'
@@ -26,13 +26,31 @@ const LogedHome = () => {
     const [selectedSearch, setSelectedSearch] = useState('')
     const [selectedLanguage, setSelectedLanguage] = useState('')
     const [category, setCateory] = useState("")
-    const [location, setLocation] = useState("")
     const [email, setEmail] = useState('')
+
+{/* Speciality finding */}
+
+    const [speciality, setSpecility] = useState('')
+    const [date, setDate] = useState('')
+    const [location, setLocation] = useState('')
+    const [submitDisabled, setSubmitDisabled] = useState(true)
+      const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(!date || !speciality || !location){
+            setSubmitDisabled(true)
+        }
+        else{
+            setSubmitDisabled(false)
+        }
+    },[date,speciality,location,submitDisabled])
+
+
   return (
-    <motion.div>
+    <div>
     <nav className='flex flex-row z-[1000] h-fit w-full right-0 top-0  bg-[#FFFFFF] p-[10px] pt-[2px] sticky'>
         <Link to ='/' ><img src={logo} className='w-[75px] h-[75px] cursor-pointer'/></Link>
-        <div className= 'flex h-fit w-fit  mt-[16px] justify-center ml-[90px] bg-[#D9D9D9] rounded-2xl'>
+        <div className= 'flex h-fit w-fit  mt-[16px] justify-center ml-[90px] bg-[#D9D9D9] rounded-2xl shadow-[1px_2px_3px_gray]'>
             <div className=' w-fit flex flex-row  '>
             <select  name='dropdown' title='Categories' value={selectedSearch} onChange={function(e){
                 setSelectedSearch(e.target.value)
@@ -82,7 +100,7 @@ const LogedHome = () => {
       className="min-w-full min-h-screen flex items-center justify-center bg-cover bg-center sm:bg-center sm:bg-no-repeat"
       style={{ backgroundImage: `url(${landing})` }} 
     >
-      <div className='bg-green-600 opacity-60 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center relative'>
+      <div className='bg-green-600/44 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center relative'>
         
         <h1 className='max-w-prose mx-auto break-words mt-[50px] font-bold text-white text-[40px] md:text-[58px] leading-tight'>
             Find the best Healthcare<br/> Services Near You
@@ -153,43 +171,42 @@ const LogedHome = () => {
                 </div>     
             </div>
         </div>
+
+                       {/* Find the Doctor*/}
+
+        <form>
         <h1 className='font-bold ml-[20px] text-[24px]'>Find a doctor in 3 easy steps</h1>
         <div className='grid grid-cols-[1fr_1fr_1fr_1fr] md:grid-cols-4 gap-6 p-[20px] justify-between'>
             <div>
                 <p>
                     Select speciallity <span className='text-red-500 ml-[4px]'>*</span>
                 </p>
-                <select name='dropdown' value='' className='border w-[100%] p-[7px] rounded-[7px]'>
+                <select name='dropdown' value={speciality} onChange={function(e){
+                    setSpecility(e.target.value)
+                }} className='border w-[100%] p-[7px] rounded-[7px]'>
                 <option value='' disabled seleected>speciality</option>
-                    <option value='cardiology'>cardiology</option>
-                    <option value='cardiology'>cardiology</option>
-                    <option value='cardiology'>cardiology</option>
-                    <option value='cardiology'>cardiology</option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
                 </select>
             </div>
             <div>
             <p className='ml-[35px]'>
                     Select date <span className='text-red-500 ml-[4px]'>*</span>
                 </p>
-                <input type='date' name='date' value='' className='border w-full p-[7px] rounded-[7px]'/>
+                <input type='date' name='date' value={date} onChange={function(e){
+                    setDate(e.target.value)
+                }} className='border w-full p-[7px] rounded-[7px]'/>
             </div>
             <div>
             <p className='ml-[35px]'>
                     Prefered location <span className='text-red-500 ml-[4px]'>*</span>
                 </p>
                 <div className='w-full grid grid-cols-[8fr_1fr] border-[1.5px] rounded-[7px]'>
-                    <input type='text' name='location' placeholder='Eg: Kimironko' className='w-full h-full p-[7px] placeholder:text-black rounded-l-[7px] focus:border-r-0'/>
-                    <IoLocationOutline size={30}/>
-                </div>
-            </div>
-            <button type='submit' className='w-full text-center bg-[#20B573] text-white rounded-[7px] text-[20px]'>Submit</button>
-        </div>
-        <h1 className='font-bold ml-[16px] text-[16px]'>Find a doctor by City</h1>
-        <div className=' gap-1 p-[20px]  self-center'>
-            <div className='w-[50%] grid grid-cols-[1fr_1fr] ml-[30%]'>
-         <select name='dropdown' value={location} onChange={function(e){
+                <select name='dropdown' value={location} onChange={function(e){
             setLocation(e.target.value)
-         }} className='w-[70%] h-fit p-[10px]'>
+         }} className='w-full h-full p-[10px]'>
          <option value='' disabled selected>Location</option>
          <option value='Kimironko' >Kimironko</option>
          <option value='Nyarutarama'>Nyarutarama</option>
@@ -197,20 +214,35 @@ const LogedHome = () => {
          <option value='Kabuga'>Kabuga</option>
          <option value='Gikondo' >Gikondo</option>
          <option value='Kimisagara'>Kimisagara</option>
-        </select>  
+        </select>
+                </div>
+            </div>
+            <button type='button' disabled={submitDisabled} className={submitDisabled ? 'w-full text-center bg-[#a7e6c9] text-white rounded-[7px] text-[20px] cursor-not-allowed' 
+                : 'w-full text-center bg-[#20B573] text-white rounded-[7px] text-[20px] cursor-pointer'} onClick={(e)=>{
+                    e.preventDefault();
+                    localStorage.setItem('speciality', speciality)
+                    localStorage.setItem('location',location)
+                    localStorage.setItem('date',date)
+                    navigate('/doctor')
+                }}>
+                Submit</button>
+        </div>
+        <h1 className='font-bold ml-[16px] text-[16px]'>Find a doctor by City</h1>
+        <div className=' gap-1 p-[20px]  self-center'>
+            <div className='w-[50%] grid grid-cols-[1fr_1fr] ml-[30%]'>   
         <select name='dropdown' value={category} onChange={function(e){
             setCateory(e.target.value)
          }} className='w-[70%] h-fit p-[10px]'>
-         <option value='' disabled>Category</option>
-         <option value='cardiology' >cardiology</option>
-         <option value='Dental services'>Dental services</option>
-         <option value='cardiology' >Orphthamology</option>
-         <option value='Dental services'>Respiration</option>
-         <option value='cardiology' >Mental Rehab</option>
-         <option value='Dental services'>Bio-Chekup</option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
         </select>
         </div>
         </div>
+
+
+        </form>
         <div className='w-full bg-gradient-to-b from-[#20B573] via- to-[#FFFFFF] h-fit'>
             <div className=' w-full text-center'>
             <h1 className="relative font-bold text-[55px] after:content-[''] after:absolute  after:bottom-0 after:w-[190px] after:ml-[-300px] after:h-[8px] after:bg-[#20B573] font-ubuntu ">Pharmacies</h1>
@@ -316,7 +348,7 @@ const LogedHome = () => {
                 </ul>
             </div>
         </div>
-        </motion.div>
+        </div>
   )
 }
 
