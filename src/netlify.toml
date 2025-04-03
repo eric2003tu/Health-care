@@ -1,0 +1,4 @@
+[[redirects]]
+from = "/*"
+to = "/idex.html"
+status = 200
