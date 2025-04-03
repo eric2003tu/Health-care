@@ -4,8 +4,8 @@ import '../App.css'
 import { IoMdClose } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
-import landing from '../home.jpg'
-import logo from '../logo.png' 
+import landing from '../assets/home.jpg'
+import logo from '../assets/logo.png' 
 
 const Home = () => {
   const [menu, setMenu] = useState(false)
