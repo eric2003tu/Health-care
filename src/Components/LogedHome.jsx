@@ -3,7 +3,7 @@ import "@fontsource/ubuntu";
 import "@fontsource/ubuntu/300.css"; 
 import "@fontsource/ubuntu/500.css"; 
 import "@fontsource/ubuntu/700.css"; 
-import { BrowserRouter as Navigate, Link } from 'react-router-dom';
+import {  HashRouter as Navigate, Link } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import contact from '../assets/contact.png'
 import Emergency from '../assets/Emergency.jpg'
