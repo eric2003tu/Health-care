@@ -381,7 +381,7 @@ const Signup = () => {
           <div className='grid grid-cols-[2fr_2fr] gap-3'>
           <div  className='relative flex flex-col'>
           <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
-          <input type='text' name='First name' value={fName} onChange={function(e){
+          <input type='text' name='First name' autocomplete="new-password" value={fName} onChange={function(e){
             setfName(e.target.value)
           }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
@@ -390,7 +390,7 @@ const Signup = () => {
           </div>
           <div  className='relative flex flex-col'>
           <label htmlFor='last name' className=' text-gray-600'>Last name</label>
-          <input type='text' name='last name' value={lName} onChange={function(e){
+          <input type='text' name='last name' autocomplete="new-password" value={lName} onChange={function(e){
             setLName(e.target.value)
           }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
@@ -480,7 +480,7 @@ const Signup = () => {
           </div>
           <div  className='relative flex flex-col'>
           <label htmlFor='last name' className=' text-gray-600'>Last name <span className='text-red-500 ml-[3px]'> * </span></label>
-          <input type='text' name='last name' value={lastName} onChange={function(e){
+          <input type='text' name='last name'  value={lastName} onChange={function(e){
             setLastName(e.target.value)
           }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
@@ -500,7 +500,7 @@ const Signup = () => {
           <div className='grid grid-cols-2 w-full gap-3'>
           <div className="relative">
           <label htmlFor='Password' className=' text-gray-600'>Password <span className='text-red-500 ml-[3px]'> * </span></label>
-          <input type={showPassword ? "text" : "password"}  name='password' value={dPassword} onChange={function(e){
+          <input type={showPassword ? "text" : "password"} autoComplete="new-password"  name='password' value={dPassword} onChange={function(e){
             setDPassword(e.target.value)
           }} placeholder='Create password' className= 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
           <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
@@ -509,8 +509,8 @@ const Signup = () => {
            </button>
           </div>
           <div className="relative">
-          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password <span className='text-red-500 ml-[3px]'> * </span></label>
-          <input type={confPassword ? "text" : "password"} name='confirm password' value={dConfirmPassword} onChange={function(e){
+          <label htmlFor='confirm-password' className=' text-gray-600'>confirm Password <span className='text-red-500 ml-[3px]'> * </span></label>
+          <input type={confPassword ? "text" : "password"} autoComplete="new-password" name='confirm password' value={dConfirmPassword} onChange={function(e){
             setDConfirmPassword(e.target.value)
           }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
           <button type="button" className= "absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600"
