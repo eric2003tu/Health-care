@@ -90,7 +90,7 @@ const Signup = () => {
 
     const handleOtp = function(event){
         event.preventDefault();
-        const myOtpNumber = Number(myOtp.join(''));
+        const myOtpNumber = myOtp.join('');
         fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
             method: 'POST',
             headers: {
@@ -400,7 +400,7 @@ const Signup = () => {
                 <label htmlFor = 'role' className = 'text-[20px] self-start ml-[25.4%]'>Role</label>
                 <select name = 'role' value = {role} onChange = {function(e){
                     setRole(e.target.value)
-                    
+
                 }} className='w-1/2 p-[10px] border rounded-[7px] self-center'>
                 <option value = '' disabled selected> Select role </option>
                 <option value = 'Patient'> Patient</option>
