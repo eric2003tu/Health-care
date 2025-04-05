@@ -27,7 +27,7 @@ const LogedHome = () => {
     const [selectedSearch, setSelectedSearch] = useState('')
     const [selectedLanguage, setSelectedLanguage] = useState('')
     const [category, setCateory] = useState("")
-    const [email, setEmail] = useState('')
+    const [Email, setEmail] = useState('')
 
 {/* Speciality finding */}
 
@@ -342,7 +342,7 @@ const LogedHome = () => {
                     Join our Newsletter to receive updates on features and releases.
                 </h1>
                 <form className='grid grid-cols-[3fr_1fr] gap-4 w-full mt-[9px]'>
-                <input type='email' name='email'  placeholder='Enter your email' className='border-2 w-full border-white text-white p-[10px] placeholder:text-gray-200 rounded-[7px]'/>
+                <input type='Email' name='Email'  placeholder='Enter your Email' className='border-2 w-full border-white text-white p-[10px] placeholder:text-gray-200 rounded-[7px]'/>
                 <button type='submit' className='border-2 w-full border-white font-bold text-white p-[10px] rounded-[7px] bg-[#0be080] hover:bg-[#0be082]'> Subscribe</button>
                 </form>
                 <p className=' text-white text-[14px] mt-[13px]'>By subscribing, you agree to our Privacy policy and consent to receive updates from our company</p>
