@@ -138,8 +138,7 @@ const Signup = () => {
         fetch('https://baho-healthcare.onrender.com/api/patient/signup',{
             method:'POST',
             headers:{
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer', 
+                'Content-Type': 'application/json'
                 
             },
             credentials: 'include',
@@ -170,6 +169,10 @@ const Signup = () => {
                     },4000)
                     throw new Error('Internal server error')
                 }
+                else if (response.status === 400) {
+                    setSubmitError('Please check your inputs');
+                    throw new Error('Please check your inputs')
+                  }
             }
             return response.json()
         })
