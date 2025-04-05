@@ -20,6 +20,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
+import mask from '../assets/mask.jpg'
 
 const LogedHome = () => {
     const [iniputs,setInputs] = useState('')
@@ -36,14 +37,24 @@ const LogedHome = () => {
     const [submitDisabled, setSubmitDisabled] = useState(true)
       const navigate = useNavigate();
 
+        const images = [landing, mask];
+        const [bg, setBg] = useState(images[0]);
+
     useEffect(()=>{
+        let i = 0;
+        const interval = setInterval(() => {
+          setBg(images[i]);
+          i = (i + 1) % images.length;
+        }, 7000);
+    
         if(!date || !speciality || !location){
             setSubmitDisabled(true)
         }
         else{
             setSubmitDisabled(false)
         }
-    },[date,speciality,location,submitDisabled])
+        return () => clearInterval(interval);
+    },[images,bg,date,speciality,location,submitDisabled])
 
 
   return (
@@ -98,18 +109,34 @@ const LogedHome = () => {
     </nav>
      <div 
       className="min-w-full min-h-screen flex items-center justify-center bg-cover bg-center sm:bg-center sm:bg-no-repeat"
-      style={{ backgroundImage: `url(${landing})` }} 
+      style={{ backgroundImage: `url(${bg})` }} 
     >
       <div className='bg-green-600/44 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center relative'>
         
         <h1 className='max-w-prose mx-auto break-words mt-[50px] font-bold text-white text-[40px] md:text-[58px] leading-tight'>
-            Find the best Healthcare<br/> Services Near You
+        {bg === landing ? 
+        (
+        <>
+          Find the best Healthcare <br /> Services Near You
+        </>
+        ) 
+        :(
+        <>
+          We offer the best quality services <br /> to ensure healthy lives
+        </>
+        )
+        }
         </h1>
 
         <div className='max-w-full text-center overflow-x-auto pt-[40px] bg-opacity-60'>
           <p className="max-w-prose mx-auto break-words text-white text-lg md:text-[25px] leading-relaxed">
-            Welcome to our website, where you can discover a wide range of healthcare 
-            services to meet all your needs.
+        {bg === landing ? `Welcome to our website, where we specialize in providing 
+        top-notch health facilities and services. With a team of 
+        experienced doctors and pharmacists, we are dedicated to
+        ensuring the well-being of our patients.`
+        : `At our website, we offer a wide range of services to cater to your healthcare needs.
+        From specialist consultations to pharmacy services,
+        we have you covered.`}
         </p>
         </div>
         </div>
