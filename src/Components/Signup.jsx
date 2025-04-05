@@ -3,6 +3,7 @@ import { FaStar } from "react-icons/fa";
 import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import profile from '../assets/BG.jpg';
+import otp from '../assets/otp.jpg';
 import { FaUpload } from "react-icons/fa";  // Upload Icon
 import { FaCheckCircle } from "react-icons/fa"; // Up Tick (Checkmark)
 import { MdKeyboardArrowUp } from "react-icons/md"; // Up Arrow
@@ -15,14 +16,12 @@ import { MdContactPhone } from "react-icons/md";
 
 const Signup = () => {
     
-    const [completed, setCompleted] = useState(false)
-    const [completed2, setCompleted2] = useState(false)
-    const [completed3, setCompleted3] = useState(false)
     const [selectError, setSelectError] = useState('')
     const [step1, setStep1] = useState(false)
     const [role, setRole] = useState('')
     const [submiterror, setSubmitError] = useState('')
     const [errorColor, setErrorColor] = useState('red')
+    const [myOtp, setMyOtp] = useState([ '', '', '', '', '', '']);
     
 
     {/* Patient's form */}
@@ -84,7 +83,11 @@ const Signup = () => {
         }
     };
 
-
+    // const handleOtpChange = (e, index) => {
+    //     const newMyOtp = [...otp];
+    //     newMyOtp[index] = e.target.value; 
+    //     setMyOtp(newMyOtp); 
+    //   };
 
     {/* Sign up Forms validation */}
 
@@ -701,7 +704,71 @@ const Signup = () => {
         </div>
         </div >
         </form>
-        <div className={success ? 'absolute justify-self-center border  grid grid-rows-2 w-[35%] h-fit ml-[16%] mt-[8.3%] rounded-[7px]' : 'hidden'}>
+
+       {/* otp validation */}
+       
+        <div className={success ?  'absolute justify-self-center border self-center items-center w-[50%]  h-fit ml-[3%] p-[3.4%] mt-[7.3%] rounded-[7px] bg-cover bg-center': 'hidden'} 
+        style={{ backgroundImage: `url(${otp})` }}>
+            <div className='flex flex-col gap-7 self-center bg-white text-center rounded-[10px] p-[30px]'>
+                <p className='text-gray-600'>Protecting your account is our priority!
+                Please confirm your identity by providing the code sent to your email
+                </p>
+                <div className='w-full h-fit grid grid-cols-6 gap-4'>
+                <input type='text' name='otp' value={myOtp[0]} maxLength={1} onChange={function(e){
+    const updatedOtp = [...myOtp];
+    updatedOtp[0] = (e.target.value).trim();
+    setMyOtp(updatedOtp);
+}} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
+
+<input type='text' name='otp' value={myOtp[1]} maxLength={1} onChange={function(e){
+    const updatedOtp = [...myOtp];
+    updatedOtp[1] = (e.target.value).trim();
+    setMyOtp(updatedOtp);
+}} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
+
+<input type='text' name='otp' value={myOtp[2]} maxLength={1} onChange={function(e){
+    const updatedOtp = [...myOtp];
+    updatedOtp[2] =(e.target.value).trim();
+    setMyOtp(updatedOtp);
+}} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
+
+<input type='text' name='otp' value={myOtp[3]} maxLength={1} onChange={function(e){
+    const updatedOtp = [...myOtp];
+    updatedOtp[3] = (e.target.value).trim();
+    setMyOtp(updatedOtp);
+}} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
+
+<input type='text' name='otp' value={myOtp[4]} maxLength={1} onChange={function(e){
+    const updatedOtp = [...myOtp];
+    updatedOtp[4] = (e.target.value).trim();
+    setMyOtp(updatedOtp);
+}} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
+
+<input type='text' name='otp' value={myOtp[5]} maxLength={1} onChange={function(e){
+    const updatedOtp = [...myOtp];
+    updatedOtp[5] = (e.target.value).trim();
+    setMyOtp(updatedOtp);
+}} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
+
+                </div>
+                <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button className='text-green-600'>Resend</button></p>
+                <div className='flex flex-row gap-[57%] w-full'>
+                    <button className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
+                    <button onClick={function(){
+                    if(success)
+                    {
+                    navigate('/home')
+                    }
+                }}
+                    className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Verify</button>
+                </div>
+            </div>
+
+        </div>
+
+        {/* Successful registration */}
+
+        {/* <div className={success ? 'absolute justify-self-center border  grid grid-rows-2 w-[35%] h-fit ml-[16%] mt-[8.3%] rounded-[7px]' : 'hidden'}>
             <div className='bg-[#0dab66] flex flex-col gap-2 w-full h-full text-center pb-[25px] rounded-t-[7px]'>
             <IoIosClose size={50} className='self-end text-white cursor-pointer' onClick={function(){
                 setSuccess(false)
@@ -723,7 +790,7 @@ const Signup = () => {
                     ok
                 </button>
             </div>
-        </div>
+        </div> */}
         </div>
     </div>
     </div>
