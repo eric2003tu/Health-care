@@ -11,6 +11,7 @@ import { MdLocalHospital } from "react-icons/md";
 import { CheckCircle } from "lucide-react";
 import { IoIosClose } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
+import { MdContactPhone } from "react-icons/md";
 
 const Signup = () => {
     
@@ -31,8 +32,9 @@ const Signup = () => {
     const [password, setPassword] = useState('')
     const [checkPass, setCheckPass] = useState('')
     const [fName, setfName] = useState('')
+    const [phone, setPhone] = useState('')
     const [lName, setLName] = useState('')
-    const [email, setEmail] = useState('')
+    const [Email, setEmail] = useState('')
     const [dates, setDates] = useState('')
     const [pNext, setPNext] = useState(true)
     const [pStep1, setPStep1] = useState(false)
@@ -108,13 +110,24 @@ const Signup = () => {
             }
         }
         else if(pStep1){
-            if ((!fName || !lName || !email || !password || !checkPass || !dates || password.length < 8  || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) || password !== checkPass) {
-                setPNext(true); // Disable button
-            } else {
+            const isPhoneValid = /^(?:\+?\d{1,3})?[-.\s]?\(?\d{1,4}\)?([-.\s]?\d{2,4}){2,3}$/.test(phone);
+            const isPasswordValid =
+            password.length >= 8 &&
+            /[a-z]/.test(password) &&
+            /[A-Z]/.test(password) &&
+            /[0-9]/.test(password) &&
+            /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            if (
+                !fName || !lName || !Email || !password || !checkPass || !phone || !dates ||
+                !isPhoneValid || !isPasswordValid || password !== checkPass
+              ) {
+                setPNext(true); // Disable the button
+              }
+             else {
                 setPNext(false); // Enable button
             }
         }
-    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,email,password,checkPass,dates,pNext,pStep1]);
+    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,Email,password,checkPass,dates,phone,pNext,pStep1]);
 
 
     {/* Patient Form Submission */}
@@ -132,8 +145,10 @@ const Signup = () => {
             body: JSON.stringify({
                 Fname : fName,
                 Lname : lName,
-                email : email,
+                Email : Email,
                 password : password,
+                BirthDate: dates,
+                phone: phone
             }),
         })
         .then(function(response){
@@ -198,7 +213,7 @@ const Signup = () => {
             body: JSON.stringify({
                FirstName: FirstName,
                LastName: lastName,
-               email: dEmail,
+               Email: dEmail,
                password: dPassword,
                DOB: dOb,
                province: province,
@@ -379,14 +394,25 @@ const Signup = () => {
          </button>
         </div>
         </div>
-        <div className='relative'>
-          <label htmlFor='email' className=' text-gray-600'>Email address</label>
-          <input type='email' name='email' value={email} onChange={function(e){
+        <div className=' grid grid-cols-[2fr_2fr] gap-3'>
+        <div className='relative flex flex-col'>
+          <label htmlFor='Email' className=' text-gray-600'>Email address</label>
+          <input type='Email' name='Email' value={Email} onChange={function(e){
             setEmail(e.target.value)
-          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
             <Mail/>
            </button>
+           </div>
+           <div className='relative flex flex-col'>
+           <label htmlFor='phone' className=' text-gray-600'>Phone number</label>
+          <input type='tel' name='phone' value={phone} onChange={function(e){
+            setPhone(e.target.value)
+          }} placeholder='Your phone number' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <MdContactPhone size={20}/>
+           </button>
+          </div>
           </div>
           <div className='grid grid-cols-2 w-full gap-3'>
           <div className="relative">
@@ -414,7 +440,7 @@ const Signup = () => {
           <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
           <input type='date' name='date' value={dates} onChange={function(e){
             setDates(e.target.value)
-          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           </div>
           <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
                     <button className=' text-[#1da857] text-start' onClick={function(){
@@ -459,10 +485,10 @@ const Signup = () => {
         </div>
         </div>
         <div className='relative'>
-          <label htmlFor='email' className=' text-gray-600'>Email address <span className='text-red-500 ml-[3px]'> * </span></label>
-          <input type='email' name='email' value={dEmail} onChange={function(e){
+          <label htmlFor='Email' className=' text-gray-600'>Email address <span className='text-red-500 ml-[3px]'> * </span></label>
+          <input type='Email' name='Email' value={dEmail} onChange={function(e){
             setDEmail(e.target.value)
-          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
             <Mail/>
            </button>
@@ -493,7 +519,7 @@ const Signup = () => {
           <label htmlFor='date' className=' text-gray-600'>Date of Birth <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='date' name='date' value={dOb} onChange={function(e){
             setDOb(e.target.value)
-          }} placeholder='Your email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           </div>
           <div className='flex flex-col'>
           <label htmlFor='date' className=' text-gray-600 '>Province <span className='text-red-500 self-start ml-[3px]'> * </span></label>

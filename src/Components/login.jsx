@@ -9,20 +9,20 @@ import { IoArrowBackCircle } from "react-icons/io5";
 const Login = () => {
         const [showPassword, setShowPassword] = useState(false);
         const [rememberMe, setRememberMe] = useState('')
-        const [email, setEmail] = useState('')
+        const [Email, setEmail] = useState('')
         const [password, setPassword] = useState('')
         const [disabled, setDisabled] = useState(true)
         const [submitError, setSubmitError] = useState('')
         const [submitColor, setSubmitColor] = useState('red')
 
         useEffect(()=>{
-            if(!email || !password){
+            if(!Email || !password){
                 setDisabled(true)
             }
             else{
                 setDisabled(false)
             }
-        },[email,password,disabled])
+        },[Email,password,disabled])
 
         const handleLogin = function(event) {
             event.preventDefault();
@@ -34,7 +34,7 @@ const Login = () => {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    email: email,
+                    Email: Email,
                     password: password
                 }),
             })
@@ -111,10 +111,10 @@ const Login = () => {
                         <p style={{color : submitColor}}>{submitError}</p>
                         <p className='text-gray-400 mt-[5px] mb-[20px]'>Login with the credentials that you used while registering</p>
                         <div className='relative flex flex-col gap-3'>
-                        <label htmlFor='email' className=' text-gray-600'>Email address</label>
-                         <input type='email' name='email' value={email} onChange={function(e){
+                        <label htmlFor='Email' className=' text-gray-600'>Email address</label>
+                         <input type='Email' name='Email' value={Email} onChange={function(e){
                             setEmail(e.target.value)
-                            }} placeholder='Type your email address' className='w-full border border-gray-400  pl-[10px] p-[7px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+                            }} placeholder='Type your Email address' className='w-full border border-gray-400  pl-[10px] p-[7px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
                         <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
                         <Mail/>
                         </button>
