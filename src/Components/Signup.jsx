@@ -68,7 +68,7 @@ const Signup = () => {
     const [id, setId] = useState(null)
     const [dnext3, setDdNext] = useState(true)
     const [dstep3, setDstep3] = useState(false)
-    const [success, setSuccess] = useState(false)
+    const [success, setSuccess] = useState(true)
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
@@ -163,7 +163,7 @@ const Signup = () => {
                 setErrorColor('green')
                 setTimeout(function(){
                     setSubmitError('')
-                    navigate('/home')
+                    setSuccess(true)
                 },4000)
                 return;
             }
@@ -238,6 +238,7 @@ const Signup = () => {
                 setTimeout(function(){
                     setSubmitError('')
                     setSuccess(true)
+                    form.reset()
                 },1000)
                 return;
             }
@@ -292,21 +293,21 @@ const Signup = () => {
             </div>
             </div>
         <div className = { success ? ' flex flex-col bg-blue-200/60 ' : 'overflow-y-auto h-full flex flex-col'}>
-        <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr]' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
-        <div className = {!completed ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
+        <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr] gap-0' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
+        <div className = {!role ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
                 1
         </div>
-        <div className={!step1 ? 'w-full h-[9px] bg-gray-600 mt-[33px] transition-colors duration-1000' : 'w-full h-[9px] bg-[#1da857] mt-[33px] transition-colors duration-1000'}>
+        <div className={!step1 ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : 'w-full h-[5px] bg-[#1da857] mt-[30px] '}>
 
         </div>
-        
-            <div className = {!completed2 ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
+
+            <div className = {pNext && dNext1 ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
             2</div>
-            <div className = 'w-full h-[6px] bg-gray-600 mt-[33px] '></div>
-            <div className = {!completed3 ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]'}>
+            <div className ={pNext && dNext2 ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : 'w-full h-[5px] bg-[#1da857] mt-[30px]'}></div>
+            <div className = {!success && dnext3 ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
             3</div>
-            <div className = {role ==='Doctor' ? 'w-full h-[6px] bg-gray-600 mt-[33px] ' : role ==='Patient' ? 'hidden':  'hidden'}></div>
-            <div className = {!completed3 && role ==='Doctor' ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px] ' :completed3 && role === 'Doctor' ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[40px] p-[17px] pl-[25px] pr-[25px] text-white font-bold text-[20px]' : 'hidden'}>
+            <div className = {role ==='Doctor' && dnext3 ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : role ==='Doctor' && !dnext3 ? 'w-full h-[5px] bg-[#1da857] mt-[30px]':  'hidden'}></div>
+            <div className = { role ==='Doctor' && !success ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' : role ==='Doctor' && success ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]' : 'hidden'}>
             4</div>
         </div>
         <form className={!pStep1 && !dstep1 && !dstep2 && !dstep3 ?  'w-full h-fit self-center text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
@@ -419,6 +420,9 @@ const Signup = () => {
                     <button className=' text-[#1da857] text-start' onClick={function(){
                         setPStep1(false)
                         setRole('')
+                        setPNext(true)
+                        setDdNext(true)
+                        setStep1(false)
                     }}>Previous</button>
                     <button type='submit' disabled = {pNext} className={pNext ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>
                         Sign up
@@ -660,7 +664,9 @@ const Signup = () => {
                 setDstep1(false)
                 setDstep3(false)
             }}>Previous</button>
-            <button className={ dnext3 ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' : 'bg-[#20B573] ml-[39%] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end'} type='submit' disabled={dnext3} >Submit</button>
+            <button className={ dnext3 ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' 
+                : 'bg-[#20B573] ml-[39%] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end'} 
+                type='submit' disabled={dnext3} >Submit</button>
           </div>
           
         </div>

@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { BrowserRouter as Navigate, Link } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import contact from '../assets/contact.png'
+import blood from '../assets/blood.png'
 import Emergency from '../assets/Emergency.jpg'
 import landing from '../assets/home.jpg'
 import surgery from '../assets/sugery.png'
@@ -89,11 +90,11 @@ const Doctor = () => {
             <Link to='/doctor' className='font-bold text-[16px] hover:text-green-400'> Find Hospitals</Link>
             <Link to='/doctor' className='font-bold text-[16px] hover:text-green-400'> community</Link>
         </div>
-        <div className='w-full h-screen grid grid-cols-[1.5fr_5fr_2fr] pl-[20px]'>
+        <div className='w-full max-h-screen h-screen grid grid-cols-[1.5fr_5fr_2fr] pl-[20px]'>
 
             {/*  Left nav*/}
 
-            <div className='w-full h-full overflow-y-auto flex border-r-2 border-gray-500 flex-col text-start pb-[35px]'>
+            <div className='w-full h-full overflow-y-auto flex border-r-2 border-gray-500 flex-col text-start pb-[35px] pl-[10px]'>
                 <div className='flex gap-18 w-full ml-[7px]'>
                     <h1 className='font-bold text-[14px]'>Filters</h1>
                     <button className='text-[#4ef593] text-[14px] self-end'>Clear All</button>
@@ -178,18 +179,19 @@ const Doctor = () => {
 
             {/* middle nav */}
 
-            <div className='  flex w-full h-full  overflow-y-auto'  ></div>
+            <div className=' relative flex h-full  overflow-y-auto'  ></div>
 
             {/* Right nav */}
 
             <div className=' w-full bg-center bg-cover overflow-y-auto h-full' style={{ backgroundImage: `url(${surgery})` }}>
-                <div className='w-full h-full bg-green-700/54 '>
-                    <div className='p-[17px]  text-white flex flex-col'>
+                <div className='w-full h-full bg-green-700/54 overflow-y-auto'>
+                    <div className='p-[17px]  w-full h-full text-white flex flex-col'>
                     <p>
                         Save  life today!, Every drop of blood you donate can be 
                         the difference between life and death for someone in needy.
                         Every small financial contribution can ease the burden of a struggling patient.
-                        Donate Blood - Be a hero by giving someone a second life.
+                        Donate Blood - Be a hero  <img src={blood} className='w-[84px] h-[94px] rounded-[20px] ml-[35%]'/>
+                         by giving someone a second life.
                         Your kindness can bring hope and healing. Join us today and 
                         make an impact.
                     </p>
@@ -203,7 +205,7 @@ const Doctor = () => {
                     <button className='text-center bg-white font-bold p-[8px] text-emerald-500 mt-[12px] mb-[20px] rounded-[10px]'>
                         Click here to support and save life
                     </button>
-                    <div className='p-[10px] w-full h-full bg-green-700/54 rounded-[30px]'>
+                    <div className='m-[10px] w-full p-[20px] h-fit bg-green-700/54 rounded-[30px]'>
                     <p>
                         Save  life today!, Every drop of blood you donate can be 
                         the difference between life and death for someone in needy.

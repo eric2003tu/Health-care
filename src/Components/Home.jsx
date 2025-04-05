@@ -1,20 +1,37 @@
 
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import '../App.css'
 import { IoMdClose } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import landing from '../assets/home.jpg'
 import mask from '../assets/mask.jpg'
+import testi from '../assets/testi.jpg'
 import logo from '../assets/logo.png' 
 import surgery from '../assets/experience.png'
 import support from '../assets/support.png' 
+import testimonial from '../assets/testimonial.png'
 import pharma from '../assets/pharma.png'
 import pharmacy from '../assets/pharmacy.png'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home = () => {
-  const [menu, setMenu] = useState(false)
+  const [menu, setMenu] = useState(false);
+  const images = [landing, mask];
+  const [bg, setBg] = useState(images[0]);
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setBg(images[i]);
+      i = (i + 1) % images.length;
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, [bg,images]);
+
   return (
     <>
     
@@ -52,19 +69,35 @@ const Home = () => {
         </ul>
         </div>
         </nav>
-        <div className="min-w-full min-h-screen flex items-center justify-center bg-cover bg-center sm:bg-center sm:bg-no-repeat"
-        style={{ backgroundImage: `url(${landing})` }} >
-        <div className='bg-green-600/44 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center relative'>
+        <div className="min-w-full min-h-screen flex items-center overflow-y-hidden justify-center bg-cover bg-center sm:bg-center sm:bg-no-repeat"
+        style={{ backgroundImage: `url(${bg})` }} >
+        <div className='bg-green-600/44 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center overflow-y-hidden flex flex-col items-center justify-center relative'>
         <h1 className='mt-[50px] font-bold text-white text-[40px] md:text-[58px] leading-tight'>
-          Providing Quality Health<br/>Services for Everyone
+          
+          {bg === landing ? 
+          (
+          <>
+            Providing Quality Health<br/>Services for Everyone
+          </>
+          ) 
+          :(
+          <>
+            We offer the best quality services <br /> to ensure healthy lives
+          </>
+          )
+          }
         </h1>
-        <div className='max-w-full text-center overflow-x-auto pt-[40px] bg-opacity-60'>
+        <div className='max-w-full text-center overflow-x-auto pt-[40px]  bg-opacity-60'>
         <p className="max-w-prose mx-auto break-words text-white font-bold text-lg md:text-[25px] leading-relaxed">
-        Welcome to our website, where we specialize in providing 
+        {bg === landing ? `Welcome to our website, where we specialize in providing 
         top-notch health facilities and services. With a team of 
         experienced doctors and pharmacists, we are dedicated to
-        ensuring the well-being of our patients.
-        </p>
+        ensuring the well-being of our patients.`
+        : `At our website, we offer a wide range of services to cater to your healthcare needs.
+        From specialist consultations to pharmacy services,
+        we have you covered.`}
+</p>
+
         <div className=' bottom-10 flex flex-row gap-5 justify-center text-center pt-[20px] mt-[20px]'>
         <button className='border p-[15px] md:p-[20px] bg-emerald-500  text-white font-bold rounded-md hover:bg-emerald-600 transition-all duration-300'>
           Sign up
@@ -113,10 +146,10 @@ const Home = () => {
         {/*  Mask division*/}
 
         <div className='w-full h-fit bg-cover' 
-        style={{ backgroundImage: `url(${mask})` }}>
+        style={{ backgroundImage: `url(${bg})` }}>
           <div className='w-full h-full self-center flex flex-col bg-green-700/34 pt-[40px] pb-[30px] pl-[25px] p-[15px]'>
           <div className='w-[40%] self-center'>
-          <h1 className="font-bold self-center text-[20px] after:content[''] after:w-[8px] after:h-[3px] after:bg-[green]">Discover</h1>
+          <h1 className="font-bold self-center text-[20px] after:content[''] text-white after:w-[8px] after:h-[3px] after:bg-[green]">Discover</h1>
           <h1 className='self-center font-bold text-[34px]'>Quality Healthcare Services fol all Your needs </h1>
           <p className='text-gray-800'>At our website, we offer a wide range of services to cater to your healthcare needs.
              From specialist consultations to pharmacy services,
@@ -158,6 +191,20 @@ const Home = () => {
             </button>
             </div>
           </div>
+        </div>
+        <div className='flex flex-col  w-ull h-fit'>
+        <div className='w-full h-full pt-[7px] pb-[30px] bg-cover  bg-no-repeat mb-[50px]' style={{ backgroundImage: `url(${testimonial})` }}>
+          <h1 className='font-bold text-[30px] self-center text-center'><span className='bg-blue-200'>Testi</span>monial</h1>
+          <div className='w-[33%] h-fit grid grid-cols-[0.7fr_2fr] mt-[10%] m-[10px]'>
+          <img src={testi} className='w-[67px] h-[67px]  rounded-[30px]'/>
+          <p className='font-bold text-[18px]'>
+          <i>
+            "The treatment I received was exceptional. 
+            I highly recommend this clinic".
+          </i>
+          </p>
+          </div>
+        </div>
         </div>
     </>
   )
