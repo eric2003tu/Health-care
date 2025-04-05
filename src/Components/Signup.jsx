@@ -146,7 +146,7 @@ const Signup = () => {
                 Fname : fName,
                 Lname : lName,
                 Email : Email,
-                password : password,
+                Password : password,
                 BirthDate: dates,
                 phone: phone
             }),
@@ -257,7 +257,6 @@ const Signup = () => {
                 setTimeout(function(){
                     setSubmitError('')
                     setSuccess(true)
-                    form.reset()
                 },1000)
                 return;
             }
