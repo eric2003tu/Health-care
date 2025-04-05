@@ -128,7 +128,8 @@ const Signup = () => {
             setErrorColor('green')
             setTimeout(function(){
                 setOtpMessage('')
-                setSuccess(true)
+                navigate('/home')
+                setSuccess(false)
             },4000)
             return;
             }
@@ -399,13 +400,7 @@ const Signup = () => {
                 <label htmlFor = 'role' className = 'text-[20px] self-start ml-[25.4%]'>Role</label>
                 <select name = 'role' value = {role} onChange = {function(e){
                     setRole(e.target.value)
-                    if(e.target.value){
-                        setCompleted(true)
-                        setSelectError('')
-                    }
-                    else{
-                        setCompleted(false)
-                    }
+                    
                 }} className='w-1/2 p-[10px] border rounded-[7px] self-center'>
                 <option value = '' disabled selected> Select role </option>
                 <option value = 'Patient'> Patient</option>
@@ -818,12 +813,7 @@ const Signup = () => {
                 <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button className='text-green-600'>Resend</button></p>
                 <div className='flex flex-row gap-[57%] w-full'>
                     <button className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
-                    <button type='submit' onClick={function(){
-                    if(success)
-                    {
-                    navigate('/home')
-                    }
-                }}
+                    <button type='submit'
                     className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Verify</button>
                 </div>
             </div>
