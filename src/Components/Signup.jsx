@@ -13,6 +13,7 @@ import { CheckCircle } from "lucide-react";
 import { IoIosClose } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { MdContactPhone } from "react-icons/md";
+import { color } from 'framer-motion';
 
 const Signup = () => {
     
@@ -22,6 +23,7 @@ const Signup = () => {
     const [submiterror, setSubmitError] = useState('')
     const [errorColor, setErrorColor] = useState('red')
     const [myOtp, setMyOtp] = useState([ '', '', '', '', '', '']);
+    const [otpMessage, setOtpMessage] = useState('')
     
 
     {/* Patient's form */}
@@ -83,11 +85,72 @@ const Signup = () => {
         }
     };
 
-    // const handleOtpChange = (e, index) => {
-    //     const newMyOtp = [...otp];
-    //     newMyOtp[index] = e.target.value; 
-    //     setMyOtp(newMyOtp); 
-    //   };
+
+    {/*OTP handling */}
+
+    const handleOtp = function(event){
+        event.preventDefault();
+        const myOtpNumber = Number(myOtp.join(''));
+        fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Email: Email,
+                otp: myOtpNumber,
+            })
+        })
+        .then(function(response){
+            if(!response.ok){
+                if(response.status === 400){
+                    setOtpMessage('invalid or expired otp code')
+                    setErrorColor('red')
+                    setTimeout(function(){
+                        setOtpMessage('')
+                    },4000)
+                    throw new Error('Invalid or expired otp code')
+                }
+                else if(response.status === 404){
+                    setOtpMessage('bad request')
+                    setErrorColor('red')
+                    setTimeout(function(){
+                        setOtpMessage('')
+                    },4000)
+                    throw new Error('bad Request')
+                }
+            }
+            return response.json()
+        })
+        .then(function(data){
+            if(data){
+            setOtpMessage('otp Verified successfully')
+            setErrorColor('green')
+            setTimeout(function(){
+                setOtpMessage('')
+                setSuccess(true)
+            },4000)
+            return;
+            }
+            else{
+                setOtpMessage('otp Verification not done')
+                setErrorColor('red')
+                setTimeout(function(){
+                    setOtpMessage('')
+                },4000)
+                return
+            }
+        })
+        .catch(function(error){
+            console.error('Failed to verify otp code: ',error)
+            setOtpMessage('Failed to verify otp')
+            setErrorColor('red')
+            setTimeout(function(){
+                setOtpMessage('')
+            },4000)
+        })
+
+    }
 
     {/* Sign up Forms validation */}
 
@@ -707,9 +770,10 @@ const Signup = () => {
 
        {/* otp validation */}
        
-        <div className={success ?  'absolute justify-self-center border self-center items-center w-[50%]  h-fit ml-[3%] p-[3.4%] mt-[7.3%] rounded-[7px] bg-cover bg-center': 'hidden'} 
-        style={{ backgroundImage: `url(${otp})` }}>
+        <form className={success ?  'absolute justify-self-center border self-center items-center w-[50%]  h-fit ml-[3%] p-[3.4%] mt-[7.3%] rounded-[7px] bg-cover bg-center': 'hidden'} 
+        style={{ backgroundImage: `url(${otp})` }} onSubmit={(handleOtp)}>
             <div className='flex flex-col gap-7 self-center bg-white text-center rounded-[10px] p-[30px]'>
+                <p style={{color : errorColor}}>{otpMessage}</p>
                 <p className='text-gray-600'>Protecting your account is our priority!
                 Please confirm your identity by providing the code sent to your email
                 </p>
@@ -754,7 +818,7 @@ const Signup = () => {
                 <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button className='text-green-600'>Resend</button></p>
                 <div className='flex flex-row gap-[57%] w-full'>
                     <button className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
-                    <button onClick={function(){
+                    <button type='submit' onClick={function(){
                     if(success)
                     {
                     navigate('/home')
@@ -764,7 +828,7 @@ const Signup = () => {
                 </div>
             </div>
 
-        </div>
+        </form>
 
         {/* Successful registration */}
 
