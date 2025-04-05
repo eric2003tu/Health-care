@@ -147,7 +147,7 @@ const Signup = () => {
                 Lname : lName,
                 Email : Email,
                 Password : password,
-                BirthDate: dates,
+                //BirthDate: dates,
                 phone: phone
             }),
         })
@@ -443,7 +443,7 @@ const Signup = () => {
           <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
           <input type='date' name='date' value={dates} onChange={function(e){
             setDates(e.target.value)
-          }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          }} placeholder='your birth date' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           </div>
           <div className='w-full text-[20px] self-end ml-[39px] mt-[25px] grid grid-cols-2 gap-16'>
                     <button className=' text-[#1da857] text-start' onClick={function(){
