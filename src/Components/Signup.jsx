@@ -90,7 +90,7 @@ const Signup = () => {
 
     const handleOtp = function(event){
         event.preventDefault();
-        const myOtpNumber = myOtp.join('');
+        const myOtpNumber = Number(myOtp.join(''));
         fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
             method: 'POST',
             headers: {
@@ -144,6 +144,71 @@ const Signup = () => {
         })
         .catch(function(error){
             console.error('Failed to verify otp code: ',error)
+            setOtpMessage('Failed to verify otp')
+            setErrorColor('red')
+            setTimeout(function(){
+                setOtpMessage('')
+            },4000)
+        })
+
+    }
+
+    {/* Resend OTP code */}
+
+    const resendOtp = function(event){
+        event.preventDefault()
+        fetch('https://baho-healthcare.onrender.com/api/patient/resendOtp',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Email: Email,
+            })
+        })
+        .then(function(response){
+            if(!response.ok){
+                if(response.status === 400){
+                    setOtpMessage('otp invalid')
+                    setErrorColor('red')
+                    setTimeout(function(){
+                        setOtpMessage('')
+                    },4000)
+                    throw new Error('otp invalid')
+                }
+                else if(response.status === 404){
+                    setOtpMessage('bad request')
+                    setErrorColor('red')
+                    setTimeout(function(){
+                        setOtpMessage('')
+                    },4000)
+                    throw new Error('bad Request')
+                }
+            }
+            return response.json()
+        })
+        .then(function(data){
+            if(data){
+            setOtpMessage('otp resent successfully')
+            setErrorColor('green')
+            setTimeout(function(){
+                setOtpMessage('')
+                navigate('/home')
+                setSuccess(false)
+            },4000)
+            return;
+            }
+            else{
+                setOtpMessage('otp resend not done')
+                setErrorColor('red')
+                setTimeout(function(){
+                    setOtpMessage('')
+                },4000)
+                return
+            }
+        })
+        .catch(function(error){
+            console.error('Failed resend otp code: ',error)
             setOtpMessage('Failed to verify otp')
             setErrorColor('red')
             setTimeout(function(){
@@ -812,7 +877,7 @@ const Signup = () => {
                 </div>
                 <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button className='text-green-600'>Resend</button></p>
                 <div className='flex flex-row gap-[57%] w-full'>
-                    <button className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
+                    <button type='button' onClick={resendOtp} className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
                     <button type='submit'
                     className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Verify</button>
                 </div>
