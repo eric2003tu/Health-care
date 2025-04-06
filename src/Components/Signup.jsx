@@ -90,7 +90,7 @@ const Signup = () => {
 
     const handleOtp = function(event){
         event.preventDefault();
-        const myOtpNumber = Number(myOtp.join(''));
+        const myOtpNumber = myOtp.join("");
         fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
             method: 'POST',
             headers: {
@@ -118,6 +118,9 @@ const Signup = () => {
                         setOtpMessage('')
                     },4000)
                     throw new Error('bad Request')
+                }
+                else{
+                    console.log('the error code is:'+ response.status)
                 }
             }
             return response.json()
