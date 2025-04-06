@@ -166,7 +166,6 @@ const Signup = () => {
 
     const resendOtp = function(event){
         event.preventDefault()
-        setIsSubmitting(true);
         fetch('https://baho-healthcare.onrender.com/api/patient/resendOtp',{
             method: 'POST',
             headers: {
@@ -181,7 +180,6 @@ const Signup = () => {
                 if(response.status === 400){
                     setOtpMessage('otp invalid')
                     setErrorColor('red')
-                    setIsSubmitting(false);
                     setTimeout(function(){
                         setOtpMessage('')
                     },4000)
@@ -190,7 +188,6 @@ const Signup = () => {
                 else if(response.status === 404){
                     setOtpMessage('bad request')
                     setErrorColor('red')
-                    setIsSubmitting(false);
                     setTimeout(function(){
                         setOtpMessage('')
                     },4000)
@@ -203,7 +200,6 @@ const Signup = () => {
             if(data){
             setOtpMessage('otp resent successfully')
             setErrorColor('green')
-            setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
             },4000)
@@ -212,7 +208,6 @@ const Signup = () => {
             else{
                 setOtpMessage('otp resend not done')
                 setErrorColor('red')
-                setIsSubmitting(false);
                 setTimeout(function(){
                     setOtpMessage('')
                 },4000)
@@ -223,7 +218,6 @@ const Signup = () => {
             console.error('Failed resend otp code: ',error)
             setOtpMessage('Failed to verify otp')
             setErrorColor('red')
-            setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
             },4000)
