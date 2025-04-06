@@ -3,23 +3,22 @@ import "@fontsource/ubuntu";
 import "@fontsource/ubuntu/300.css"; 
 import "@fontsource/ubuntu/500.css"; 
 import "@fontsource/ubuntu/700.css"; 
-import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import contact from '../assets/contact.png'
 import Emergency from '../assets/Emergency.jpg'
-import landing from '../assets/home.jpg'
+import landing from '../assets/patient.jpg'
 import { IoMdClose } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { GrLanguage } from "react-icons/gr";
 import { FaCircleUser } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { BrowserRouter as Router, Routes, Route, Link,useNavigate } from 'react-router-dom';
 import { IoMenu } from "react-icons/io5";
 import { TfiClose } from "react-icons/tfi";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
-import { motion } from "framer-motion";
 import mask from '../assets/mask.jpg'
 
 const LogedHome = () => {
@@ -148,7 +147,7 @@ const LogedHome = () => {
              <p className='break-words leading-relaxed'>
                 Explore our network<br/> of clinicks and specialists
              </p>
-             <p className='m-[7px]'><Link to='/home' className='border-2 border-[#20B573] text-[#20B573] p-[15px]  rounded-[28px] text-center font-bold'>
+             <p className='m-[7px]'><Link to='/patient' className='border-2 border-[#20B573] text-[#20B573] p-[15px]  rounded-[28px] text-center font-bold'>
              Explore all Clinics</Link></p>
 
             </div>
@@ -250,7 +249,7 @@ const LogedHome = () => {
                     localStorage.setItem('speciality', speciality)
                     localStorage.setItem('location',location)
                     localStorage.setItem('date',date)
-                    navigate('/doctor')
+                    navigate('/patient/findDoctors')
                 }}>
                 Submit</button>
         </div>
@@ -330,7 +329,7 @@ const LogedHome = () => {
             <div className='w-full h-fit flex flex-col'>
                 <h1 className='font-bold text-[33px] text-black'>Ask anything about your health</h1>
                 <p className='text-[23px] font-ubuntu'>Get trusted answers ddirectly from baho</p>
-                <Link to ='/home' className='bg-green-700 p-[10px] text-center text-[27px] rounded-[7px] text-white'>Ask Baho ai</Link>
+                <Link to ='/patient' className='bg-green-700 p-[10px] text-center text-[27px] rounded-[7px] text-white'>Ask Baho ai</Link>
             </div>
             <div className='w-full h-full bg-cover bg-center' style={{ backgroundImage: `url(${contact})` }}>
 

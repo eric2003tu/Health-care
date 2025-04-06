@@ -2,8 +2,7 @@ import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
 import profile from '../assets/BG.jpg';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
-import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
-import { color } from 'framer-motion';
+import { Routes, Route, Link } from 'react-router-dom';
 import { IoArrowBackCircle } from "react-icons/io5";
 
 const Login = () => {
@@ -14,6 +13,7 @@ const Login = () => {
         const [disabled, setDisabled] = useState(true)
         const [submitError, setSubmitError] = useState('')
         const [submitColor, setSubmitColor] = useState('red')
+            const [isSubmitting, setIsSubmitting] = useState(false);
 
         useEffect(()=>{
             if(!Email || !password){
@@ -26,6 +26,7 @@ const Login = () => {
 
         const handleLogin = function(event) {
             event.preventDefault();
+            setIsSubmitting(true);
             fetch('http://localhost:5000/api/patient/login', {
                 method: 'POST',
                 headers: {
@@ -43,9 +44,11 @@ const Login = () => {
                     if (response.status === 404) {
                         setSubmitError('Invalid inputs');
                         setSubmitColor('red');
+                        setIsSubmitting(false);
                     } else if (response.status === 500) {
                         setSubmitError('Internal server error');
                         setSubmitColor('red');
+                        setIsSubmitting(false);
                     }
                     setTimeout(() => setSubmitError(''), 3000);
                     throw new Error(`Error ${response.status}`);
@@ -56,9 +59,11 @@ const Login = () => {
                 if (data.success) { 
                     setSubmitError('Login is successful');
                     setSubmitColor('green');
+                    setIsSubmitting(false);
                 } else {
                     setSubmitError('Login failed');
                     setSubmitColor('red');
+                    setIsSubmitting(false);
                 }
                 setTimeout(() => setSubmitError(''), 3000);
             })
@@ -66,6 +71,7 @@ const Login = () => {
                 console.error('An error occurred while logging in: ', error);
                 setSubmitError('An error occurred while logging in');
                 setSubmitColor('red');
+                setIsSubmitting(false);
                 setTimeout(() => setSubmitError(''), 3000);
             });
         };
@@ -138,7 +144,13 @@ const Login = () => {
                         </div>
                         <button type='submit' disabled= {disabled} className={disabled? 'bg-[#a6ebcd] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-not-allowed' 
                             : 'bg-[#1aa569] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-pointer'} >
-                            Login
+                                                                    {isSubmitting ? (
+                  <div className="flex justify-center">
+                    <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  'Login'
+                )}
                             </button>
                         <p className='text-gray-600 mt-[20px]'>Do not have an account? <Link to ='/signup' className='text-green-500'>Create free account</Link></p>
                     </form>

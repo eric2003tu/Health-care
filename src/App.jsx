@@ -8,7 +8,7 @@ import LogedHome from './Components/LogedHome';
 import Home from './Components/Home';
 import Signup from './Components/Signup';
 import Login from './Components/login';
-import Doctor from './Components/doctor';
+import Patient from './Components/Patient';
 
 
 const App = () => {
@@ -18,10 +18,9 @@ const App = () => {
 
 <Routes>
   <Route path='/' element= {<Home/>}/>
-  <Route path='/home' element ={<LogedHome/>}/>
+  <Route path='/patient/*' element ={<Patient/>}/>
   <Route path='/signup' element={<Signup/>}/>
   <Route path='/login' element={<Login/>}/>
-  <Route path='/doctor' element={<Doctor/>}/>
 </Routes>
     </Router>
   )

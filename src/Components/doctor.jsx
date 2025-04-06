@@ -1,10 +1,8 @@
 import React,{useState,useEffect} from 'react'
-import { BrowserRouter as Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
-import contact from '../assets/contact.png'
 import blood from '../assets/blood.png'
 import Emergency from '../assets/Emergency.jpg'
-import landing from '../assets/home.jpg'
 import surgery from '../assets/sugery.png'
 import { IoMdClose } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
