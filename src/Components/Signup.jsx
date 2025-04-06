@@ -1,6 +1,6 @@
 import React, { useState,useEffect} from 'react'
 import { FaStar } from "react-icons/fa";
-import { BrowserRouter as Navigate, Link, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link ,useNavigate} from 'react-router-dom';
 import { Eye, EyeOff,Mail, User } from "lucide-react";
 import profile from '../assets/BG.jpg';
 import otp from '../assets/otp.jpg';
@@ -13,7 +13,6 @@ import { CheckCircle } from "lucide-react";
 import { IoIosClose } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { MdContactPhone } from "react-icons/md";
-import { color } from 'framer-motion';
 
 const Signup = () => {
     
@@ -24,6 +23,7 @@ const Signup = () => {
     const [errorColor, setErrorColor] = useState('red')
     const [myOtp, setMyOtp] = useState([ '', '', '', '', '', '']);
     const [otpMessage, setOtpMessage] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false);
     
 
     {/* Patient's form */}
@@ -90,6 +90,7 @@ const Signup = () => {
 
     const handleOtp = function(event){
         event.preventDefault();
+        setIsSubmitting(true);
         const myOtpNumber = myOtp.join("");
         fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
             method: 'POST',
@@ -106,6 +107,7 @@ const Signup = () => {
                 if(response.status === 400){
                     setOtpMessage('invalid or expired otp code')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setOtpMessage('')
                     },4000)
@@ -114,6 +116,7 @@ const Signup = () => {
                 else if(response.status === 404){
                     setOtpMessage('bad request')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setOtpMessage('')
                     },4000)
@@ -129,9 +132,10 @@ const Signup = () => {
             if(data){
             setOtpMessage('otp Verified successfully')
             setErrorColor('green')
+            setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
-                navigate('/home')
+                navigate('/patient')
                 setSuccess(false)
             },4000)
             return;
@@ -139,6 +143,7 @@ const Signup = () => {
             else{
                 setOtpMessage('otp Verification not done')
                 setErrorColor('red')
+                setIsSubmitting(false);
                 setTimeout(function(){
                     setOtpMessage('')
                 },4000)
@@ -149,6 +154,7 @@ const Signup = () => {
             console.error('Failed to verify otp code: ',error)
             setOtpMessage('Failed to verify otp')
             setErrorColor('red')
+            setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
             },4000)
@@ -160,6 +166,7 @@ const Signup = () => {
 
     const resendOtp = function(event){
         event.preventDefault()
+        setIsSubmitting(true);
         fetch('https://baho-healthcare.onrender.com/api/patient/resendOtp',{
             method: 'POST',
             headers: {
@@ -174,6 +181,7 @@ const Signup = () => {
                 if(response.status === 400){
                     setOtpMessage('otp invalid')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setOtpMessage('')
                     },4000)
@@ -182,6 +190,7 @@ const Signup = () => {
                 else if(response.status === 404){
                     setOtpMessage('bad request')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setOtpMessage('')
                     },4000)
@@ -194,6 +203,7 @@ const Signup = () => {
             if(data){
             setOtpMessage('otp resent successfully')
             setErrorColor('green')
+            setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
             },4000)
@@ -202,6 +212,7 @@ const Signup = () => {
             else{
                 setOtpMessage('otp resend not done')
                 setErrorColor('red')
+                setIsSubmitting(false);
                 setTimeout(function(){
                     setOtpMessage('')
                 },4000)
@@ -212,6 +223,7 @@ const Signup = () => {
             console.error('Failed resend otp code: ',error)
             setOtpMessage('Failed to verify otp')
             setErrorColor('red')
+            setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
             },4000)
@@ -267,6 +279,7 @@ const Signup = () => {
 
     const handleSubmit = function(event){
         event.preventDefault();
+        setIsSubmitting(true);
        
         fetch('https://baho-healthcare.onrender.com/api/patient/signup',{
             method:'POST',
@@ -289,6 +302,7 @@ const Signup = () => {
                 if(response.status === 404){
                     setSubmitError('Invalid inputs')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setSubmitError('')
                     },4000)
@@ -297,6 +311,7 @@ const Signup = () => {
                 else if(response.status === 500){
                     setSubmitError('Internal server error')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setSubmitError('')
                     },4000)
@@ -304,6 +319,7 @@ const Signup = () => {
                 }
                 else if (response.status === 400) {
                     setSubmitError('Please check your inputs');
+                    setIsSubmitting(false);
                     throw new Error('Please check your inputs')
                   }
             }
@@ -313,6 +329,7 @@ const Signup = () => {
             if(data){
                 setSubmitError("Registration gone successfully!")
                 setErrorColor('green')
+                setIsSubmitting(false);
                 setTimeout(function(){
                     setSubmitError('')
                     setSuccess(true)
@@ -322,6 +339,7 @@ const Signup = () => {
             else{
                 setSubmitError('Registration not completed, try again')
                 setErrorColor('red');
+                setIsSubmitting(false);
                 setTimeout(function(){
                     setSubmitError('')
                 },4000)
@@ -331,6 +349,7 @@ const Signup = () => {
             console.error('Failed to register, try again later: ', error)
             setSubmitError('Failed to register, try again later.')
             setErrorColor('red')
+            setIsSubmitting(false);
             setTimeout(function(){
                 setSubmitError('')
             },4000)
@@ -341,6 +360,7 @@ const Signup = () => {
 
     const doctorSignup = function(event){
         event.preventDefault()
+        setIsSubmitting(true);
         fetch('http://localhost:5000/api/doctor/signup', {
             method : 'POST',
             headers:{
@@ -367,6 +387,7 @@ const Signup = () => {
                 if(response.status === 404){
                     setSubmitError('Invalid inputs')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setSubmitError('')
                     },4000)
@@ -375,6 +396,7 @@ const Signup = () => {
                 else if(response.status === 500){
                     setSubmitError('Internal server error')
                     setErrorColor('red')
+                    setIsSubmitting(false);
                     setTimeout(function(){
                         setSubmitError('')
                     },4000)
@@ -387,6 +409,7 @@ const Signup = () => {
             if(data){
                 setSubmitError("Doctor Registration gone successfully!")
                 setErrorColor('green')
+                setIsSubmitting(false);
                 setTimeout(function(){
                     setSubmitError('')
                     setSuccess(true)
@@ -396,6 +419,7 @@ const Signup = () => {
             else{
                 setSubmitError('Registration of doctor not completed, try again')
                 setErrorColor('red');
+                setIsSubmitting(false);
                 setTimeout(function(){
                     setSubmitError('')
                 },4000)
@@ -405,6 +429,7 @@ const Signup = () => {
             console.error('Failed to register the doctor, try again later: ', error)
             setSubmitError('Failed to register the Doctor, try again later.')
             setErrorColor('red')
+            setIsSubmitting(false);
             setTimeout(function(){
                 setSubmitError('')
             },4000)
@@ -581,7 +606,14 @@ const Signup = () => {
                         setStep1(false)
                     }}>Previous</button>
                     <button type='submit' disabled = {pNext} className={pNext ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>
-                        Sign up
+                        {isSubmitting ? (
+                  <div className="flex justify-center">
+                    <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  'Sign up'
+                )}
+
                         </button>
                  </div>
         </form>
@@ -822,7 +854,13 @@ const Signup = () => {
             }}>Previous</button>
             <button className={ dnext3 ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' 
                 : 'bg-[#20B573] ml-[39%] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end'} 
-                type='submit' disabled={dnext3} >Submit</button>
+                type='submit' disabled={dnext3} >                {isSubmitting ? (
+                    <div className="flex justify-center">
+                      <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
+                    </div>
+                  ) : (
+                    'Submit'
+                  )}</button>
           </div>
           
         </div>
@@ -876,11 +914,27 @@ const Signup = () => {
 }} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
 
                 </div>
-                <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button type='button' onClick={resendOtp} className='text-green-600'>Resend</button></p>
+                <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button type='button' onClick={resendOtp} className='text-green-600'>
+                    {isSubmitting ? (
+                  <div className="flex justify-center">
+                    <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  'Resend'
+                )}
+                    </button></p>
                 <div className='flex flex-row gap-[57%] w-full'>
                     <button type='button' className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
                     <button type='submit'
-                    className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Verify</button>
+                    className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>
+                                        {isSubmitting ? (
+                  <div className="flex justify-center">
+                    <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  'Verify'
+                )}
+                        </button>
                 </div>
             </div>
 
@@ -904,7 +958,7 @@ const Signup = () => {
                 <button type='button' className = 'bg-[#0dab66] w-full text-center text-[20px] text-white font-bold mt-[9%] p-[5px] rounded-[7px]' onClick={function(){
                     if(success)
                     {
-                    navigate('/home')
+                    navigate('/patient')
                     }
                 }}on>
                     ok

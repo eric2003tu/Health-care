@@ -3,8 +3,8 @@ import React,{useState,useEffect} from 'react'
 import '../App.css'
 import { IoMdClose } from "react-icons/io";
 import { CiMenuBurger } from "react-icons/ci";
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
-import landing from '../assets/home.jpg'
+import { Routes, Route, Link } from 'react-router-dom';
+import landing from '../assets/patient.jpg'
 import mask from '../assets/mask.jpg'
 import testi from '../assets/testi.jpg'
 import logo from '../assets/logo.png' 
@@ -39,10 +39,10 @@ const Home = () => {
         <div className='hidden sm:hidden md:flex lg:flex md:flex-row lg:flex-row'>
         <ul className='flex flex-row gap-8 text-[24px]'>
           <li className='flex sm:flex md:flex lg:flex cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'><img src={logo} className=' w-[65px]'/></Link></li>
-          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/doctor'>Doctor</Link></li>
+          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Home</Link></li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Services</Link> </li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Contact Us</Link> </li>
-          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/home'>More</Link> </li>
+          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/patient'>More</Link> </li>
         </ul>
         <ul className='absolute  flex flex-row gap-10 text-[24px]  right-5 justify-items-center'>
           <li className='border-2  border-green-400 p-1.5 pl-7 pr-7 hover:text-green-500 cursor-pointer'><Link to='login'> Log in</Link></li>
@@ -63,7 +63,7 @@ const Home = () => {
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'> About Us</Link></li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/' >Services</Link></li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Contact Us</Link></li>
-          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/home'> More</Link> </li>
+          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/patient'> More</Link> </li>
           <li className=' border-2 border-green-400 p-2.5 pl-7 pr-7 hover:text-green-500 cursor-pointer'><Link to ='/'> Sign Up</Link></li>
           <li className=' border border-green-400 hover:bg-green-300  bg-emerald-500 p-2.5 pl-7 pr-7 text-white cursor-pointer'><Link to='/'> Learn More</Link></li>
         </ul>
