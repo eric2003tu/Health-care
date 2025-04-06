@@ -193,8 +193,6 @@ const Signup = () => {
             setErrorColor('green')
             setTimeout(function(){
                 setOtpMessage('')
-                navigate('/home')
-                setSuccess(false)
             },4000)
             return;
             }
