@@ -142,7 +142,7 @@ const Login = () => {
                             <p className='text-gray-600'>Always remember me</p>
                             <Link to='/' className='text-green-500 ml-[40.8%]'>Forgot password?</Link>
                         </div>
-                        <button type='submit' disabled= {disabled} className={disabled? 'bg-[#a6ebcd] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-not-allowed' 
+                        <button type='submit' disabled= {disabled} className={disabled || isSubmitting ? 'bg-[#a6ebcd] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-not-allowed' 
                             : 'bg-[#1aa569] w-full text-center text-white font-bold p-[5px] mb-[7px] rounded-[5px] cursor-pointer'} >
                                                                     {isSubmitting ? (
                   <div className="flex justify-center">
