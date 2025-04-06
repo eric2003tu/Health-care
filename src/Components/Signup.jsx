@@ -875,9 +875,9 @@ const Signup = () => {
 }} className='w-full h-[60px] text-center text-[20px] text-white font-bold bg-gray-400 border-0 active:border-0'/>
 
                 </div>
-                <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button className='text-green-600'>Resend</button></p>
+                <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button type='button' onClick={resendOtp} className='text-green-600'>Resend</button></p>
                 <div className='flex flex-row gap-[57%] w-full'>
-                    <button type='button' onClick={resendOtp} className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
+                    <button type='button' className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
                     <button type='submit'
                     className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Verify</button>
                 </div>
