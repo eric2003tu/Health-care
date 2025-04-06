@@ -605,7 +605,7 @@ const Signup = () => {
                         setDdNext(true)
                         setStep1(false)
                     }}>Previous</button>
-                    <button type='submit' disabled = {pNext} className={pNext ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>
+                    <button type='submit' disabled = {pNext} className={pNext || isSubmitting ? 'text-white bg-green-200 p-[7px] rounded-[7px] cursor-not-allowed disabled-true' : 'text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'}>
                         {isSubmitting ? (
                   <div className="flex justify-center">
                     <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
@@ -852,9 +852,10 @@ const Signup = () => {
                 setDstep1(false)
                 setDstep3(false)
             }}>Previous</button>
-            <button className={ dnext3 ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' 
+            <button className={ dnext3 || isSubmitting ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' 
                 : 'bg-[#20B573] ml-[39%] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end'} 
-                type='submit' disabled={dnext3} >                {isSubmitting ? (
+                type='submit' disabled={dnext3} >
+                    {isSubmitting ? (
                     <div className="flex justify-center">
                       <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
                     </div>
@@ -915,18 +916,12 @@ const Signup = () => {
 
                 </div>
                 <p className='text-gray-600'>It may take a minute to receive verification message, Haven't received it yet? <button type='button' onClick={resendOtp} className='text-green-600'>
-                    {isSubmitting ? (
-                  <div className="flex justify-center">
-                    <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
-                  </div>
-                ) : (
-                  'Resend'
-                )}
+                    Resend
                     </button></p>
                 <div className='flex flex-row gap-[57%] w-full'>
                     <button type='button' className='text-center self-start rounded-[7px] font-bold pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>Cancel</button>
                     <button type='submit'
-                    className='text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'>
+                    className={isSubmitting ? 'text-center text-white rounded-[7px] self-end font-bold bg-[#a6ebcd] pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500' : 'text-center text-white rounded-[7px] self-end font-bold bg-emerald-600 pl-[20px] pr-[20px] p-[10px] border-[1.7px] border-gray-500'}>
                                         {isSubmitting ? (
                   <div className="flex justify-center">
                     <div className="w-6 h-6 border-2 border-white border-t-blue-600 rounded-full animate-spin"></div>
