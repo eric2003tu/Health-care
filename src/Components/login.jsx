@@ -224,6 +224,7 @@ const Login = () => {
                     setSubmitError('Login is successful');
                     setSubmitColor('green');
                     setIsSubmitting(false);
+                    localStorage.setItem('user', JSON.stringify(data.user));
                     setTimeout(function(){
                         setSubmitError('')
                         navigate('/patient')
