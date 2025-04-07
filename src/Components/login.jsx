@@ -195,7 +195,7 @@ const Login = () => {
                 credentials: 'include',
                 body: JSON.stringify({
                     Email: Email,
-                    password: password
+                    Password: password
                 }),
             })
             .then(function(response) {
