@@ -72,6 +72,7 @@ const Signup = () => {
     const [dnext3, setDdNext] = useState(true)
     const [dstep3, setDstep3] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [signed, setSigned] = useState(false)
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
@@ -92,13 +93,16 @@ const Signup = () => {
         event.preventDefault();
         setIsSubmitting(true);
         const myOtpNumber = myOtp.join("");
-        fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
+        const myUrl = role === 'Patient' ? 'https://baho-healthcare.onrender.com/api/patient/verify' 
+        : 'https://baho-healthcare.onrender.com/api/doctor/verify';
+
+        fetch(myUrl,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                Email: Email,
+                Email: Email || dEmail,
                 otp: myOtpNumber,
             })
         })
@@ -135,7 +139,9 @@ const Signup = () => {
             setIsSubmitting(false);
             setTimeout(function(){
                 setOtpMessage('')
-                navigate('/patient')
+                if(role === 'Doctor'){
+                    setSigned(true)
+                }
                 setSuccess(false)
             },4000)
             return;
@@ -166,13 +172,16 @@ const Signup = () => {
 
     const resendOtp = function(event){
         event.preventDefault()
-        fetch('https://baho-healthcare.onrender.com/api/patient/resendOtp',{
+        const resend = role === 'Patient' ? 'https://baho-healthcare.onrender.com/api/patient/resendOtp' 
+        : 'https://baho-healthcare.onrender.com/api/doctor/resendOtp';
+
+        fetch(resend,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                Email: Email,
+                Email: Email || dEmail,
             })
         })
         .then(function(response){
@@ -444,11 +453,11 @@ const Signup = () => {
                  services to meet your needs
             </p>
                 <div className='grid grid-cols-6 gap-0'>
-                    <FaStar size = {30} className={ 'text-orange-400'} />
-                    <FaStar size={30} className={'text-orange-400'} />
-                    <FaStar size = {30} className={ 'text-orange-400'} />
-                    <FaStar size = {30} className={'text-orange-400'} />
-                    <FaStar size = {30} className = {'text-orange-400'} />
+                    <FaStar size = {26} className = { 'text-orange-400'}/>
+                    <FaStar size = {26} className = { 'text-orange-400'}/>
+                    <FaStar size = {26} className = { 'text-orange-400'}/>
+                    <FaStar size = {26} className = { 'text-orange-400'}/>
+                    <FaStar size = {26} className = { 'text-orange-400'}/>
                 </div>
             <p className = 'text-white text-center p-[10px] text-[20px] mt-[30px]'>
                 <i>This is a good project cause it saved me a lot of times,
@@ -864,7 +873,7 @@ const Signup = () => {
 
        {/* otp validation */}
        
-        <form className={success ?  'absolute justify-self-center border self-center items-center w-[50%]  h-fit ml-[3%] p-[3.4%] mt-[7.3%] rounded-[7px] bg-cover bg-center': 'hidden'} 
+        <form className={success && !signed ?  'absolute justify-self-center border self-center items-center w-[50%]  h-fit ml-[3%] p-[3.4%] mt-[7.3%] rounded-[7px] bg-cover bg-center': 'hidden'} 
         style={{ backgroundImage: `url(${otp})` }} onSubmit={(handleOtp)}>
             <div className='flex flex-col gap-7 self-center bg-white text-center rounded-[10px] p-[30px]'>
                 <p style={{color : errorColor}}>{otpMessage}</p>
@@ -931,7 +940,7 @@ const Signup = () => {
 
         {/* Successful registration */}
 
-        {/* <div className={success ? 'absolute justify-self-center border  grid grid-rows-2 w-[35%] h-fit ml-[16%] mt-[8.3%] rounded-[7px]' : 'hidden'}>
+         <div className={success && signed ? 'absolute justify-self-center border  grid grid-rows-2 w-[35%] h-fit ml-[16%] mt-[8.3%] rounded-[7px]' : 'hidden'}>
             <div className='bg-[#0dab66] flex flex-col gap-2 w-full h-full text-center pb-[25px] rounded-t-[7px]'>
             <IoIosClose size={50} className='self-end text-white cursor-pointer' onClick={function(){
                 setSuccess(false)
@@ -941,7 +950,7 @@ const Signup = () => {
             </div>
             <div className='w-full h-full bg-[white] text-gray-400 text-center pr-[11%] pl-[11%] p-[5%] rounded-b-[7px]'>
                 <p className='text-gray-400 text-[15px] text-center flex flex-col'>
-                    you con now log in. but full access is limited until verification is complete
+                    you can now log in. but full access is limited until verification is complete
                 </p>
                 <p className='text-gray-400 text-[15px] text-center mt-[5%]'>Verification takes 2 business days</p>
                 <button type='button' className = 'bg-[#0dab66] w-full text-center text-[20px] text-white font-bold mt-[9%] p-[5px] rounded-[7px]' onClick={function(){
@@ -953,7 +962,7 @@ const Signup = () => {
                     ok
                 </button>
             </div>
-        </div> */}
+        </div> 
         </div>
     </div>
     </div>

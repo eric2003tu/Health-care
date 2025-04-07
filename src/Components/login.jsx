@@ -46,7 +46,8 @@ const Login = () => {
                 event.preventDefault();
                 setIsSubmitting(true);
                 const myOtpNumber = myOtp.join("");
-                fetch('https://baho-healthcare.onrender.com/api/patient/verify',{
+                const myVerify = role === 'Patient' ? 'https://baho-healthcare.onrender.com/api/patient/verify' : 'https://baho-healthcare.onrender.com/api/doctor/verify'
+                fetch(myVerify,{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -120,7 +121,9 @@ const Login = () => {
         
             const resendOtp = function(event){
                 event.preventDefault()
-                fetch('https://baho-healthcare.onrender.com/api/patient/resendOtp',{
+                const resend = role === 'Patient' ? 'https://baho-healthcare.onrender.com/api/patient/resendOtp' 
+                :'https://baho-healthcare.onrender.com/api/doctor/resendOtp'
+                fetch(resend,{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -228,8 +231,14 @@ const Login = () => {
                 setTimeout(() => setSubmitError(''), 3000);
             })
             .catch(function(error) {
-                console.error('An error occurred while logging in: ', error);
-                setSubmitError('An error occurred while logging in');
+                if (role === 'Patient'){
+                console.error('An error occurred while logging in for the Patient : ', error);
+                setSubmitError('An error occurred while logging in for the Patient');
+                }
+                else if(role === 'Doctor'){
+                    console.error('An error occurred while logging in For the Doctor: ', error);
+                    setSubmitError('An error occurred while logging in For the Doctor');
+                }
                 setSubmitColor('red');
                 setIsSubmitting(false);
                 setTimeout(() => setSubmitError(''), 3000);
@@ -250,11 +259,11 @@ const Login = () => {
                 </p>
 
                 <div className='grid grid-cols-6 gap-0'>
-                    <FaStar size = {30} className={ 'text-orange-400'} />
-                    <FaStar size={30} className={'text-orange-400'} />
-                    <FaStar size = {30} className={ 'text-orange-400'} />
-                    <FaStar size = {30} className={'text-orange-400'} />
-                    <FaStar size = {30} className = {'text-orange-400'} />
+                    <FaStar size = {26} className={ 'text-orange-400'} />
+                    <FaStar size = {26} className={'text-orange-400'} />
+                    <FaStar size = {26} className={ 'text-orange-400'} />
+                    <FaStar size = {26} className={'text-orange-400'} />
+                    <FaStar size = {26} className = {'text-orange-400'} />
                 </div>
                 <p className = 'text-white text-center p-[10px] text-[20px] mt-[30px]'>
                     <i>This is a good project cause it saved me a lot of times,

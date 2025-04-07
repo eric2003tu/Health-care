@@ -7,7 +7,10 @@ import { Routes, Route, Link } from 'react-router-dom';
 import landing from '../assets/patient.jpg'
 import mask from '../assets/mask.jpg'
 import testi from '../assets/testi.jpg'
-import logo from '../assets/logo.png' 
+import logo from '../assets/logo.png'
+import chuk from '../assets/chuk.png'
+import legacy from '../assets/legacy.png'
+import h from '../assets/h.png' 
 import surgery from '../assets/experience.png'
 import support from '../assets/support.png' 
 import testimonial from '../assets/testimonial.png'
@@ -39,7 +42,7 @@ const Home = () => {
         <div className='hidden sm:hidden md:flex lg:flex md:flex-row lg:flex-row'>
         <ul className='flex flex-row gap-8 text-[24px]'>
           <li className='flex sm:flex md:flex lg:flex cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'><img src={logo} className=' w-[65px]'/></Link></li>
-          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Home</Link></li>
+          <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/doctor'>Doctor</Link></li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Services</Link> </li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Contact Us</Link> </li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/patient'>More</Link> </li>
@@ -206,6 +209,114 @@ const Home = () => {
           </div>
         </div>
         </div>
+        <div className='w-full h-fit flex flex-col gap-3 text-center'>
+        <h1 className='font-bold text-[20px] after:content-[""] after:w-[20px] after:h-[3px] after:bg-[#178f61]'>
+  Experienced
+</h1>
+
+          <h1 className='font-bold text-[24px]'>Meet Our Partners</h1>
+        </div>
+        <div className="w-full relative h-[152px] overflow-hidden mb-[15px] pl-[20px] pr-[20px]">
+  <div className="absolute pt-[15px] pb-[15px] left-0 top-1/2 transform -translate-y-1/2 z-10">
+    {/* Left Arrow can go here */}
+  </div>
+
+  <div className="w-full h-full grid grid-cols-3 gap-4">
+    {/* Column 1 */}
+    <div className="relative w-full h-full">
+      <img
+        src={legacy}
+        alt="chuk"
+        className="absolute w-full h-full object-contain transition-opacity duration-1000 opacity-100 animate-fade-1"
+      />
+      <img
+        src={h}
+        alt="legacy"
+        className="absolute w-full h-full object-contain transition-opacity duration-1000 opacity-0 animate-fade-2"
+      />
+      <img
+        src={chuk}
+        alt="h"
+        className="absolute w-full h-full object-contain transition-opacity duration-1000 opacity-0 animate-fade-3"
+      />
+    </div>
+
+    {/* Column 2 */}
+    <div className="relative w-full h-full">
+      <img
+        src={legacy}
+        alt="chuk"
+        className="absolute w-full h-full object-contain transition-opacity duration-1000 opacity-100 animate-fade-1"
+      />
+      <img
+        src={chuk}
+        alt="legacy"
+        className="absolute w-full h-full object-contain transition-opacity duration-1000 opacity-0 animate-fade-2"
+      />
+      <img
+        src={h}
+        alt="h"
+        className="absolute w-full h-full object-contain transition-opacity duration-1000 opacity-0 animate-fade-3"
+      />
+    </div>
+
+    {/* Column 3 */}
+    <div className="relative w-full h-full">
+      <img
+        src={h}
+        alt="chuk"
+        className="absolute w-full h-full object-contain transition-opacity duration-2000 opacity-100 animate-fade-1"
+      />
+      <img
+        src={chuk}
+        alt="legacy"
+        className="absolute w-full h-full object-contain transition-opacity duration-2000 opacity-0 animate-fade-2"
+      />
+      <img
+        src={legacy}
+        alt="h"
+        className="absolute w-full h-full object-contain transition-opacity duration-2000 opacity-0 animate-fade-3"
+      />
+    </div>
+  </div>
+
+  <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
+    {/* Right Arrow can go here */}
+  </div>
+
+  <style>{`
+    @keyframes fade-1 {
+      0%, 100% { opacity: 1 }
+      33.33%, 66.66% { opacity: 0 }
+    }
+
+    @keyframes fade-2 {
+      0%, 33.33% { opacity: 0 }
+      33.34%, 66.66% { opacity: 1 }
+      66.67%, 100% { opacity: 0 }
+    }
+
+    @keyframes fade-3 {
+      0%, 66.66% { opacity: 0 }
+      66.67%, 99.99% { opacity: 1 }
+      100% { opacity: 0 }
+    }
+
+    .animate-fade-1 {
+      animation: fade-1 10s infinite;
+    }
+
+    .animate-fade-2 {
+      animation: fade-2 10s infinite;
+    }
+
+    .animate-fade-3 {
+      animation: fade-3 10s infinite;
+    }
+  `}</style>
+</div>
+
+
     </>
   )
 }
