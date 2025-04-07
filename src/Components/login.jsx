@@ -226,7 +226,7 @@ const Login = () => {
                     setIsSubmitting(false);
                     setTimeout(function(){
                         setSubmitError('')
-                        setSuccess(true)
+                        navigate('/patient')
                         return
                     })
                 } else {
