@@ -209,6 +209,11 @@ const Login = () => {
                         setSubmitColor('red');
                         setIsSubmitting(false);
                     }
+                    else{
+                        setSubmitError('Bad request');
+                        setSubmitColor('red');
+                        setIsSubmitting(false);
+                    }
                     setTimeout(() => setSubmitError(''), 3000);
                     throw new Error(`Error ${response.status}`);
                 }
@@ -222,11 +227,13 @@ const Login = () => {
                     setTimeout(function(){
                         setSubmitError('')
                         setSuccess(true)
+                        return
                     })
                 } else {
                     setSubmitError('Login failed');
                     setSubmitColor('red');
                     setIsSubmitting(false);
+                    return
                 }
                 setTimeout(() => setSubmitError(''), 3000);
             })
