@@ -39,16 +39,7 @@ const LogedHome = () => {
         const images = [landing, mask];
         const [bg, setBg] = useState(images[0]);
 
-        const [user, setUser] = useState(null);
-
     useEffect(()=>{
-        const userData = JSON.parse(localStorage.getItem('user'));
-        if (userData) {
-            setUser(userData);
-          } else {
-            // Redirect to login if no user data found
-            window.location.href = '/login';
-          }
         let i = 0;
         const interval = setInterval(() => {
           setBg(images[i]);
@@ -62,7 +53,7 @@ const LogedHome = () => {
             setSubmitDisabled(false)
         }
         return () => clearInterval(interval);
-    },[images,bg,date,speciality,location,submitDisabled,user])
+    },[images,bg,date,speciality,location,submitDisabled])
 
 
   return (
