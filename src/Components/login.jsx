@@ -220,7 +220,7 @@ const Login = () => {
                 return response.json();
             })
             .then(function(data) {
-                if (data.success) { 
+                if (data) { 
                     setSubmitError('Login is successful');
                     setSubmitColor('green');
                     setIsSubmitting(false);
