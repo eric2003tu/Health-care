@@ -103,7 +103,7 @@ const Signup = () => {
             },
             body: JSON.stringify({
                 Email: Email || dEmail,
-                otp: myOtpNumber,
+                Otp: myOtpNumber,
             })
         })
         .then(function(response){
