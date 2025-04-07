@@ -182,76 +182,74 @@ const Login = () => {
         
             }
 
-        const handleLogin = function(event) {
-            event.preventDefault();
-            setIsSubmitting(true);
-            const myApi = role === 'Patient' ? 'https://baho-healthcare.onrender.com/api/patient/login' 
-            : 'https://baho-healthcare.onrender.com/api/doctor/login';
-            fetch( myApi, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    Email: Email,
-                    Password: password
-                }),
-            })
-            .then(function(response) {
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        setSubmitError('Invalid inputs');
-                        setSubmitColor('red');
-                        setIsSubmitting(false);
-                    } else if (response.status === 500) {
-                        setSubmitError('Internal server error');
-                        setSubmitColor('red');
-                        setIsSubmitting(false);
+            const handleLogin = function(event) {
+                event.preventDefault();
+                setIsSubmitting(true);
+                const myApi = role === 'Patient' ? 'https://baho-healthcare.onrender.com/api/patient/login' 
+                : 'https://baho-healthcare.onrender.com/api/doctor/login';
+                fetch( myApi, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        Email: Email,
+                        Password: password
+                    }),
+                })
+                .then(function(response) {
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            setSubmitError('Invalid inputs');
+                            setSubmitColor('red');
+                            setIsSubmitting(false);
+                        } else if (response.status === 500) {
+                            setSubmitError('Internal server error');
+                            setSubmitColor('red');
+                            setIsSubmitting(false);
+                        }
+                        else{
+                            setSubmitError('Bad request');
+                            setSubmitColor('red');
+                            setIsSubmitting(false);
+                        }
+                        setTimeout(() => setSubmitError(''), 3000);
+                        throw new Error(`Error ${response.status}`);
                     }
-                    else{
-                        setSubmitError('Bad request');
+                    return response.json();
+                })
+                .then(function(data) {
+                    if (data && data.user) { 
+                        setSubmitError('Login is successful');
+                        setSubmitColor('green');
+                        setIsSubmitting(false);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        setTimeout(function(){
+                            setSubmitError('')
+                            navigate(role === 'Patient' ? '/patient' : '/doctor')
+                        }, 1000)
+                    } else {
+                        setSubmitError('Login failed - no user data');
                         setSubmitColor('red');
                         setIsSubmitting(false);
                     }
                     setTimeout(() => setSubmitError(''), 3000);
-                    throw new Error(`Error ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(function(data) {
-                if (data) { 
-                    setSubmitError('Login is successful');
-                    setSubmitColor('green');
-                    setIsSubmitting(false);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    setTimeout(function(){
-                        setSubmitError('')
-                        navigate('/patient')
-                        return
-                    })
-                } else {
-                    setSubmitError('Login failed');
+                })
+                .catch(function(error) {
+                    if (role === 'Patient'){
+                    console.error('An error occurred while logging in for the Patient : ', error);
+                    setSubmitError('An error occurred while logging in for the Patient');
+                    }
+                    else if(role === 'Doctor'){
+                        console.error('An error occurred while logging in For the Doctor: ', error);
+                        setSubmitError('An error occurred while logging in For the Doctor');
+                    }
                     setSubmitColor('red');
                     setIsSubmitting(false);
-                    return
-                }
-                setTimeout(() => setSubmitError(''), 3000);
-            })
-            .catch(function(error) {
-                if (role === 'Patient'){
-                console.error('An error occurred while logging in for the Patient : ', error);
-                setSubmitError('An error occurred while logging in for the Patient');
-                }
-                else if(role === 'Doctor'){
-                    console.error('An error occurred while logging in For the Doctor: ', error);
-                    setSubmitError('An error occurred while logging in For the Doctor');
-                }
-                setSubmitColor('red');
-                setIsSubmitting(false);
-                setTimeout(() => setSubmitError(''), 3000);
-            });
-        };
+                    setTimeout(() => setSubmitError(''), 3000);
+                });
+            };
         
 
   return (
