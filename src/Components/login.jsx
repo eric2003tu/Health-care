@@ -6,7 +6,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { IoArrowBackCircle } from "react-icons/io5";
 import otp from '../assets/otp.jpg';
 
-const Login = ({ setCurrentUser }) => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [Email, setEmail] = useState('');
@@ -150,7 +150,6 @@ const Login = ({ setCurrentUser }) => {
         id: data.user._id,
         firstName: data.user.firstName
       };
-      setCurrentUser(safeUserData);
       
       localStorage.setItem('user', JSON.stringify(safeUserData));
       setIsSubmitting(false);
