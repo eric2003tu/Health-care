@@ -13,7 +13,6 @@ const Login = ({ setCurrentUser }) => {
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [submitError, setSubmitError] = useState('');
-  const [submitColor, setSubmitColor] = useState('red');
   const [role, setRole] = useState('');
   const [errorColor, setErrorColor] = useState('red');
   const [myOtp, setMyOtp] = useState([]);
@@ -80,10 +79,19 @@ const Login = ({ setCurrentUser }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ Email })
     })
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to resend OTP');
-      setOtpMessage('OTP resent successfully');
-      setErrorColor('green');
+    .then( function(response) {
+      if (!response.ok){
+        setOtpMessage('Failed to resend OTP')
+        setErrorColor('red');
+         throw new Error('Failed to resend OTP');
+        }
+         return response.json()
+    })
+    .then(function(data){
+        if(data){
+            setOtpMessage('OTP resent successfully');
+            setErrorColor('green');
+        }
     })
     .catch(error => {
       console.error('Resend OTP failed:', error);
@@ -108,38 +116,93 @@ const Login = ({ setCurrentUser }) => {
     })
     .then(response => {
       if (!response.ok) {
-        const status = response.status;
-        setSubmitError(
-          status === 404 ? 'Invalid inputs' :
-          status === 500 ? 'Internal server error' : 'Bad request'
-        );
-        setSubmitColor('red');
-        throw new Error(`Error ${status}`);
+        if(response.status === 404){
+          setSubmitError('invalid inputs')
+          setErrorColor('red')
+          setIsSubmitting(false);
+          setTimeout(() => setSubmitError(''), 3000);
+          throw new Error('Invalid inputs')
+        }
+        else if(response.status=== 400){
+          setSubmitError('bad request')
+        setErrorColor('red');
+        setIsSubmitting(false);
+        setTimeout(() => setSubmitError(''), 3000);
+        throw new Error('bad request');
+        }
+        else if(response.status === 500){
+          setSubmitError('Internal server error')
+          setErrorColor('red')
+          setIsSubmitting(false);
+          setTimeout(() => setSubmitError(''), 3000);
+          throw new Error('Internal sever error')
+        }
       }
       return response.json();
     })
-    .then(data => {
+    .then(function(data) {
+
+      if(data){
       const safeUserData = {
         id: data.user._id,
         firstName: data.user.firstName
       };
       setCurrentUser(safeUserData);
+      
       localStorage.setItem('user', JSON.stringify(safeUserData));
+      setIsSubmitting(false);
       
       setSubmitError('Login successful');
-      setSubmitColor('green');
+      setErrorColor('green');
       setTimeout(() => navigate(role === 'Patient' ? '/patient' : '/doctor'), 1000);
-    })
+      return
+        }
+      else{
+        setSubmitError('not submitted')
+        setErrorColor('red')
+        setIsSubmitting(false);
+        setTimeout(function(){
+          setSubmitError('')
+        },3000)
+        return
+      
+      }})
     .catch(error => {
       console.error(`Login error for ${role}:`, error);
       setSubmitError(`An error occurred while logging in as ${role}`);
-      setSubmitColor('red');
-    })
-    .finally(() => {
+      setErrorColor('red');
       setIsSubmitting(false);
       setTimeout(() => setSubmitError(''), 3000);
-    });
+    })
   };
+const forget = function(event){
+    event.preventDefault()
+    const myApi = role === 'Patient' 
+    ? 'https://baho-healthcare.onrender.com/api/patient/forget' 
+    : 'https://baho-healthcare.onrender.com/api/doctor/forget';
+    fetch(myApi,{
+        method : 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            Email: Email
+        }),
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to change');
+        setSubmitError('password successfully');
+        setErrorColor('green');
+        setTimeout(() => setSubmitError(''), 3000);
+      })
+      .catch(error => {
+        console.error('password failed:', error);
+        setSubmitError('password failed');
+        setErrorColor('red');
+        setTimeout(() => setSubmitError(''), 3000);
+      })
+}
 
   return (
     <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
@@ -172,7 +235,7 @@ const Login = ({ setCurrentUser }) => {
         {!success ? (
           <form className='w-full text-start pl-[10%] p-[4.0%] border rounded-[7px]' onSubmit={handleLogin}>
             <h1 className='font-bold text-[25px] mb-[10px]'>Login</h1>
-            <p style={{color: submitColor}}>{submitError}</p>
+            <p style={{color: errorColor}}>{submitError}</p>
             <p className='text-gray-400 mt-[5px] mb-[20px]'>
               Login with the credentials that you used while registering
             </p>
@@ -232,7 +295,7 @@ const Login = ({ setCurrentUser }) => {
                 className='size-[20px] mt-[3px]'
               /> 
               <p className='text-gray-600'>Always remember me</p>
-              <Link to='/' className='text-green-500 ml-[40.8%]'>Forgot password?</Link>
+              <button type='button' onClick={forget} className='text-green-500 ml-[40.8%]'>Forgot password?</button>
             </div>
 
             <button 
