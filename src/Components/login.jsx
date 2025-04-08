@@ -20,6 +20,7 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
+  const [user, setUser] = useState('')
 
   useEffect(() => {
     if (!success) {
@@ -148,10 +149,13 @@ const Login = () => {
       if(data){
       const safeUserData = {
         id: data.user._id,
-        firstName: data.user.firstName
+        firstName: data.user.firstName,
+        lastName : data.user.lastName
       };
+      setUser((safeUserData['firstName'][0] + safeUserData['lastName'][0]))
       
       localStorage.setItem('user', JSON.stringify(safeUserData));
+      localStorage.setItem('user', user)
       setIsSubmitting(false);
       
       setSubmitError('Login successful');
