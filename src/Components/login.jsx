@@ -112,7 +112,10 @@ const Login = ({ setCurrentUser }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ Email, Password: password })
+      body: JSON.stringify({
+         Email: Email,
+         Password: password 
+        })
     })
     .then(response => {
       if (!response.ok) {
