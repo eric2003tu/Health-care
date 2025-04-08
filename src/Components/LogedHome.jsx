@@ -103,6 +103,7 @@ const LogedHome = () => {
             </select> 
             <FaCircleUser size={35} className=' text-green-600 mt-[23px] cursor-pointer'/>
             <IoMdNotificationsOutline size={35} className=' text-green-600 mt-[23px] cursor-pointer'/>
+            <h1 className='text-[23px] text-green-600 font-bold mt-[20px]'>{localStorage.getItem('user')}</h1>
             <IoMenu size={45} className=' text-green-600 mt-[13px] cursor-pointer ml-[40px]'/>
         </div>
     </nav>
