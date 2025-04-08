@@ -152,10 +152,15 @@ const Login = () => {
         firstName: data.user.firstName,
         lastName : data.user.lastName
       };
-      setUser((safeUserData['firstName'][0] + safeUserData['lastName'][0]))
+      const initials = 
+      (safeUserData.firstName ? safeUserData.firstName[0] : '') + 
+      (safeUserData.lastName ? safeUserData.lastName[0] : '');
+
+    setUser(initials);
       
       localStorage.setItem('user', JSON.stringify(safeUserData));
-      localStorage.setItem('user', user)
+      setUser(initials);
+      localStorage.setItem('me', initials);
       setIsSubmitting(false);
       
       setSubmitError('Login successful');
