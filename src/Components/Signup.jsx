@@ -365,7 +365,7 @@ const Signup = () => {
     const doctorSignup = function(event){
         event.preventDefault()
         setIsSubmitting(true);
-        fetch('http://localhost:5000/api/doctor/signup', {
+        fetch('https://baho-healthcare.onrender.com/api/doctor/signup', {
             method : 'POST',
             headers:{
                 'Content-Type' : 'application/json'
