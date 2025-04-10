@@ -52,6 +52,7 @@ const Signup = () => {
     const [dOb, setDOb] = useState('')
     const [dNext1, setDNext1] = useState(true)
     const [dstep1, setDstep1] = useState(false)
+    const [dPhone, setDPhone] = useState('')
 
     {/* Doctor step 2 */}
 
@@ -239,7 +240,7 @@ const Signup = () => {
 
     useEffect(() => {
         if(dstep1){
-        if ((!FirstName || !lastName || !dEmail || !dPassword || !dConfirmPassword || !dOb || !province || dPassword !== dConfirmPassword)) {
+        if ((!FirstName || !lastName || !dEmail || !dPassword || !dConfirmPassword || !dPhone || !dOb || !province || dPassword !== dConfirmPassword)) {
             setDNext1(true); // Disable button
         } else {
             setDNext1(false); // Enable button
@@ -275,7 +276,7 @@ const Signup = () => {
                 setPNext(false); // Enable button
             }
         }
-    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,Email,password,checkPass,dates,phone,pNext,pStep1]);
+    }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb,dPhone, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,Email,password,checkPass,dates,phone,pNext,pStep1]);
 
 
     {/* Patient Form Submission */}
@@ -371,18 +372,22 @@ const Signup = () => {
             },
             credentials: 'include',
             body: JSON.stringify({
-               FirstName: FirstName,
-               LastName: lastName,
+               Fname: FirstName,
+               Lname: lastName,
                Email: dEmail,
-               password: dPassword,
-               DOB: dOb,
+               Password: dPassword,
+               BirthDate: dOb,
                province: province,
-               specialization: specialization,
-               employer: employer,
+               Specialization: specialization,
+               currentEmployer: employer,
                previousEmployer: previousEmployer,
-               graduationYear: graduationYear,
-               school: school,
-               medicalLicence: medicalLicence,
+               gradYear: graduationYear,
+               medicalSchool: school,
+               LicenseImage: medicalLicence,
+               Bio: bio,
+               Language: Languages,
+               Idimage: id,
+               phone: dPhone,
             })
         })
         .then(function(response){
@@ -656,6 +661,15 @@ const Signup = () => {
           }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
             <Mail/>
+           </button>
+          </div>
+          <div className='relative flex flex-col'>
+           <label htmlFor='phone' className=' text-gray-600'>Phone number</label>
+          <input type='tel' name='phone' value={dPhone} onChange={function(e){
+            setDPhone(e.target.value)
+          }} placeholder='Your phone number' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
+          <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
+            <MdContactPhone size={20}/>
            </button>
           </div>
           <div className='grid grid-cols-2 w-full gap-3'>
