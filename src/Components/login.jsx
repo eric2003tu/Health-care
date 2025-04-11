@@ -216,33 +216,43 @@ const forget = function(event){
 }
 
   return (
-    <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
+    <div className='w-full min-h-screen h-screen right-0 grid grid-cols-2'>
       {/* Left Side */}
-      <div className='w-full h-full flex flex-col bg-[#0dab66] text-white p-[30px] pb-[10px] pt-[10px]'>
-        <Link to='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
-        <h1 className='font-bold text-white text-center text-[47px] p-[10px]'>
-          Welcome to Baho Health
-        </h1>
-        <p className='text-white text-center p-[10px] text-[20px]'>
-          Where you can discover a wide range of healthcare services
-        </p>
-        <div className='grid grid-cols-6 gap-0'>
-          {[...Array(5)].map((_, i) => <FaStar key={i} size={26} className='text-orange-400' />)}
-        </div>
-        <p className='text-white text-center p-[10px] text-[20px] mt-[30px] italic'>
-          This is a good project cause it saved me a lot of times, you are time saver.
-        </p>
-        <div className='w-fit grid grid-cols-2 gap-0'>
-          <img src={profile} className='w-[60px] h-[60px] rounded-full'/>
-          <div className='ml-[-25px]'>
-            <h1 className='font-bold text-[20px]'>Devon Lane</h1>
-            <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
-          </div>
-        </div>
-      </div>
+        <div className='w-full h-full overflow-y-auto flex flex-col gap-5 bg-[#0dab66] text-white text-center '>
+        <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
+            <div className=' w-fit text-start self-center mb-[18%] mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
+            <h1 className='font-bold text-white text-start text-[34px] p-[5px]'>
+                Welcome to Baho Health
+            </h1>
+            <p className='text-white text-start p-[5px] text-[19px]'>
+                Where you can discover a wide range of healthcare
+                 services to meet your needs
+            </p>
+            </div>
+            <div className=' w-fit text-start self-center mt-[7%]  mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
+                <div className='flex flex-row gap-2.5'>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                </div>
+            <p className = 'text-white text-start p-[5px] text-[19px] mt-[7px]'>
+                <i>This is a good project cause it saved me a lot of times,
+                 you are time saver. Very convenient to use.</i>
+            </p>
+            </div>
+            <div className='w-fit self-start mr-[10%] ml-[15% ] pl-[13%] pr-[13%]  grid grid-cols-2 gap-0'>
+                <img src={profile} className='w-[60px] self-start h-[60px] rounded-full'/>
+                <div className='ml-[-25px]'>
+                    <h1 className='font-bold text-[20px]'>Devon Lane</h1>
+                    <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
+                </div>
+            </div>
+            </div>
 
       {/* Right Side */}
-      <div className='w-full p-[10%] pt-[3.5%] pb-[3.5%] flex flex-col'>
+      <div className='w-full p-[10%] pt-[3.5%] pb-[3.5%] flex flex-col overflow-y-auto h-full'>
         {!success ? (
           <form className='w-full text-start pl-[10%] p-[4.0%] border rounded-[7px]' onSubmit={handleLogin}>
             <h1 className='font-bold text-[25px] mb-[10px]'>Login</h1>

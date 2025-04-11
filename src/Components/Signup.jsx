@@ -447,36 +447,45 @@ const Signup = () => {
 
   return (
     <div>
-    <div className='w-full min-h-screen right-0 grid grid-cols-[1fr_2fr]'>
-        <div className='w-full h-full flex flex-col bg-[#0dab66] text-white p-[30px] pt-[30px]'>
-            <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
-            <h1 className='font-bold text-white text-center text-[47px] p-[10px]'>
+    <div className='w-full min-h-screen h-screen right-0 grid grid-cols-2'>
+        <div className='w-full h-full overflow-y-auto flex flex-col gap-5 bg-[#0dab66] text-white text-center '>
+        <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
+            <div className=' w-fit text-start self-center mb-[18%] mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
+            <h1 className='font-bold text-white text-start text-[34px] p-[5px]'>
                 Welcome to Baho Health
             </h1>
-            <p className='text-white text-center p-[10px] text-[20px]'>
+            <p className='text-white text-start p-[5px] text-[19px]'>
                 Where you can discover a wide range of healthcare
                  services to meet your needs
             </p>
-                <div className='grid grid-cols-6 gap-0'>
-                    <FaStar size = {26} className = { 'text-orange-400'}/>
-                    <FaStar size = {26} className = { 'text-orange-400'}/>
-                    <FaStar size = {26} className = { 'text-orange-400'}/>
-                    <FaStar size = {26} className = { 'text-orange-400'}/>
-                    <FaStar size = {26} className = { 'text-orange-400'}/>
+            </div>
+            <div className=' w-fit text-start self-center mt-[7%]  mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
+                <div className='flex flex-row gap-2.5'>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
+                    <FaStar size = {20} className = { 'text-orange-400'}/>
                 </div>
-            <p className = 'text-white text-center p-[10px] text-[20px] mt-[30px]'>
+            <p className = 'text-white text-start p-[5px] text-[19px] mt-[7px]'>
                 <i>This is a good project cause it saved me a lot of times,
                  you are time saver. Very convenient to use.</i>
             </p>
-            <div className='w-fit grid grid-cols-2 gap-0'>
-                <img src={profile} className='w-[60px] h-[60px] rounded-full'/>
+            </div>
+            <div className='w-fit self-start mr-[10%] ml-[15% ] pl-[13%] pr-[13%]  grid grid-cols-2 gap-0'>
+                <img src={profile} className='w-[60px] self-start h-[60px] rounded-full'/>
                 <div className='ml-[-25px]'>
                     <h1 className='font-bold text-[20px]'>Devon Lane</h1>
                     <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
                 </div>
             </div>
             </div>
-        <div className = { success ? ' flex flex-col bg-blue-200/60 ' : 'overflow-y-auto h-full flex flex-col'}>
+
+
+            {/* Right Nav */}
+
+
+        <div className = { success ? ' flex flex-col h-full w-full bg-blue-200/60 overflow-y-auto ' : 'overflow-y-auto h-full flex flex-col'}>
         <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr] gap-0' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
         <div className = {!role ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
                 1
@@ -494,20 +503,19 @@ const Signup = () => {
             <div className = { role ==='Doctor' && !success ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' : role ==='Doctor' && success ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]' : 'hidden'}>
             4</div>
         </div>
-        <form className={!pStep1 && !dstep1 && !dstep2 && !dstep3 ?  'w-full h-fit self-center text-center flex flex-col' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
-                <h1 className='font-bold text-black text-[27px] mb-[15px] w-full self-start'>User Role Selection</h1>
-                <label htmlFor = 'role' className = 'text-[20px] self-start ml-[25.4%]'>Role</label>
+        <form className={!pStep1 && !dstep1 && !dstep2 && !dstep3 ?  'w-full h-fit self-center items-start text-center flex flex-col p-[5%] pl-[10%] pr-[10%]' : ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>                <h1 className='font-bold text-black text-[27px] mb-[15px]  w-1/2 self-center'>User Role Selection</h1>
+                <label htmlFor = 'role' className = 'text-[20px] self-start'>Role</label>
                 <select name = 'role' value = {role} onChange = {function(e){
                     setRole(e.target.value)
 
-                }} className='w-1/2 p-[10px] border rounded-[7px] self-center'>
+                }} className='w-full p-[10px] border rounded-[7px] self-center'>
                 <option value = '' disabled selected> Select role </option>
                 <option value = 'Patient'> Patient</option>
                 <option value = 'Doctor'>Doctor</option>
                 </select>
                 <p className='text-red-500'>{selectError}</p>
-                 <div className='text-[20px] self-start ml-[33.4%] mt-[65px] grid grid-cols-2 gap-16'>
-                    <Link to = '/login' className=' text-[#1da857] ml-[-100%]'>Sign in instead</Link>
+                 <div className='text-[20px] text-start items-start self-center flex-col mt-[25px] flex w-full'>
+                    <Link to = '/login' className=' text-[#1da857] text-start self-start '>Sign in instead</Link>
                     <button type='button'onClick={function(){
                         if(role === 'Doctor'){
                         setStep1(true)
@@ -526,20 +534,20 @@ const Signup = () => {
                             setDstep1(false)
                             setSelectError('Please select role First')
                         }
-                    }} className='text-white bg-[#1da857] p-[7px] rounded-[7px] cursor-pointer'>Next</button>
+                    }} className='text-white bg-[#1da857] pl-[20px] pr-[20px] p-[7px] rounded-[7px] cursor-pointer self-end mt-[-39px]'>Next</button>
                  </div>
             </form>
 
             {/* Patient Form */}
 
-            <form className={ role === 'Patient' && pStep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]':
+            <form className={ role === 'Patient' && pStep1 ?  'w-full h-fit self-center text-center flex flex-col pl-[30px] pr-[30px] p-[15px]':
                  ':transition-transform duration-700 opacity-100 translate-x-full hidden'} onSubmit={handleSubmit}>
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Patient's Personal info</h1>
                 <p style={{color : errorColor}}>{submiterror}</p>
 
           <div className='grid grid-cols-[2fr_2fr] gap-3'>
           <div  className='relative flex flex-col'>
-          <label htmlFor='Fist name' className=' text-gray-600'>First name</label>
+          <label htmlFor='Fist name' className=' text-gray-600 text-start'>First name</label>
           <input type='text' name='First name' autocomplete="new-password" value={fName} onChange={function(e){
             setfName(e.target.value)
           }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -548,7 +556,7 @@ const Signup = () => {
            </button>
           </div>
           <div  className='relative flex flex-col'>
-          <label htmlFor='last name' className=' text-gray-600'>Last name</label>
+          <label htmlFor='last name' className=' text-gray-600 text-start'>Last name</label>
           <input type='text' name='last name' autocomplete="new-password" value={lName} onChange={function(e){
             setLName(e.target.value)
           }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -559,7 +567,7 @@ const Signup = () => {
         </div>
         <div className=' grid grid-cols-[2fr_2fr] gap-3'>
         <div className='relative flex flex-col'>
-          <label htmlFor='Email' className=' text-gray-600'>Email address</label>
+          <label htmlFor='Email' className=' text-gray-600 text-start'>Email address</label>
           <input type='Email' name='Email' value={Email} onChange={function(e){
             setEmail(e.target.value)
           }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
@@ -568,7 +576,7 @@ const Signup = () => {
            </button>
            </div>
            <div className='relative flex flex-col'>
-           <label htmlFor='phone' className=' text-gray-600'>Phone number</label>
+           <label htmlFor='phone' className=' text-gray-600 text-start'>Phone number</label>
           <input type='tel' name='phone' value={phone} onChange={function(e){
             setPhone(e.target.value)
           }} placeholder='Your phone number' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
@@ -578,8 +586,8 @@ const Signup = () => {
           </div>
           </div>
           <div className='grid grid-cols-2 w-full gap-3'>
-          <div className="relative">
-          <label htmlFor='Password' className=' text-gray-600'>Password</label>
+          <div className="relative flex flex-col">
+          <label htmlFor='Password' className=' text-gray-600 text-start'>Password</label>
           <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
             setPassword(e.target.value)
           }} placeholder='Create password' className= 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
@@ -588,8 +596,8 @@ const Signup = () => {
             {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
            </button>
           </div>
-          <div className="relative">
-          <label htmlFor='confirm assword' className=' text-gray-600'>confirm Password</label>
+          <div className="relative flex flex-col">
+          <label htmlFor='confirm assword' className=' text-gray-600 text-start'>confirm Password</label>
           <input type={confPassword ? "text" : "password"} name='confirm password' value={checkPass} onChange={function(e){
             setCheckPass(e.target.value)
           }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
@@ -599,8 +607,8 @@ const Signup = () => {
            </button>
           </div>
           </div>
-          <div>
-          <label htmlFor='date' className=' text-gray-600'>Date of Birth</label>
+          <div className='flex flex-col'>
+          <label htmlFor='date' className=' text-gray-600 text-start'>Date of Birth</label>
           <input type='date' name='date' value={dates} onChange={function(e){
             setDates(e.target.value)
           }} placeholder='your birth date' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
@@ -631,12 +639,12 @@ const Signup = () => {
                                      {/* Doctor's Personal Info */}
 
 
-        <div className={role === 'Doctor' && dstep1 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} >
+        <div className={role === 'Doctor' && dstep1 ?  'w-full h-fit self-center text-center flex flex-col pl-[30px] pr-[30px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'} >
                 <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's Personal info</h1>
 
           <div className='grid grid-cols-[2fr_2fr] gap-3'>
           <div  className='relative flex flex-col'>
-          <label htmlFor='Fist name' className=' text-gray-600'>First name <span className='text-red-500 ml-[3px]'> * </span></label>
+          <label htmlFor='Fist name' className=' text-gray-600 text-start'>First name <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='text' name='First name' value={FirstName} onChange={function(e){
             setFirstName(e.target.value)
           }} placeholder='First name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -645,7 +653,7 @@ const Signup = () => {
            </button>
           </div>
           <div  className='relative flex flex-col'>
-          <label htmlFor='last name' className=' text-gray-600'>Last name <span className='text-red-500 ml-[3px]'> * </span></label>
+          <label htmlFor='last name' className=' text-gray-600 text-start'>Last name <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='text' name='last name'  value={lastName} onChange={function(e){
             setLastName(e.target.value)
           }} placeholder='Last name' className='w-full border border-gray-400 p-[10px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -654,8 +662,9 @@ const Signup = () => {
          </button>
         </div>
         </div>
-        <div className='relative'>
-          <label htmlFor='Email' className=' text-gray-600'>Email address <span className='text-red-500 ml-[3px]'> * </span></label>
+        <div className='grid grid-cols-2 gap-3 w-full'>
+        <div className='relative flex flex-col'>
+          <label htmlFor='Email' className=' text-gray-600 text-start'>Email address <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='Email' name='Email' value={dEmail} onChange={function(e){
             setDEmail(e.target.value)
           }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
@@ -663,8 +672,8 @@ const Signup = () => {
             <Mail/>
            </button>
           </div>
-          <div className='relative flex flex-col'>
-           <label htmlFor='phone' className=' text-gray-600'>Phone number</label>
+          <div className='relative flex flex-col w-full'>
+           <label htmlFor='phone' className=' text-gray-600 text-start'>Phone number</label>
           <input type='tel' name='phone' value={dPhone} onChange={function(e){
             setDPhone(e.target.value)
           }} placeholder='Your phone number' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
@@ -672,9 +681,10 @@ const Signup = () => {
             <MdContactPhone size={20}/>
            </button>
           </div>
+          </div>
           <div className='grid grid-cols-2 w-full gap-3'>
-          <div className="relative">
-          <label htmlFor='Password' className=' text-gray-600'>Password <span className='text-red-500 ml-[3px]'> * </span></label>
+          <div className="relative flex flex-col">
+          <label htmlFor='Password' className=' text-gray-600 text-start'>Password <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type={showPassword ? "text" : "password"} autoComplete="new-password"  name='password' value={dPassword} onChange={function(e){
             setDPassword(e.target.value)
           }} placeholder='Create password' className= 'w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
@@ -683,8 +693,8 @@ const Signup = () => {
             {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
            </button>
           </div>
-          <div className="relative">
-          <label htmlFor='confirm-password' className=' text-gray-600'>confirm Password <span className='text-red-500 ml-[3px]'> * </span></label>
+          <div className="relative flex flex-col">
+          <label htmlFor='confirm-password' className=' text-gray-600 text-start'>confirm Password <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type={confPassword ? "text" : "password"} autoComplete="new-password" name='confirm password' value={dConfirmPassword} onChange={function(e){
             setDConfirmPassword(e.target.value)
           }} placeholder='Re-type your password' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'/>
@@ -694,17 +704,17 @@ const Signup = () => {
            </button>
           </div>
           </div>
-          <div>
-          <label htmlFor='date' className=' text-gray-600'>Date of Birth <span className='text-red-500 ml-[3px]'> * </span></label>
+          <div className='flex flex-col'>
+          <label htmlFor='date' className=' text-gray-600 text-start'>Date of Birth <span className='text-red-500 ml-[3px]'> * </span></label>
           <input type='date' name='date' value={dOb} onChange={function(e){
             setDOb(e.target.value)
           }} placeholder='Your Email address' className='w-full border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'/>
           </div>
           <div className='flex flex-col'>
-          <label htmlFor='date' className=' text-gray-600 '>Province <span className='text-red-500 self-start ml-[3px]'> * </span></label>
+          <label htmlFor='date' className=' text-gray-600 text-start'>Province <span className='text-red-500 self-start ml-[3px]'> * </span></label>
           <select name='dropdown' value={province} onChange={function(e){
                     setProvince(e.target.value)
-                 }} className='w-1/2 border border-gray-400  p-[10px] mt-[15px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'>
+                 }} className='w-1/2 border border-gray-400  p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'>
                     <option value='' disabled selected> Select your province of living</option>
                     <option value="kigali City">Kigali City</option>
                     <option value="Northern Province">Northern Province</option>
@@ -733,11 +743,11 @@ const Signup = () => {
                                   {/* Doctor's Professional info */}
 
 
-        <div className={dstep2?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
-        <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's professional info</h1>
+        <div className={dstep2?  'w-full h-fit self-center text-center flex flex-col pl-[30px] pr-[30px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <h1 className='font-bold text-black text-center text-[30px] ml-[7px]'>Doctor's professional info</h1>
         <div className='grid grid-cols-[2fr_2fr] gap-3'>
             <div className='w-full flex flex-col'>
-                <label htmlFor='specialization' className='text-gray-600'>Specialization <span className='text-red-500 ml-[3px]'> * </span></label>
+                <label htmlFor='specialization' className='text-gray-600 text-start'>Specialization <span className='text-red-500 ml-[3px]'> * </span></label>
                 <select name='specialization' value={specialization} className='w-full p-[7px] border border-gray-400 rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' onChange={function(e){
                     setSpecialization(e.target.value)
                 }}>
@@ -750,13 +760,13 @@ const Signup = () => {
                 </select>
             </div>
             <div className='w-full flex flex-col'>
-            <label htmlFor='employer' className='text-gray-600'>Current Employer <span className='text-red-500 ml-[3px]'> * </span></label>
+            <label htmlFor='employer' className='text-gray-600 text-start'>Current Employer <span className='text-red-500 ml-[3px]'> * </span></label>
             <input type='text' name='employer' placeholder='Current Employer' value={employer} onChange={function(e){
                 setEmployer(e.target.value)
             }} className='wifull border border-gray-400 p-[7px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50'/>
             </div>
             <div className='w-full flex flex-col'>
-                <label htmlFor='graduationYear' className=' text-gray-600 '>Graduation Year<span className='text-red-500 ml-[3px]'> * </span></label>
+                <label htmlFor='graduationYear' className=' text-gray-600 text-start'>Graduation Year<span className='text-red-500 ml-[3px]'> * </span></label>
                 <select name='graduationYear' value={graduationYear} className='w-full border border-gray-400 rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50 p-[7px]' onChange={function(e){
                     setGraduationYear(e.target.value)
                 }}>
@@ -775,7 +785,7 @@ const Signup = () => {
                 </select>
             </div>
             <div className='w-full flex flex-col'>
-                <label htmlFor='school' className='text-gray-600'>Medical School<span className='text-red-500 ml-[3px]'> * </span></label>
+                <label htmlFor='school' className='text-gray-600 text-start'>Medical School<span className='text-red-500 ml-[3px]'> * </span></label>
                 <select name='school' value={school} className='w-full p-[7px] border border-gray-400  rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' onChange={function(e){
                     setSchool(e.target.value)
                 }}>
@@ -789,7 +799,7 @@ const Signup = () => {
             </div>
         </div>
         <div  className='relative flex flex-col'>
-          <label htmlFor='previousEmployer' className=' w-full text-gray-600'>Previous employer <span className='text-red-500 ml-[3px]'> * </span> </label>
+          <label htmlFor='previousEmployer' className=' w-full text-gray-600 text-start'>Previous employer <span className='text-red-500 ml-[3px]'> * </span> </label>
           <input type='text' name='previousEmployer' value={previousEmployer} onChange={function(e){
             setPreviousEmployer(e.target.value)
           }} placeholder='eg: CHUK' className='w-full border border-gray-400 p-[7px] pl-[2px] rounded-[3px] text-blue-950 focus:border-b placeholder:text-gray-400 bg-gray-100/50' />
@@ -797,9 +807,9 @@ const Signup = () => {
             <MdLocalHospital size={30} className='text-green-400'/>
            </button>
           </div>
-          <div  className='relative flex flex-col m-[30px] gap-2'>
-          <label htmlFor='medicalLicence' className=' w-full text-gray-600'>Medical License<span className='text-red-500 ml-[3px]'> * </span> </label>
-          <div className='border border-gray-400 p-[30px] flex flex-col rounded-[7px]'>
+          <div  className='relative flex flex-col  w-full gap-2'>
+          <label htmlFor='medicalLicence' className='text-start w-full text-gray-600'>Medical License<span className='text-red-500 ml-[3px]'> * </span> </label>
+          <div className='border h-fit border-gray-400 w-full p-[30px] pt-[10px] pb-[10px] flex flex-col rounded-[7px]'>
             <FaCloudUploadAlt size={55} className='self-center text-[#20B573]'/>
           <input type='file' name='medicalLicense' value={medicalLicence} onChange={function(e){
             setMedicalLicense(e.target.value)
@@ -827,50 +837,50 @@ const Signup = () => {
 
 
 
-        <div className={dstep3 ?  'w-full h-fit self-center border text-center flex flex-col pl-[90px] pr-[90px] p-[15px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
-        <h1 className='font-bold text-black text-center text-[30px] m-[7px]'>Doctor's additional info</h1>
+        <div className={dstep3 ?  'w-full h-fit self-center text-center flex flex-col pl-[30px] pr-[30px]': ':transition-transform duration-700 opacity-100 translate-x-full hidden'}>
+        <h1 className='font-bold text-black text-start text-[25px] '>Doctor's additional info</h1>
         <p style={{color : errorColor}}>{submiterror}</p>
-            <div className='w-full flex flex-col items-start text-[20px]'>
-                <label htmlFor='specialization' className='text-gray-600'>Languages <span className='text-red-500 ml-[3px]'> * </span></label>
-                <div><input type='checkbox' name='language' value='English' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> English</div>
-                <div><input type='checkbox' name='language' value='Kinyarwand' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> Kinyarwanda</div>
-                <div><input type='checkbox' name='language' value='French' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> French</div>
-                <div><input type='checkbox' name='language' value='Swahili' className='size-[20px] mr-[9px]'  onChange={handleCheckboxChange}/> Swahili</div>
-                <label htmlFor='Bio' className='text-gray-600'>Your Bio(in not more than 700 characters) <span className='text-red-500 ml-[3px]'> * </span></label>
+            <div className='w-full flex flex-col items-start text-[15px]'>
+                <label htmlFor='language' className='text-gray-600'>Languages <span className='text-red-500 ml-[3px]'> * </span></label>
+                <div className='text-[16px]'><input type='checkbox' name='language' value='English' className='size-[16px]  mr-[9px]'  onChange={handleCheckboxChange}/> English</div>
+                <div className='text-[16px]'><input type='checkbox' name='language' value='Kinyarwand' className='size-[16px] mr-[9px]'  onChange={handleCheckboxChange}/> Kinyarwanda</div>
+                <div className='text-[16px]'><input type='checkbox' name='language' value='French' className='size-[16px] mr-[9px]'  onChange={handleCheckboxChange}/> French</div>
+                <div className='text-[16px]'><input type='checkbox' name='language' value='Swahili' className='size-[16px] mr-[9px]'  onChange={handleCheckboxChange}/> Swahili</div>
+                <label htmlFor='Bio' className='text-gray-600 text-[16px]'>Your Bio(in not more than 1700 characters) <span className='text-red-500 ml-[3px]'> * </span></label>
                 <textarea  name='Bio' value={bio} placeholder='Type your Bio here!' onChange={function(e){
                   const wordArray = e.target.value; 
-                  if (wordArray.length <= 700) {
+                  if (wordArray.length <= 1700) {
                       setBio(wordArray);  
                   } 
-                }} className='p-[10px] border border-gray-400 w-4/5 h-fit text-ster rounded-[7px]'/>
+                }} className='p-[7px] border border-gray-400  placeholder:text-[16px] w-full h-fit text-ster rounded-[7px]'/>
                 <p className="text-sm text-gray-500 mt-1">
                 {bio.length > 0 && (
                 <>
                 You've written <span className="font-medium">{bio.length}</span> characters. 
-                Remaining: <span className="font-medium">{700 - bio.length}</span>
-                {700 - bio.length <= 0 && (
+                Remaining: <span className="font-medium">{1700 - bio.length}</span>
+                {1700 - bio.length <= 0 && (
                 <span className="text-red-500"> (Maximum reached)</span>
                 )}
                 </>
                 )}
                 </p>
                           
-            <label htmlFor='nationalId' className=' w-full text-start mt-[7px] text-gray-600'>National Id<span className='text-red-500 ml-[3px]'> * </span> </label>
-          <div className='border border-gray-400 p-[30px] flex flex-col rounded-[7px] w-4/5'>
+            <label htmlFor='nationalId' className=' w-full text-start mt-[7px] text-gray-600 text-[16px]'>National Id<span className='text-red-500 ml-[3px]'> * </span> </label>
+          <div className='border border-gray-400 pl-[30px] pr-[30px] flex flex-col p-[4px] rounded-[7px] w-full'>
             <FaCloudUploadAlt size={55} className='self-center text-[#20B573]'/>
           <input type='file' name='nationalId' value={id} onChange={function(e){
             setId(e.target.value)
-          }}  className='  self-center pr-[14%] pl-[33%] p-[10px] rounded-[3px] text-center  text-blue-950 focus:border-b focus:border-white placeholder:text-gray-400 ' />
-          <button className='bg-[#20B573] self-center text-white font-bold p-[9px] pr-[15px] pl-[15px] text-[20px] rounded-[8px]'>Upload</button>
+          }}  className='  self-center pr-[14%] pl-[33%] p-[7px] rounded-[3px] text-center  text-blue-950 focus:border-b focus:border-white placeholder:text-gray-400 placeholder:text-[16px]' />
+          <button className='bg-[#20B573] self-center text-white font-bold p-[9px] pr-[15px] pl-[15px] text-[17px] rounded-[8px]'>Upload</button>
           </div>
-          <div className='w-full grid grid-cols-2 pl-[40px] pr-[40px] mt-[10px] mb-[30px]'>
-            <button className='self-start text-[#20B573] ml-[-99%] text-[20px]' type='button' onClick={function(){
+          <div className=' grid grid-cols-2 w-full pr-[30px] mt-[10px] mb-[15px]'>
+            <button className='self-start text-[#20B573] text-start text-[20px]' type='button' onClick={function(){
                 setDstep2(true)
                 setDstep1(false)
                 setDstep3(false)
             }}>Previous</button>
-            <button className={ dnext3 || isSubmitting ? 'bg-green-200 ml-[39%] text-white font-bold p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end cursor-not-allowed ' 
-                : 'bg-[#20B573] ml-[39%] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-fit text-end'} 
+            <button className={ dnext3 || isSubmitting ? 'bg-green-200 self-end  text-white font-bold p-[7px] pr-[19px] pl-[19px] text-[17px] rounded-[8px] w-full text-center cursor-not-allowed ' 
+                : 'bg-[#20B573] text-white font-bold cursor-pointer p-[13px] pr-[19px] pl-[19px] text-[20px] rounded-[8px] w-full text-center'} 
                 type='submit' disabled={dnext3} >
                     {isSubmitting ? (
                     <div className="flex justify-center">
