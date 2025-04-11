@@ -320,7 +320,7 @@ const DoctorPage = () => {
           <div className='flex flex-row gap-2 '>
           <SiGooglemessages size={30} className='text-white'/> 
           <h1 className='text-white text-[17px]'>Messages</h1>
-          <FaArrowRightLong size={30} className='text-white self-end ml-[30%]'/>
+          <FaArrowRightLong size={30} className='text-white self-end ml-[53%]'/>
           </div>
           <hr className='h-[4px] text-white mt-[7px] mb-[10px]'/>
           <h1 className='text-center text-white text-[34px]'>10</h1>
@@ -331,7 +331,7 @@ const DoctorPage = () => {
           <div className='flex flex-row gap-2 '>
           < FaUsers size={30} className='text-white'/> 
           <h1 className='text-white text-[17px]'>Events</h1>
-          <FaArrowRightLong size={30} className='text-white self-end ml-[30%]'/>
+          <FaArrowRightLong size={30} className='text-white self-end ml-[53%]'/>
           </div>
           <hr className='h-[4px] text-white mt-[7px] mb-[10px]'/>
           <h1 className='text-center text-white text-[34px]'>10</h1>
