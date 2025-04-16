@@ -11,7 +11,7 @@ import { IoMdClose } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { GrLanguage } from "react-icons/gr";
 import { FaCircleUser } from "react-icons/fa6";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { BrowserRouter as Router, Routes, Route, Link,useNavigate } from 'react-router-dom';
 import { IoMenu } from "react-icons/io5";
 import { TfiClose } from "react-icons/tfi";
@@ -20,6 +20,19 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import mask from '../assets/mask.jpg'
+import { LuMessageSquareText } from "react-icons/lu";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { LuLayoutDashboard } from "react-icons/lu";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { GiHospitalCross } from "react-icons/gi";
+import { MdOutlineEventAvailable } from "react-icons/md";
+import { LiaFileSolid } from "react-icons/lia";
+import { BiSolidDonateBlood } from "react-icons/bi";
+import { GiHealing } from "react-icons/gi";
+import { FaFileAlt } from "react-icons/fa";
+import { AiOutlineSchedule } from "react-icons/ai";
+import { FaUserDoctor } from "react-icons/fa6";
 
 const LogedHome = () => {
     const [iniputs,setInputs] = useState('')
@@ -28,11 +41,15 @@ const LogedHome = () => {
     const [category, setCateory] = useState("")
     const [Email, setEmail] = useState('')
 
+    const [datess, setDatess] = useState(new Date());
+    
+
 {/* Speciality finding */}
 
     const [speciality, setSpecility] = useState('')
     const [date, setDate] = useState('')
     const [location, setLocation] = useState('')
+    const [locations, setLocations] = useState('')
     const [submitDisabled, setSubmitDisabled] = useState(true)
       const navigate = useNavigate();
 
@@ -58,14 +75,19 @@ const LogedHome = () => {
 
   return (
     <div>
-    <nav className='flex flex-row z-[1000] h-fit w-full right-0 top-0  bg-[#FFFFFF] p-[7px] pt-[2px] sticky'>
-        <Link to ='/' ><img src={logo} className='w-[65px] h-[65px] mt-[7px] cursor-pointer'/></Link>
-        <div className= 'flex h-fit w-fit  mt-[10px] justify-center ml-[20px] bg-[#D9D9D9] rounded-2xl shadow-[1px_2px_3px_gray]'>
-            <div className=' w-fit flex flex-row  '>
+    <nav className='grid grid-cols-[1.6fr_4fr] z-[1000] h-fit w-full right-0 top-0  bg-[#33b87c] p-[6px]  sticky shadow-[1px_2px_2px_gray]'>
+        <div className='grid grid-cols-2 self-end w-fit'>
+        <div className='w-full flex flex-row gap-3'>
+        <IoMenu size={30} className=' text-[#33b87c] rounded-[5px] bg-white mt-[10px] cursor-pointer mr-[15px]'/>
+            <div className='w-fit h-fit p-[0px] rounded-full bg-white mt-[7px]'>
+            
+            <Link to ='/' ><img src={logo} className='w-[35px] cursor-pointer '/></Link></div></div>
+        <div className= 'flex h-fit w-fit   m-[5px]  self-center ml-[5px] bg-white rounded-[10px] '>
+            <div className=' w-fit flex flex-row'>
             <select  name='dropdown' title='Categories' value={selectedSearch} onChange={function(e){
                 setSelectedSearch(e.target.value)
             }}
-             className='w-fit p-[20px] active:border rounded-0 border-gray-300 active:border-gray-500 h-fit font-ubuntu text-[#000000] '>
+             className='w-fit p-[10px] active:border-0 rounded-l-[10px]  active:border-gray-500 h-fit font-ubuntu text-[#000000] '>
                 <option value='' disabled seleected>select category</option>
                 <option value='Dental'> Dental</option>
                 <option value='Optics'> Optics</option>
@@ -74,24 +96,26 @@ const LogedHome = () => {
                 <option value='Respiration'> Respiration</option>
                 <option value='Accidents'> Accidents</option>
             </select>
-            <div className='h-full w-[1px] bg-gray-500 '></div>
+            <div className='h-full w-[0.6px] bg-gray-500 '></div>
             <input type='search' name='input' value={iniputs} onChange= {function(e){
                 setInputs(e.target.value)
             }}
-             className='h-full  w-[400px]  border-2  border-[#D9D9D9] p-[10px] pb-[10px] active:border-l-white active:border-r-0 active:border-b-0' 
+             className='h-full  w-[400px]    border-[#D9D9D9] rounded-0 p-[7px pl-[20px]  focus:border-[1.5px]' 
              placeholder='Search your needed support'/>
             </div>
             <div className='flex  justify-self-end flex-row gap-[20px]  text-gray-900'>
-                <div className='h-full w-[1px] bg-gray-500 '></div>
-                <IoIosSearch size={35} className='ml-[10px] mr-[17px] cursor-pointer mt-[13px]' />
+                <div className='h-full self-center w-[0.6px] bg-gray-500 '></div>
+                <IoIosSearch size={30} className='ml-[10px] mr-[10px] text-gray-600 cursor-pointer mt-[8px]' />
+                
             </div>
         </div>
-        <div className='flex flex-row justify-between ml-[9.9%] justify-self-end items-start'>
-            <GrLanguage size={35} className='text-green-600 mt-[23px] ml-[30px] cursor-pointer'/>
+        </div>
+        <div className='flex flex-row justify-between ml-[19.9%] justify-self-end gap-2'>
+            <GrLanguage size={30} className='text-gray-200 mt-[10px] ml-[30px] cursor-pointer'/>
             <select name='dropdown' value={selectedLanguage} onChange={function(e){
                 setSelectedLanguage(e.target.value)
             }} 
-            className='bg-white w-fit h-full p-[10px] pl-[3px] ml-[15px] focus:border-white active:border-white focus:border-b cursor-pointer'>
+            className='text-gray-700 w-fit h-full p-[10px] pl-[3px] pt-[2px] ml-[10px] focus:border-white active:border-white focus:border-b cursor-pointer'>
                 <option value='' disabled seleected>language</option>
                 <option value = 'Kinyarwanda'>Kinyarwanda</option>
                 <option value = 'English' >English</option>
@@ -100,103 +124,94 @@ const LogedHome = () => {
                 <option value = 'Deutch'>Deutch</option>
                 <option value = 'Spanish'>Spanish</option>
             </select> 
-            <FaCircleUser size={35} className=' text-green-600 mt-[23px] ml-[15px] cursor-pointer'/>
-            <IoMdNotificationsOutline size={35} className='ml-[15px] text-green-600 mt-[23px] cursor-pointer'/>
+            <LuMessageSquareText size={30} className=' text-white mt-[10px] cursor-pointer ml-[15px]'/>
+
+            <IoNotificationsOutline size={30} className='ml-[15px] text-white mt-[10px] cursor-pointer'/>
+            <div className='w-[37px] h-[37px] bg-white rounded-full mt-[7px]'></div>
             <h1 className='text-[23px] text-green-600 font-bold mt-[20px]'>{localStorage.getItem('me')}</h1>
-            <IoMenu size={45} className=' text-green-600 mt-[13px] cursor-pointer ml-[15px]'/>
         </div>
     </nav>
-     <div 
-      className="min-w-full max-w-full min-h-screen flex items-center justify-center bg-cover bg-center sm:bg-center sm:bg-no-repeat"
-      style={{ backgroundImage: `url(${bg})` }} 
-    >
-      <div className='bg-green-600/44 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center relative'>
-        
-        <h1 className='max-w-prose mx-auto break-words mt-[50px] font-bold text-white text-[40px] text-start md:text-[58px]  leading-tight'>
-        {bg === landing ? 
-        (
-        <p className='text-start text-[28px] ml-[-28.8%]'>
-          Find the best Healthcare <br /> Services Near You
-        </p>
-        ) 
-        :(
-        <p className='text-start ml-[-10%] text-[28px]'>
-          We offer the best quality services <br /> to ensure healthy lives
-        </p>
-        )
-        }
-        </h1>
 
-        <div className='max-w-full text-center overflow-x-auto pt-[40px] bg-opacity-60'>
-          <p className="max-w-prose  text-start mx-auto ml-[12.5%] break-words text-white text-[19px] md:text-[19px] leading-relaxed">
-        {bg === landing ? `Welcome to our website, where we specialize in providing 
-        top-notch health facilities and services. With a team of 
-        experienced doctors and pharmacists, we are dedicated to
-        ensuring the well-being of our patients.`
-        : `At our website, we offer a wide range of services to cater to your healthcare needs.
-        From specialist consultations to pharmacy services,
-        we have you covered.`}
-        </p>
-        </div>
-        </div>
-        </div>
-        <div className='grid grid-cols-[2fr_2fr_2fr] md:grid-cols-3 gap-5 w-full h-fit bg-white pt-[40px] pl-[20px] pr-[20px] pb-[50px]'>
-            <div className=' border items-center flex flex-col gap-2.5 h-[280px] '>
-            <h1 className="relative font-bold text-[35px]  mb-[80px] after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-[50px] after:h-[4px] after:bg-[#20B573]">
-             Clinics</h1>
-             <p className='break-words leading-relaxed'>
-                Explore our network<br/> of clinicks and specialists
-             </p>
-             <p className='m-[7px]'><Link to='/patient' className='border-2 border-[#20B573] text-[#20B573] p-[15px]  rounded-[28px] text-center font-bold'>
-             Explore all Clinics</Link></p>
+    <div className='w-full h-fit bg-blue-100/30'>
+        <div className='grid grid-cols-[1.5fr_4fr_1fr]   w-full'>
+            {/* left nav */}
 
+            <div className='p-4 bg-white w-full flex flex-col gap-2 shadow-[2px_0_8px_0_rgba(0,0,0,0.1)]'>
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <LuLayoutDashboard size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Dashboard</p>
             </div>
-            <div className="min-w-fit max-h-fit h-[280px] flex items-center justify-center bg-cover bg-center shadow-[1px_2px_3px]"
-            style={{ backgroundImage: `url(${Emergency})` }} >
-                <div className='bg-green-300/30 font-bold text-[34px] text-white min-w-full min-h-full p-[7px] rounded-lg shadow-lg text-start flex flex-col items-start justify-center relative'>
-                    <p className=''>
-                        CHUK<br/>
-                        KN 4 Ave, Kigali
-                    </p>
-                </div>     
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <AiOutlineSchedule  size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Schedules</p>
             </div>
-            <div className="min-w-fit max-h-fit h-[280px] flex items-center justify-center bg-cover bg-center shadow-[1px_2px_3px]"
-            style={{ backgroundImage: `url(${Emergency})` }} >
-                <div className='bg-green-300/30 font-bold text-[34px] text-white min-w-full min-h-full p-[7px] rounded-lg shadow-lg text-start flex flex-col items-start justify-center relative'>
-                    <p className=''>
-                        CHUK<br/>
-                        KN 4 Ave, Kigali
-                    </p>
-                </div>     
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <FaUserDoctor size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Find doctor</p>
             </div>
-            <div className="min-w-fit max-h-fit h-[280px] flex items-center justify-center bg-cover bg-center shadow-[1px_2px_3px]"
-            style={{ backgroundImage: `url(${Emergency})` }} >
-                <div className='bg-green-300/30 font-bold text-[34px] text-white min-w-full min-h-full p-[7px] rounded-lg shadow-lg text-start flex flex-col items-start justify-center relative'>
-                    <p className=''>
-                        CHUK<br/>
-                        KN 4 Ave, Kigali
-                    </p>
-                </div>     
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <GiHospitalCross size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Hospitals</p>
             </div>
-            <div className="min-w-fit max-h-fit h-full flex items-center justify-center bg-cover bg-center shadow-[1px_2px_3px]"
-            style={{ backgroundImage: `url(${Emergency})` }} >
-                <div className='bg-green-300/30 font-bold text-[34px] text-white min-w-full min-h-full p-[7px] rounded-[7px] shadow-lg text-start flex flex-col items-start justify-center relative'>
-                    <p className=''>
-                        CHUK<br/>
-                        KN 4 Ave, Kigali
-                    </p>
-                </div>     
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <MdOutlineEventAvailable size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Consultations</p>
             </div>
-            <div className="min-w-[180px] max-h-fit h-full flex items-center justify-center bg-cover bg-center shadow-[1px_2px_3px]"
-            style={{ backgroundImage: `url(${Emergency})` }} >
-                <div className='bg-green-300/30 font-bold text-[34px] text-white min-w-full min-h-full p-[7px] rounded-lg shadow-lg  flex flex-col items-start text-start justify-center relative'>
-                    <p className=''>
-                        CHUK<br/>
-                        KN 4 Ave, Kigali
-                    </p>
-                </div>     
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <LiaFileSolid size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Medical reports</p>
             </div>
-        </div>
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <BiSolidDonateBlood size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Donate now</p>
+            </div>
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <GiHealing size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Buy medecine</p>
+            </div>
+            <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
+                          <FaFileAlt size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76iclesb]'>Blogs and articles</p>
+            </div>
+            </div>
+
+            {/* middle nav */}
+
+            <div></div>
+
+            {/* right nav */}
+
+        <div className="flex  justify-center w-full h-full   bg-gray-100">
+      <div className="bg-white rounded-2xl shadow-lg p-6 w-fit h-fit">
+        <h2 className="text-2xl font-bold mb-4">Upcoming appointment</h2>
+        <Calendar
+          onChange={setDatess}
+          value={datess}
+          nextLabel={<span className="text-xl">❯</span>}
+          prevLabel={<span className="text-xl">❮</span>}
+          navigationLabel={({ date }) =>
+            <div className="text-left font-semibold text-lg">
+              {date.toLocaleString('default', { month: 'long' })} {date.getFullYear()}
+            </div>
+          }
+          formatShortWeekday={(locale, date) =>
+            date.toLocaleDateString(locale, { weekday: 'short' }).toUpperCase().slice(0, 3)
+          }
+          tileClassName={({ date: tileDate, view }) => {
+            if (view === 'month' && tileDate.toDateString() === datess.toDateString()) {
+              return 'bg-green-500 text-white rounded-full';
+            }
+            return 'rounded-full hover:bg-green-100';
+          }}
+          className="border-0 w-full text-center [&_.react-calendar__navigation]:mb-2 
+                     [&_.react-calendar__navigation__label]:text-left 
+                     [&_.react-calendar__tile]:p-2 [&_.react-calendar__tile]:text-sm 
+                     [&_.react-calendar__month-view__days__day--weekend]:text-black
+                     [&_.react-calendar__month-view__weekdays]:text-xs [&_.react-calendar__month-view__weekdays]:text-gray-400"/>
+      </div>
+      </div>
+      </div>
+    </div>
 
                        {/* Find the Doctor*/}
 
@@ -255,15 +270,164 @@ const LogedHome = () => {
         </div>
         <h1 className='font-bold ml-[16px] text-[16px]'>Find a doctor by City</h1>
         <div className=' gap-1 p-[20px]  self-center'>
-            <div className='w-[50%] grid grid-cols-[1fr_1fr] ml-[30%]'>   
+            <div className='w-full grid grid-cols-6 gap-2'>  
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kimironko</label>
         <select name='dropdown' value={category} onChange={function(e){
-            setCateory(e.target.value)
-         }} className='w-[70%] h-fit p-[10px]'>
+                setLocations('Kimironko')
+                setCateory(e.target.value)
+            
+         }} className='w-full h-fit p-[5px] focus-within:border-0 border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
                     <option value='Cardiology'>Cardiology</option>
                     <option value='Physical'>Physical</option>
                     <option value='Consultation'>Consultation</option>
                     <option value='Orphthamology'>Orphthamology</option>
         </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Nyamirambo</label>
+        <select name='dropdown' value={category} onChange={function(e){
+                setLocations('Nyamirambo')
+                setCateory(e.target.value)
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kimisagara</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Kimisagara')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kicukiro</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Kicukiro')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kacyiru</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Kacyiru')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kimihurura</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Kimihurura')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kabuga</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Kabuga')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Kagugu</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Kagugu')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Gasanze</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Gasanze')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Gikondo</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Gikondo')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Nyarutarama</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Nyarutarama')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
+        <div className='m-[25px]'>
+        <label htmlFor='city' className='text-[17px] font-bold text-black'>Gahanga</label>
+        <select name='dropdown' value={category} onChange={function(e){
+            setCateory(e.target.value)
+            setLocation('Gahanga')
+         }} className='w-full h-fit p-[5px] focus-within:border-0  border-gray-500 bg-[#fcfcfe] text-gray-800'>
+            <option value='' disabled>Select speciality </option>
+                    <option value='Cardiology'>Cardiology</option>
+                    <option value='Physical'>Physical</option>
+                    <option value='Consultation'>Consultation</option>
+                    <option value='Orphthamology'>Orphthamology</option>
+        </select>
+        </div>
         </div>
         </div>
 
@@ -290,7 +454,7 @@ const LogedHome = () => {
                    Nyarugenge, KN 74 Street Kigali<br/>
                    +250791586237 
                 </p>
-                <button type='button'className='p-[20px] text-center font-white bg-green-700 rounded-[7px] w-full text-white font-bold'>For more info</button>
+                <button type='button'className='p-[20px] text-center font-white bg-[#33b87c] rounded-[7px] w-full text-white font-bold'>For more info</button>
             </div>
             </div>
             <div className='w-full flex-col'>
@@ -305,7 +469,7 @@ const LogedHome = () => {
                    Nyarugenge, KN 74 Street Kigali<br/>
                    +250791586237 
                 </p>
-                <button type='button'className='p-[20px] text-center font-white bg-green-700 rounded-[7px] w-full text-white font-bold'>For more info</button>
+                <button type='button'className='p-[20px] text-center font-white bg-[#33b87c] rounded-[7px] w-full text-white font-bold'>For more info</button>
             </div>
             </div>
             <div className='w-full flex-col'>
@@ -320,34 +484,34 @@ const LogedHome = () => {
                    Nyarugenge, KN 74 Street Kigali<br/>
                    +250791586237 
                 </p>
-                <button type='button'className='p-[20px] text-center font-white bg-green-700 rounded-[7px] w-full text-white font-bold'>For more info</button>
+                <button type='button'className='p-[20px] text-center font-white bg-[#33b87c] rounded-[7px] w-full text-white font-bold'>For more info</button>
             </div>
             </div>
             </div>
         </div>
-        <div className='grid grid-cols-[2fr_2fr] gap-5p w-full h-[310px] p-[20px] '>
+        <div className='grid grid-cols-[2fr_2fr] gap-5p w-full h-fit p-[20px] pb-[50px] '>
             <div className='w-full h-fit flex flex-col'>
                 <h1 className='font-bold text-[33px] text-black'>Ask anything about your health</h1>
                 <p className='text-[23px] font-ubuntu'>Get trusted answers ddirectly from baho</p>
-                <Link to ='/patient' className='bg-green-700 p-[10px] text-center text-[27px] rounded-[7px] text-white'>Ask Baho ai</Link>
+                <Link to ='/patient' className='bg-[#33b87c] p-[10px] text-center text-[27px] rounded-[7px] text-white'>Ask Baho ai</Link>
             </div>
-            <div className='w-full h-full bg-cover bg-center' style={{ backgroundImage: `url(${contact})` }}>
+            <div className='w-full h-[260px] bg-contain bg-no-repeat bg-center' style={{ backgroundImage: `url(${contact})` }}>
 
             </div>
         </div>
-        <div className='grid grid-cols-[3fr_1fr_1fr_1fr] gap-9 w-full h-fit z-[-1000] bottom-0 right-0 bg-[#3c7a5e] pt-[30px]'>
-            <div className='w-full p-[20px]'>
-                <h1 className='font-bold text-white text-[22px]'>
+        <div className='grid grid-cols-[3fr_1fr_1fr_1fr] gap-9 w-full h-fit z-[-1000] bottom-0 right-0 bg-[#5bae89] pb-[40px] pt-[60px]'>
+            <div className='w-full pl-[20px]'>
+                <h1 className='font-bold text-white text-[30px]'>
                     Join our Newsletter to receive updates on features and releases.
                 </h1>
                 <form className='grid grid-cols-[3fr_1fr] gap-4 w-full mt-[9px]'>
                 <input type='Email' name='Email'  placeholder='Enter your Email' className='border-2 w-full border-white text-white p-[10px] placeholder:text-gray-200 rounded-[7px]'/>
-                <button type='submit' className='border-2 w-full border-white font-bold text-white p-[10px] rounded-[7px] bg-[#0be080] hover:bg-[#0be082]'> Subscribe</button>
+                <button type='submit' className='border-2 w-full border-white font-bold text-white p-[10px] rounded-[7px] '> Subscribe</button>
                 </form>
-                <p className=' text-white text-[14px] mt-[13px]'>By subscribing, you agree to our Privacy policy and consent to receive updates from our company</p>
+                <p className=' text-white text-[12px] mt-[13px]'>By subscribing, you agree to our Privacy policy and consent to receive updates from our company</p>
             </div>
-            <div className='w-full text-center'>
-                <h1 className='font-bold text-black text-[27px]'>Top specialist</h1>
+            <div className='w-full text-start ml-[70px]'>
+                <h1 className='font-bold text-black text-[22px]'>Top specialist</h1>
                 <ul className='w-full flex flex-col gap-5 text-white text-[15px]'>
                     <li>Dr Cyubahiro</li>
                     <li>DR. Emmanuel</li>
@@ -355,8 +519,8 @@ const LogedHome = () => {
                     <li>DR Ruyanga</li>
                 </ul>
             </div>
-            <div className='w-full text-center'>
-                <h1 className='font-bold text-black text-[27px]'>Top Clinics</h1>
+            <div className='w-full text-start'>
+                <h1 className='font-bold text-black text-[22px]'>Top Clinics</h1>
                 <ul className='w-full flex flex-col gap-5 text-white text-[15px]'>
                     <li>Kipharma</li>
                     <li>One-gate clinic</li>
@@ -364,12 +528,13 @@ const LogedHome = () => {
                     <li>Ramba clinic</li>
                 </ul>
             </div>
-            <div className='w-full text-center'>
-                <h1 className='font-bold text-black text-[27px]'>Folow Us</h1>
-                <ul className='w-full flex flex-col gap-5 text-black text-[20px]  pl-[70px]'>
-                    <li><FaSquareXTwitter size={35}/></li>
-                    <li><IoLogoWhatsapp size={35}/></li>
-                    <li><FaLinkedin size={35}/></li>
+            <div className='w-full text-start ml-[-40px] items-start'>
+                <h1 className='font-bold text-black text-[22px]'>Folow Us</h1>
+                <ul className='w-full flex flex-col text-start self-start gap-5 text-black text-[20px]  '>
+                    <li className='self-start text-start flex flex-row gap-1.5'><FaSquareXTwitter size={25} className='self-start'/><p className='text-white text-[15px]'>Twitter</p></li>
+                    <li className='self-start text-start flex flex-row gap-1.5'><IoLogoWhatsapp size={25}/> <p className='text-white text-[15px]'>WhatsApp</p></li>
+                    <li className='self-start text-start flex flex-row gap-1.5'><FaLinkedin size={25}/> <p className='text-white text-[15px]'>Linkedin</p></li>
+                    <li className='self-start text-start flex flex-row gap-1.5'><IoLogoWhatsapp size={25}/> <p className='text-white text-[15px]'>WhatsApp</p></li>
             
                 </ul>
             </div>

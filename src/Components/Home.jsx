@@ -8,6 +8,7 @@ import landing from '../assets/patient.jpg'
 import mask from '../assets/mask.jpg'
 import testi from '../assets/testi.jpg'
 import logo from '../assets/logo.png'
+import footer from '../assets/footer.png'
 import chuk from '../assets/chuk.png'
 import legacy from '../assets/legacy.png'
 import h from '../assets/h.png' 
@@ -38,19 +39,19 @@ const Home = () => {
   return (
     <>
     
-      <nav className=' bg-white  z-[1000] top-0 right-0 w-full flex pt-[23px] pl-[10px] pb-[7px] sticky'>
+      <nav className=' bg-white  z-[1000] top-0 right-0 w-full flex p-[6px] shadow-[1px_2px_3px_gray]  sticky'>
         <div className='hidden sm:hidden md:flex lg:flex md:flex-row lg:flex-row'>
-        <ul className='flex flex-row gap-8 text-[24px]'>
-          <li className='flex sm:flex md:flex lg:flex cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'><img src={logo} className=' w-[65px]'/></Link></li>
+        <ul className='flex flex-row gap-8 text-[22px]'>
+          <li className='flex sm:flex md:flex lg:flex cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'><img src={logo} className=' w-[45px]'/></Link></li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/doctor'>Doctor</Link></li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Services</Link> </li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/'>Contact Us</Link> </li>
           <li className='cursor-pointer hover:text-green-400 active:text-green-300'><Link to ='/patient'>More</Link> </li>
         </ul>
-        <ul className='absolute  flex flex-row gap-10 text-[24px]  right-5 justify-items-center'>
-          <li className='border-2  border-green-400 p-1.5 pl-7 pr-7 hover:text-green-500 cursor-pointer'><Link to='login'> Log in</Link></li>
-          <li className='border-2  border-green-400 p-1.5 pl-7 pr-7 hover:text-green-500 cursor-pointer'><Link to='signup'> Sign Up</Link></li>
-          <li className='hidden sm:hidden md:hidden lg:flex border border-green-400 hover:bg-green-300  bg-emerald-500 p-1.5 pl-7 pr-7 text-white cursor-pointer'><Link type='button'> Learn More</Link></li>
+        <ul className='absolute  flex flex-row gap-10 text-[20px]  right-5 justify-items-center'>
+          <li className='border-2  border-green-400  p-[15px] pt-[5px] pb-[5px] hover:text-green-500 cursor-pointer'><Link to='login'> Log in</Link></li>
+          <li className='border-2  border-green-400  p-[15px] pt-[5px] pb-[5px] hover:text-green-500 cursor-pointer'><Link to='signup'> Sign Up</Link></li>
+          <li className='hidden sm:hidden md:hidden lg:flex border border-green-400 hover:bg-green-300  bg-emerald-500 p-[15px] pt-[5px] pb-[5px] text-white cursor-pointer '><Link type='button'> Learn More</Link></li>
         </ul>
         </div>
         <Link to ='/'><img src={logo} className='absolute flex sm:flex md:hidden lg:hidden w-[65px] cursor-pointer'/></Link>
@@ -75,7 +76,7 @@ const Home = () => {
         <div className="min-w-full min-h-screen flex items-center overflow-y-hidden justify-center bg-cover bg-center sm:bg-center sm:bg-no-repeat"
         style={{ backgroundImage: `url(${bg})` }} >
         <div className='bg-green-600/44 min-w-full min-h-screen p-8 rounded-lg shadow-lg text-center overflow-y-hidden flex flex-col items-center justify-center relative'>
-        <h1 className='mt-[50px] font-bold text-white text-[40px] md:text-[58px] leading-tight'>
+        <h1 className='mt-[50px]  font-ubuntu font-bold text-white text-[40px] md:text-[58px] leading-tight'>
           
           {bg === landing ? 
           (
@@ -115,7 +116,7 @@ const Home = () => {
 
         {/* The division after the one with blue background */}
 
-        <div className='w-full bg-cover bg-right h-fit pt-[40px] pb-[30px] pl-[25px] p-[15px] grid grid-cols-[1fr_1fr]' 
+        <div className='w-full bg-container bg-right h-fit pt-[40px] pb-[30px] pl-[25px] p-[15px] grid grid-cols-[1fr_1fr]' 
         style={{ backgroundImage: `url(${surgery})` }}>
           <div className='flex flex-col w-full h-fit'>
           <h1 className="font-bold text-[20px] text-black text-start self-auto after:content-['']   after:w-[190px] after:ml-[-300px] after:h-[8px] after:bg-[#20B573]">
@@ -148,7 +149,7 @@ const Home = () => {
 
         {/*  Mask division*/}
 
-        <div className='w-full h-fit bg-cover' 
+        <div className='w-full h-fit bg-contain' 
         style={{ backgroundImage: `url(${bg})` }}>
           <div className='w-full h-full self-center flex flex-col bg-green-700/34 pt-[40px] pb-[30px] pl-[25px] p-[15px]'>
           <div className='w-[40%] self-center'>
@@ -196,14 +197,14 @@ const Home = () => {
           </div>
         </div>
         <div className='flex flex-col  w-ull h-fit'>
-        <div className='w-full h-full pt-[7px] pb-[30px] bg-cover  bg-no-repeat mb-[50px]' style={{ backgroundImage: `url(${testimonial})` }}>
+        <div className='w-full h-full pt-[7px] pb-[30px] bg-contain bg-center  bg-no-repeat mb-[50px]' style={{ backgroundImage: `url(${testimonial})` }}>
           <h1 className='font-bold text-[30px] self-center text-center'><span className='bg-blue-200'>Testi</span>monial</h1>
-          <div className='w-[33%] h-fit grid grid-cols-[0.7fr_2fr] mt-[10%] m-[10px]'>
-          <img src={testi} className='w-[67px] h-[67px]  rounded-[30px]'/>
-          <p className='font-bold text-[18px]'>
+          <div className='w-[30%] gap-5  h-fit grid grid-cols-[1fr_4fr] mt-[8%] m-[10px]'>
+          <img src={testi} className='w-[77px] h-[77px] rounded-full border'/>
+          <p className='font-bold text-[16px] w-fit h-fit text-start self-start mt-[-20px] rounded-l-full p-4  bg-[#d5ebf6]'>
           <i>
-            "The treatment I received was exceptional. 
-            I highly recommend this clinic".
+            "The treatment<br/> I received was exceptional.<br/>
+            I highly recommend<br/> this clinic".
           </i>
           </p>
           </div>
@@ -217,9 +218,7 @@ const Home = () => {
           <h1 className='font-bold text-[24px]'>Meet Our Partners</h1>
         </div>
         <div className="w-full relative h-[152px] overflow-hidden mb-[15px] pl-[20px] pr-[20px]">
-  <div className="absolute pt-[15px] pb-[15px] left-0 top-1/2 transform -translate-y-1/2 z-10">
-    {/* Left Arrow can go here */}
-  </div>
+
 
   <div className="w-full h-full grid grid-cols-3 gap-4">
     {/* Column 1 */}
@@ -280,9 +279,6 @@ const Home = () => {
     </div>
   </div>
 
-  <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
-    {/* Right Arrow can go here */}
-  </div>
 
   <style>{`
     @keyframes fade-1 {
@@ -314,8 +310,11 @@ const Home = () => {
       animation: fade-3 10s infinite;
     }
   `}</style>
-</div>
 
+</div>
+<div className='w-full bg-emerald-600/3  h-[300px] mt-[10px] bg-center bg-contain' style={{ backgroundImage: `url(${footer})` }}>
+  
+</div>
 
     </>
   )

@@ -13,6 +13,7 @@ import { CheckCircle } from "lucide-react";
 import { IoIosClose } from "react-icons/io";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { MdContactPhone } from "react-icons/md";
+import { color } from 'framer-motion';
 
 const Signup = () => {
     
@@ -40,6 +41,9 @@ const Signup = () => {
     const [pNext, setPNext] = useState(true)
     const [pStep1, setPStep1] = useState(false)
     const navigate = useNavigate();
+    const [emailerror, setEmailError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [phoneError, setPhoneError] = useState('')
 
 
     {/* Doctor's step 1 */}
@@ -260,20 +264,54 @@ const Signup = () => {
         }
         else if(pStep1){
             const isPhoneValid = /^(?:\+?\d{1,3})?[-.\s]?\(?\d{1,4}\)?([-.\s]?\d{2,4}){2,3}$/.test(phone);
-            const isPasswordValid =
-            password.length >= 8 &&
-            /[a-z]/.test(password) &&
-            /[A-Z]/.test(password) &&
-            /[0-9]/.test(password) &&
-            /[!@#$%^&*(),.?":{}|<>]/.test(password);
-            if (
-                !fName || !lName || !Email || !password || !checkPass || !phone || !dates ||
-                !isPhoneValid || !isPasswordValid || password !== checkPass
+            
+            if(!isPhoneValid){
+                setPhoneError('Invalid phone number')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('')
+                setErrorColor('red')
+            }
+            else if( (password.length >1) && (!/[a-z]/.test(password)|| !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password))){
+                setPhoneError('')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('Very week Password')
+                setErrorColor('red')
+            }
+            else if(password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password)){
+                setPhoneError('')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('Strong Password')
+                setErrorColor('green')
+            }
+             
+            else if(password !== checkPass){
+                setPhoneError('')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('The passwords do not match')
+                setErrorColor('red')
+            }
+            else if(password === checkPass){
+                setPhoneError('')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('Passwords match')
+                setErrorColor('green')
+            }
+            else if (
+                !fName || !lName || !Email || !dates
               ) {
                 setPNext(true); // Disable the button
               }
              else {
                 setPNext(false); // Enable button
+                setPhoneError('')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('')
             }
         }
     }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb,dPhone, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,Email,password,checkPass,dates,phone,pNext,pStep1]);
@@ -574,6 +612,7 @@ const Signup = () => {
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
             <Mail/>
            </button>
+           <p style={{color : errorColor}}>{emailerror}</p>
            </div>
            <div className='relative flex flex-col'>
            <label htmlFor='phone' className=' text-gray-600 text-start'>Phone number</label>
@@ -583,6 +622,7 @@ const Signup = () => {
           <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600" >
             <MdContactPhone size={20}/>
            </button>
+           <p style={{color : errorColor}}>{phoneError}</p>
           </div>
           </div>
           <div className='grid grid-cols-2 w-full gap-3'>
@@ -595,6 +635,7 @@ const Signup = () => {
           onClick={() => setShowPassword(!showPassword)}>
             {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
            </button>
+           <p style={{color : errorColor}}>{passwordError}</p>
           </div>
           <div className="relative flex flex-col">
           <label htmlFor='confirm assword' className=' text-gray-600 text-start'>confirm Password</label>

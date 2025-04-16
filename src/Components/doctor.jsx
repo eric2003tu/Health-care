@@ -32,54 +32,57 @@ const Doctor = () => {
             },[speciality,location])
   return (
         <div>
-        <nav className='flex flex-row z-[1000] h-fit w-full right-0 top-0  bg-[#FFFFFF] p-[5px] pt-[2px] sticky'>
-            <Link to ='/' ><img src={logo} className='w-[75px] h-[75px] cursor-pointer'/></Link>
-            <div className= 'flex h-fit w-fit  mt-[16px] justify-center ml-[60px] bg-[#D9D9D9] rounded-2xl shadow-[1px_2px_3px_gray]'>
-                <div className=' w-fit flex flex-row  '>
-                <select  name='dropdown' title='Categories' value={selectedSearch} onChange={function(e){
-                    setSelectedSearch(e.target.value)
-                }}
-                 className='w-fit p-[10px] active:border rounded-0 border-gray-200 active:border-gray-500 h-fit font-ubuntu text-[#000000] '>
-                    <option value='' disabled seleected>select category</option>
-                    <option value='Dental'> Dental</option>
-                    <option value='Optics'> Optics</option>
-                    <option value='Reproduction'> Reproduction</option>
-                    <option value='Canselling'> Canselling</option>
-                    <option value='Respiration'> Respiration</option>
-                    <option value='Accidents'> Accidents</option>
-                </select>
-                <input type='text' name='input' value={iniputs} onChange= {function(e){
-                    setInputs(e.target.value)
-                }}
-                 className='h-full  ml-[20px] w-[90%]  border-2  border-[#D9D9D9] p-[17px] pb-[17px] active:border-l-white active:border-r-0 active:border-b-0' 
-                 placeholder='Search your needed support'/>
-                </div>
-                <div className='flex  justify-self-end flex-row gap-[20px] ml-[80px] mt-[13px] text-gray-900'>
-                    <TfiClose size={25} className={iniputs ? 'flex  justify-self-end mt-[5px] cursor-pointer' : 'hidden'} onClick={function(){
-                        setInputs('')
-                    }}/>
-                    <IoIosSearch size={35} className='ml-[23px] cursor-pointer' />
-                </div>
+    <nav className='grid grid-cols-[1.6fr_4fr] z-[1000] h-fit w-full right-0 top-0  bg-[#FFFFFF] p-[6px]  sticky shadow-[1px_2px_3px_gray]'>
+        <div className='grid grid-cols-2 self-end w-fit'>
+        <div className='w-full'><Link to ='/patient' ><img src={logo} className='w-[45px] cursor-pointer'/></Link></div>
+        <div className= 'flex h-fit w-fit border-[1.5px]  m-[5px]  self-center ml-[5px] bg-[#D9D9D9] rounded-2xl '>
+            <div className=' w-fit flex flex-row'>
+            <select  name='dropdown' title='Categories' value={selectedSearch} onChange={function(e){
+                setSelectedSearch(e.target.value)
+            }}
+             className='w-fit p-[10px] active:border rounded-l-2xl border-gray-300 active:border-gray-500 h-fit font-ubuntu text-[#000000] '>
+                <option value='' disabled seleected>select category</option>
+                <option value='Dental'> Dental</option>
+                <option value='Optics'> Optics</option>
+                <option value='Reproduction'> Reproduction</option>
+                <option value='Canselling'> Canselling</option>
+                <option value='Respiration'> Respiration</option>
+                <option value='Accidents'> Accidents</option>
+            </select>
+            <div className='h-full w-[1.5px] bg-gray-500 '></div>
+            <input type='search' name='input' value={iniputs} onChange= {function(e){
+                setInputs(e.target.value)
+            }}
+             className='h-full  w-[400px]  border-[1.5px]  border-[#D9D9D9] rounded-0 p-[10px pl-[20px]  focus:border-[1.5px]' 
+             placeholder='Search your needed support'/>
             </div>
-            <div className='flex flex-row justify-between ml-[70px] gap-[15px] justify-self-end '>
-                <GrLanguage size={35} className='text-green-600 mt-[23px] ml-[30px] cursor-pointer'/>
-                <select name='dropdown' value={selectedLanguage} onChange={function(e){
-                    setSelectedLanguage(e.target.value)
-                }} 
-                className='bg-white w-fit h-full p-[10px] pl-[3px] ml-[4px] focus:border-white active:border-white cursor-pointer'>
-                    <option value='' disabled seleected>language</option>
-                    <option value = 'Kinyarwanda'>Kinyarwanda</option>
-                    <option value = 'English' >English</option>
-                    <option value = 'French'>French</option>
-                    <option value = 'Sahili'>Swahili</option>
-                    <option value = 'Deutch'>Deutch</option>
-                    <option value = 'Spanish'>Spanish</option>
-                </select> 
-                <FaCircleUser size={35} className=' text-green-600 mt-[23px] cursor-pointer'/>
-                <IoMdNotificationsOutline size={35} className=' text-green-600 mt-[23px] cursor-pointer'/>
-                <IoMenu size={45} className=' text-green-600 mt-[13px] cursor-pointer ml-[40px]'/>
+            <div className='flex  justify-self-end flex-row gap-[20px]  text-gray-900'>
+                <div className='h-full w-[1.5px] bg-gray-500 '></div>
+                <IoIosSearch size={30} className='ml-[10px] mr-[10px] cursor-pointer mt-[8px]' />
+                
             </div>
-        </nav>
+        </div>
+        </div>
+        <div className='flex flex-row justify-between ml-[19.9%] justify-self-end '>
+            <GrLanguage size={25} className='text-green-600 mt-[10px] ml-[30px] cursor-pointer'/>
+            <select name='dropdown' value={selectedLanguage} onChange={function(e){
+                setSelectedLanguage(e.target.value)
+            }} 
+            className='bg-white w-fit h-full p-[10px] pl-[3px] pt-[2px] ml-[15px] focus:border-white active:border-white focus:border-b cursor-pointer'>
+                <option value='' disabled seleected>language</option>
+                <option value = 'Kinyarwanda'>Kinyarwanda</option>
+                <option value = 'English' >English</option>
+                <option value = 'French'>French</option>
+                <option value = 'Sahili'>Swahili</option>
+                <option value = 'Deutch'>Deutch</option>
+                <option value = 'Spanish'>Spanish</option>
+            </select> 
+            <FaCircleUser size={25} className=' text-green-600 mt-[10px] ml-[15px] cursor-pointer'/>
+            <IoMdNotificationsOutline size={25} className='ml-[15px] text-green-600 mt-[10px] cursor-pointer'/>
+            <h1 className='text-[23px] text-green-600 font-bold mt-[20px]'>{localStorage.getItem('me')}</h1>
+            <IoMenu size={25} className=' text-green-600 mt-[10px] cursor-pointer ml-[15px]'/>
+        </div>
+    </nav>
         <div className='w-fit flex flex-rows gap-17  ml-[20px] m-[10px] sticky'>
             <Link to='/doctor' className='font-bold text-[16px] hover:text-green-400'> Find pharmacy</Link>
             <Link to='/doctor' className='font-bold text-[16px] hover:text-green-400'> Find doctors</Link>
@@ -95,10 +98,17 @@ const Doctor = () => {
             <div className='w-full h-full overflow-y-auto flex border-r-2 border-gray-500 flex-col text-start pb-[35px] pl-[10px]'>
                 <div className='flex gap-18 w-full ml-[7px]'>
                     <h1 className='font-bold text-[14px]'>Filters</h1>
-                    <button className='text-[#4ef593] text-[14px] self-end'>Clear All</button>
+                    <button className='text-[#4ef593] text-[14px] self-end cursor-pointer'  onClick={function(){
+                        setSpeciality(localStorage.removeItem('speciality'))
+                        setLocation(localStorage.removeItem('location'))
+                    }}>Clear All</button>
                 </div>
-                <button className='self-start border-2 border-green-400 p-[4px] rounded-[10px] m-[7px] flex text-[14px]'>{speciality}<IoMdClose size={20} className='text-green-500 ml-[4px]'/></button>
-                <button className='self-start border-2 border-green-400 p-[4px] rounded-[10px] m-[7px] flex text-[14px]'>{location}<IoMdClose size={20} className='text-green-500 ml-[4px]'/></button>
+                <button className={ speciality ? 'self-start border-2 border-green-400 p-[4px] rounded-[10px] m-[7px] flex text-[14px]' : 'hidden'}>{speciality}<IoMdClose size={20} className='text-green-500 ml-[4px] cursor-pointer' onClick={function(){
+                   setSpeciality(localStorage.removeItem('speciality'))
+                }}/></button>
+                <button className={location ? 'self-start border-2 border-green-400 p-[4px] rounded-[10px] m-[7px] flex text-[14px]' : 'hidden'}>{location}<IoMdClose size={20} className='text-green-500 ml-[4px] cursor-pointer' onClick={function(){
+                   setLocation(localStorage.removeItem('location'))
+                }}/></button>
                 <hr className='text-gray-500 m-[4px]'/>
                 <h1 className='font-bold text-[14px] m-[7px]'>Mode of the consult</h1>
                 <div className='flex gap-3'>

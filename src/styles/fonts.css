@@ -1,0 +1,18 @@
+@layer utilities {
+    /* Medical-specific font variations */
+    .font-condensed {
+      font-variation-settings: "wdth" 85, "GRAD" 88;
+    }
+    .font-expanded {
+      font-variation-settings: "wdth" 125;
+    }
+    
+    /* Font loading optimization */
+    .font-loading body {
+      visibility: hidden;
+    }
+    .font-loaded body {
+      visibility: visible;
+      transition: visibility 0.3s ease;
+    }
+  }

@@ -218,7 +218,7 @@ const forget = function(event){
   return (
     <div className='w-full min-h-screen h-screen right-0 grid grid-cols-2'>
       {/* Left Side */}
-        <div className='w-full h-full overflow-y-auto flex flex-col gap-5 bg-[#0dab66] text-white text-center '>
+        <div className='relative w-full h-full overflow-y-auto flex flex-col gap-5 bg-[#0dab66] text-white text-center '>
         <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
             <div className=' w-fit text-start self-center mb-[18%] mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
             <h1 className='font-bold text-white text-start text-[34px] p-[5px]'>
@@ -249,6 +249,7 @@ const forget = function(event){
                     <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
                 </div>
             </div>
+            <div className='absolute rounded-l-full self-end top-[82%] w-[10px] h-[100px] border-l-3 border-white'></div>
             </div>
 
       {/* Right Side */}
