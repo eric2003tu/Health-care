@@ -8,13 +8,15 @@ import { IoMdClose } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { GrLanguage } from "react-icons/gr";
 import { FaCircleUser } from "react-icons/fa6";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
 import { TfiClose } from "react-icons/tfi";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import { LuMessageSquareText } from "react-icons/lu";
+import profile from '../assets/BG.jpg';
 
 
 const Doctor = () => {
@@ -32,15 +34,19 @@ const Doctor = () => {
             },[speciality,location])
   return (
         <div>
-    <nav className='grid grid-cols-[1.6fr_4fr] z-[1000] h-fit w-full right-0 top-0  bg-[#FFFFFF] p-[6px]  sticky shadow-[1px_2px_3px_gray]'>
+    <nav className='grid grid-cols-[1.6fr_4fr] z-[1000] h-fit w-full right-0 top-0  bg-[#33b87c] p-[6px]  sticky shadow-[1px_2px_2px_gray]'>
         <div className='grid grid-cols-2 self-end w-fit'>
-        <div className='w-full'><Link to ='/patient' ><img src={logo} className='w-[45px] cursor-pointer'/></Link></div>
-        <div className= 'flex h-fit w-fit border-[1.5px]  m-[5px]  self-center ml-[5px] bg-[#D9D9D9] rounded-2xl '>
+        <div className='w-full flex flex-row gap-3'>
+        <IoMenu size={30} className=' text-[#33b87c] rounded-[5px] bg-white mt-[10px] cursor-pointer mr-[15px]'/>
+            <div className='w-fit h-fit p-[0px] rounded-full bg-white mt-[7px]'>
+            
+            <Link to ='/patient/' ><img src={logo} className='w-[35px] cursor-pointer '/></Link></div></div>
+        <div className= 'flex h-fit w-fit   m-[5px]  self-center ml-[5px] bg-white rounded-[10px] '>
             <div className=' w-fit flex flex-row'>
             <select  name='dropdown' title='Categories' value={selectedSearch} onChange={function(e){
                 setSelectedSearch(e.target.value)
             }}
-             className='w-fit p-[10px] active:border rounded-l-2xl border-gray-300 active:border-gray-500 h-fit font-ubuntu text-[#000000] '>
+             className='w-fit p-[10px] active:border-0 rounded-l-[10px]  active:border-gray-500 h-fit font-ubuntu text-[#000000] '>
                 <option value='' disabled seleected>select category</option>
                 <option value='Dental'> Dental</option>
                 <option value='Optics'> Optics</option>
@@ -49,38 +55,41 @@ const Doctor = () => {
                 <option value='Respiration'> Respiration</option>
                 <option value='Accidents'> Accidents</option>
             </select>
-            <div className='h-full w-[1.5px] bg-gray-500 '></div>
+            <div className='h-full w-[0.6px] bg-gray-500 '></div>
             <input type='search' name='input' value={iniputs} onChange= {function(e){
                 setInputs(e.target.value)
             }}
-             className='h-full  w-[400px]  border-[1.5px]  border-[#D9D9D9] rounded-0 p-[10px pl-[20px]  focus:border-[1.5px]' 
+             className='h-full  w-[400px]    border-[#D9D9D9] rounded-0 p-[7px pl-[20px]  focus:border-[1.5px]' 
              placeholder='Search your needed support'/>
             </div>
             <div className='flex  justify-self-end flex-row gap-[20px]  text-gray-900'>
-                <div className='h-full w-[1.5px] bg-gray-500 '></div>
-                <IoIosSearch size={30} className='ml-[10px] mr-[10px] cursor-pointer mt-[8px]' />
+                <div className='h-full self-center w-[0.6px] bg-gray-500 '></div>
+                <IoIosSearch size={30} className='ml-[10px] mr-[10px] text-gray-600 cursor-pointer mt-[8px]' />
                 
             </div>
         </div>
         </div>
-        <div className='flex flex-row justify-between ml-[19.9%] justify-self-end '>
-            <GrLanguage size={25} className='text-green-600 mt-[10px] ml-[30px] cursor-pointer'/>
+        <div className='flex flex-row justify-between ml-[19.9%] justify-self-end gap-2'>
+            <GrLanguage size={30} className='text-gray-200 mt-[10px] ml-[30px] cursor-pointer'/>
             <select name='dropdown' value={selectedLanguage} onChange={function(e){
                 setSelectedLanguage(e.target.value)
             }} 
-            className='bg-white w-fit h-full p-[10px] pl-[3px] pt-[2px] ml-[15px] focus:border-white active:border-white focus:border-b cursor-pointer'>
-                <option value='' disabled seleected>language</option>
-                <option value = 'Kinyarwanda'>Kinyarwanda</option>
-                <option value = 'English' >English</option>
-                <option value = 'French'>French</option>
-                <option value = 'Sahili'>Swahili</option>
-                <option value = 'Deutch'>Deutch</option>
-                <option value = 'Spanish'>Spanish</option>
+            className='text-white w-fit text-[17px] h-full p-[10px] pl-[3px] pt-[2px] ml-[10px] focus:border-white active:border-white focus:border-b cursor-pointer'>
+                <option value='' disabled seleected className='text-gray-700'>language</option>
+                <option value = 'Kinyarwanda' className='text-gray-700'>Kinyarwanda</option>
+                <option value = 'English' className='text-gray-700' >English</option>
+                <option value = 'French' className='text-gray-700'>French</option>
+                <option value = 'Sahili' className='text-gray-700'>Swahili</option>
+                <option value = 'Deutch' className='text-gray-700'>Deutch</option>
+                <option value = 'Spanish' className='text-gray-700'>Spanish</option>
             </select> 
-            <FaCircleUser size={25} className=' text-green-600 mt-[10px] ml-[15px] cursor-pointer'/>
-            <IoMdNotificationsOutline size={25} className='ml-[15px] text-green-600 mt-[10px] cursor-pointer'/>
+            <LuMessageSquareText size={30} className=' text-white mt-[10px] cursor-pointer ml-[15px]'/>
+
+            <IoNotificationsOutline size={30} className='ml-[15px] text-white mt-[10px] cursor-pointer'/>
+            <div className='w-[37px] h-[37px] bg-white rounded-full mt-[7px]'>
+                <img src={profile} alt='profile' className='w-[35px] h-[35px] object-fill rounded-full'/>
+            </div>
             <h1 className='text-[23px] text-green-600 font-bold mt-[20px]'>{localStorage.getItem('me')}</h1>
-            <IoMenu size={25} className=' text-green-600 mt-[10px] cursor-pointer ml-[15px]'/>
         </div>
     </nav>
         <div className='w-fit flex flex-rows gap-17  ml-[20px] m-[10px] sticky'>

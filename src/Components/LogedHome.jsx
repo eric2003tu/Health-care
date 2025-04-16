@@ -14,6 +14,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { BrowserRouter as Router, Routes, Route, Link,useNavigate } from 'react-router-dom';
 import { IoMenu } from "react-icons/io5";
+import profile from '../assets/BG.jpg';
 import { TfiClose } from "react-icons/tfi";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoLogoWhatsapp } from "react-icons/io";
@@ -115,25 +116,27 @@ const LogedHome = () => {
             <select name='dropdown' value={selectedLanguage} onChange={function(e){
                 setSelectedLanguage(e.target.value)
             }} 
-            className='text-gray-700 w-fit h-full p-[10px] pl-[3px] pt-[2px] ml-[10px] focus:border-white active:border-white focus:border-b cursor-pointer'>
-                <option value='' disabled seleected>language</option>
-                <option value = 'Kinyarwanda'>Kinyarwanda</option>
-                <option value = 'English' >English</option>
-                <option value = 'French'>French</option>
-                <option value = 'Sahili'>Swahili</option>
-                <option value = 'Deutch'>Deutch</option>
-                <option value = 'Spanish'>Spanish</option>
+            className='text-white w-fit text-[17px] h-full p-[10px] pl-[3px] pt-[2px] ml-[10px] focus:border-white active:border-white focus:border-b cursor-pointer'>
+                <option value='' disabled seleected className='text-gray-700'>language</option>
+                <option value = 'Kinyarwanda' className='text-gray-700'>Kinyarwanda</option>
+                <option value = 'English' className='text-gray-700' >English</option>
+                <option value = 'French' className='text-gray-700'>French</option>
+                <option value = 'Sahili' className='text-gray-700'>Swahili</option>
+                <option value = 'Deutch' className='text-gray-700'>Deutch</option>
+                <option value = 'Spanish' className='text-gray-700'>Spanish</option>
             </select> 
             <LuMessageSquareText size={30} className=' text-white mt-[10px] cursor-pointer ml-[15px]'/>
 
             <IoNotificationsOutline size={30} className='ml-[15px] text-white mt-[10px] cursor-pointer'/>
-            <div className='w-[37px] h-[37px] bg-white rounded-full mt-[7px]'></div>
+            <div className='w-[37px] h-[37px] bg-white rounded-full mt-[7px]'>
+                <img src={profile} alt='profile' className='w-[35px] h-[35px] object-fill rounded-full'/>
+            </div>
             <h1 className='text-[23px] text-green-600 font-bold mt-[20px]'>{localStorage.getItem('me')}</h1>
         </div>
     </nav>
 
-    <div className='w-full h-fit bg-blue-100/30'>
-        <div className='grid grid-cols-[1.5fr_4fr_1fr]   w-full'>
+    <div className='w-full h-fit bg-white pb-[100px]'>
+        <div className='grid grid-cols-[1.5fr_4fr_1fr] bg-blue-100/20 w-full'>
             {/* left nav */}
 
             <div className='p-4 bg-white w-full flex flex-col gap-2 shadow-[2px_0_8px_0_rgba(0,0,0,0.1)]'>
@@ -171,7 +174,7 @@ const LogedHome = () => {
             </div>
             <div className='flex flex-row gap-3 hover:text-[#6bc76b] p-1.5 rounded-[4px] hover:bg-green-500/18'>
                           <FaFileAlt size={30} className='text-gray-600 hover:text-[#6bc76b]'/>
-                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76iclesb]'>Blogs and articles</p>
+                          <p className='text-gray-600 text-[17px] cursor-pointer hover:text-[#6bc76b]'>Blogs and articles</p>
             </div>
             </div>
 
@@ -233,7 +236,7 @@ const LogedHome = () => {
                 </select>
             </div>
             <div>
-            <p className='ml-[35px]'>
+            <p className=''>
                     Select date <span className='text-red-500 ml-[4px]'>*</span>
                 </p>
                 <input type='date' name='date' value={date} onChange={function(e){
@@ -241,7 +244,7 @@ const LogedHome = () => {
                 }} className='border w-full p-[7px] rounded-[7px]'/>
             </div>
             <div>
-            <p className='ml-[35px]'>
+            <p className=''>
                     Prefered location <span className='text-red-500 ml-[4px]'>*</span>
                 </p>
                 <div className='w-full grid grid-cols-[8fr_1fr] border-[1.5px] rounded-[7px]'>
@@ -491,9 +494,9 @@ const LogedHome = () => {
         </div>
         <div className='grid grid-cols-[2fr_2fr] gap-5p w-full h-fit p-[20px] pb-[50px] '>
             <div className='w-full h-fit flex flex-col'>
-                <h1 className='font-bold text-[33px] text-black'>Ask anything about your health</h1>
-                <p className='text-[23px] font-ubuntu'>Get trusted answers ddirectly from baho</p>
-                <Link to ='/patient' className='bg-[#33b87c] p-[10px] text-center text-[27px] rounded-[7px] text-white'>Ask Baho ai</Link>
+                <h1 className='font-bold text-[30px] text-black'>Ask anything about your health</h1>
+                <p className='text-[20px] font-ubuntu'>Get trusted answers directly from baho</p>
+                <Link to ='/patient' className='bg-[#33b87c] w-1/2 p-[10px] text-center text-[27px] mt-[19px] rounded-[7px] text-white'>Ask Baho ai</Link>
             </div>
             <div className='w-full h-[260px] bg-contain bg-no-repeat bg-center' style={{ backgroundImage: `url(${contact})` }}>
 

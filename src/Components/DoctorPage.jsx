@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import logo from '../assets/logo.png'
-import hero from '../assets/hero.png'
 import { IoIosSearch } from "react-icons/io";
 import { Routes, Route, Link } from 'react-router-dom';
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -12,7 +11,6 @@ import { MdOutlineHelpCenter } from "react-icons/md";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuFileSpreadsheet } from "react-icons/lu";
-import { FaUsers } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropright } from "react-icons/io";
@@ -20,6 +18,9 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaPersonWalkingDashedLineArrowRight } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiOutlineLeft, AiOutlineDown } from 'react-icons/ai';
+import AddPatients from './AddPatients';
+import Messages from './Messages';
+import { IoMenu } from "react-icons/io5";
 
 const DoctorPage = () => {
 
@@ -40,15 +41,25 @@ const DoctorPage = () => {
 
     const [search, setSearch] = useState('')
   return (
-    <div className=' grid grid-cols-[2.5fr_10fr] w-full h-screen'>
+    <div className={!emergency ?  ' grid grid-cols-[2.5fr_10fr] w-full h-screen' : ' grid grid-cols-[0.4fr_10fr] w-full h-screen'}>
 
       {/* Left Nav */}
 
-      <div className='w-full flex flex-col gap-2 h-full overflow-y-auto bg-[#15ad6b] p-[10px] pt-[5px]'>
+      <div className={!emergency ? 'w-fit flex flex-col gap-2 h-full overflow-y-auto bg-[#15ad6b] p-[10px] pt-[5px]' : 'w-fit flex flex-col gap-3.5 h-full overflow-y-auto bg-[#15ad6b] p-[10px] pt-[5px]'}>
         <div className='flex w-fulll flex-row gap-4 sticky '>
-            <Link to='/' className='w-fit h-fit p-[1px] bg-white rounded-full'><img src={logo} className='w-[65px] cursor-pointer' alt='logo'/></Link>
-            <h1 className='text-white font-bold text-[20px] mt-[20px]'>Baho Health</h1>
+          { !emergency ? <Link to='/' className='w-fit h-fit p-[1px] bg-white rounded-full'><img src={logo} className='w-[45px] cursor-pointer' alt='logo'/></Link>
+          : 
+          <IoMenu size={35} className='text-white mb-[40px] cursor-pointer' onClick={function(){
+            setEmergency(false)
+            setDashboard(true)
+          }}/>
+          }
+            { !emergency ?
+             <h1 className='text-white font-bold text-[20px] mt-[10px]'>Baho Health</h1>
+            :
+            ''}
         </div>
+        {!emergency ? 
         <div className='relative w-full pr-[10px]'>
         <input type='search' name='search' value={search} onChange={function(e){
             setSearch(e.target.value)
@@ -56,11 +67,26 @@ const DoctorPage = () => {
         <button type="button" className="absolute left-1 top-2/4 transform -translate-y-1/2 text-sm text-gray-200" >
         <IoIosSearch size={30} className='cursor-pointer text-gray-900' />
         </button>
-        </div>
-        <p className='text-gray-800 mt-[10px] mb-[10px]'>MAIN</p>
+        </div> :
+        <IoIosSearch size={35} className='cursor-pointer text-white ' />
+        }
+        <p className={!emergency ? 'text-gray-800 mt-[10px] mb-[10px]' : 'hidden'}>MAIN</p>
         <div className='flex flex-row gap-6'>
-          <LuLayoutDashboard size={30} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'onClick={function(){
+          <LuLayoutDashboard size={30} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(true)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}onClick={function(){
             setDashboard(true)
             setAnalitics(false)
             setBillings(false)
@@ -76,8 +102,21 @@ const DoctorPage = () => {
           }}>Dashboard</p>
         </div>
         <div className='flex flex-row gap-6'>
-          <AiOutlineSchedule size={30} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <AiOutlineSchedule size={30} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(true)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -93,16 +132,16 @@ const DoctorPage = () => {
           }}>Schedules</p>
         </div>
         <div className='flex flex-row gap-6'>
-          <FaUserCircle size={30} className='text-white'/>
-          <p className='text-white mr-[38px] text-[17px] cursor-pointer'>Patients</p> {!patients ? <IoMdArrowDropright size={30} className='text-white' onClick={function(){
+          <FaUserCircle size={30} className='text-white cursor-pointer'/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}>Patients</p> {!patients ? <IoMdArrowDropright size={30} className={!emergency ? 'text-white ml-[40px]' : 'hidden'} onClick={function(){
             setPatients(true)
-          }}/> : <IoMdArrowDropdown size={30} className='text-white' onClick={function(){
+          }}/> : <IoMdArrowDropdown size={30} className={!emergency ? 'text-white cursor-pointer ml-[40px]' : 'hidden'} onClick={function(){
             setPatients(false)
           }}/>}
         </div>
         <ul className={patients ? 'text-gray-200 text-[17px] self-center flex flex-col' : 'hidden'}>
             <li>
-            <button className='cursor-pointer' onClick={function(){
+            <button className={!emergency ? 'cursor-pointer' : 'hidden'} onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -115,10 +154,10 @@ const DoctorPage = () => {
             setRecords(false)
             setAllSchedules(false)
             setReshedule(false)
-          }}>Emergency</button>
+          }}>Patients list</button>
             </li>
             <li>
-            <button className=' cursor-pointer'  onClick={function(){
+            <button className={!emergency ? 'cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -135,16 +174,29 @@ const DoctorPage = () => {
             </li>
           </ul>
         <div className='flex flex-row gap-6'>
-          <RiCalendarScheduleLine size={30} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'>Appointment</p>{!appointments ? <IoMdArrowDropright size={30} className='text-white' onClick={function(){
+          <RiCalendarScheduleLine size={30} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(true)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}>Appointment</p>{!appointments ? <IoMdArrowDropright size={30} className={!emergency ? 'text-white cursor-pointer' : 'hidden'} onClick={function(){
             setAppointments(true)
-          }}/> :<IoMdArrowDropdown size={30} className='text-white' onClick={function(){
+          }}/> :<IoMdArrowDropdown size={30} className={!emergency ? 'text-white cursor-pointer' : 'hidden'} onClick={function(){
             setAppointments(false)
           }}/>}
         </div>
         <ul className={appointments ? 'text-gray-200 text-[17px] self-center flex flex-col' : 'hidden'}>
             <li>
-            <button className='cursor-pointer'  onClick={function(){
+            <button className={!emergency ? 'cursor-pointer' : 'hidden'} onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -160,7 +212,7 @@ const DoctorPage = () => {
           }}>All schedules</button>
             </li>
             <li>
-            <button className='cursor-pointero'  onClick={function(){
+            <button className={!emergency ? 'cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setDashboard(false)
             setAnalitics(false)
@@ -178,8 +230,22 @@ const DoctorPage = () => {
             </li>
           </ul>
         <div className='flex flex-row gap-6'>
-          <FaPersonWalkingDashedLineArrowRight size={30} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <FaPersonWalkingDashedLineArrowRight size={30} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(true)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setDashboard(false)
             setAnalitics(false)
@@ -196,8 +262,21 @@ const DoctorPage = () => {
           }}>consultation</p>
         </div>
         <div className='flex flex-row gap-6'>
-          <LuFileSpreadsheet size={30} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <LuFileSpreadsheet size={30} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(true)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -213,8 +292,21 @@ const DoctorPage = () => {
           }}>Medical Records</p>
         </div>
         <div className='flex flex-row gap-6'>
-          <RiSecurePaymentLine size={30} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <RiSecurePaymentLine size={30} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(true)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(true)
@@ -229,10 +321,23 @@ const DoctorPage = () => {
             setReshedule(false)
           }} > Billings & Payments</p>
         </div>
-        <h1 className='text-gray-800 mt-[10px] mb-[10px]'>DATA VISUALIZATION</h1>
+        <h1 className={!emergency ? 'text-gray-800 mt-[10px] mb-[10px]' : 'hidden'}>DATA VISUALIZATION</h1>
         <div className='flex flex-row gap-6'>
-          <BsGraphUpArrow size={25} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <BsGraphUpArrow size={25} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(true)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(true)
             setBillings(false)
@@ -247,10 +352,23 @@ const DoctorPage = () => {
             setReshedule(false)
           }}> Analytics & Earnings</p>
         </div>
-        <h1 className='text-gray-800 mt-[10px] mb-[10px]'>SUPPORT</h1>
+        <h1 className={!emergency ? 'text-gray-800 mt-[10px] mb-[10px]' : 'hidden'}>SUPPORT</h1>
         <div className='flex flex-row gap-6'>
-          <MdOutlineHelpCenter size={25} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <MdOutlineHelpCenter size={25} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(true)
+            setSettings(false)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -266,8 +384,21 @@ const DoctorPage = () => {
           }}> Help Center</p>
         </div>
         <div className='flex flex-row gap-6'>
-          <IoSettingsOutline size={25} className='text-white'/>
-          <p className='text-white text-[17px] cursor-pointer'  onClick={function(){
+          <IoSettingsOutline size={25} className='text-white cursor-pointer' onClick={function(){
+            setDashboard(false)
+            setAnalitics(false)
+            setBillings(false)
+            setConsultation(false)
+            setEmergency(false)
+            setHomeVisit(false)
+            setHelp(false)
+            setSettings(true)
+            setSchedules(false)
+            setRecords(false)
+            setAllSchedules(false)
+            setReshedule(false)
+          }}/>
+          <p className={!emergency ? 'text-white text-[17px] cursor-pointer' : 'hidden'}  onClick={function(){
             setDashboard(false)
             setAnalitics(false)
             setBillings(false)
@@ -288,7 +419,9 @@ const DoctorPage = () => {
 
        {/* The right nav */}
 
-       <div className='w-full flex flex-col h-full overflow-y-auto p-[20px]'> 
+      
+
+       <div className= 'w-full flex flex-col h-full overflow-y-auto p-[20px]'> 
         <div className='flex flex-col'>
         <div className='flex flex-row gap-4 self-end right-0 top z-[1000] '>
           <IoSettingsOutline size={25} />
@@ -300,44 +433,14 @@ const DoctorPage = () => {
         </div>
           <h1 className={dashboard ? 'self-start text-green-600 ' : 'hidden'} >Good Morning, Dr Shema</h1>
         </div>
-        <div className={dashboard ? 'grid grid-cols-3 gap-4 p-8 w-full h-fit bg-cover' : 'hidden'} 
-        style={{ backgroundImage: `url(${hero})` }}>
-        {/* appointments */}
-        <div className='flex flex-col h-fit w-full p-5 bg-[#15ad6b] rounded-[15px]'>
-          <div className='flex flex-row gap-2 '>
-          <RiCalendarScheduleLine size={30} className='text-white'/> 
-          <h1 className='text-white text-[17px]'>Appointments</h1>
-          <FaArrowRightLong size={30} className='text-white self-end ml-[30%]'/>
-          </div>
-          <hr className='h-[4px] text-white mt-[7px] mb-[10px]'/>
-          <h1 className='text-center text-white text-[34px]'>10</h1>
-          <h1 className='text-start text-white text-[20px]'>Today's Appointments</h1>
-        </div>
+        { dashboard ?
 
-        {/* Messages */}
+         <Messages/>
+        : emergency ? 
+        <AddPatients/>
+        :''
+       }
 
-        <div className='flex h-fit flex-col w-full p-5 bg-[#502687] rounded-[15px]'>
-          <div className='flex flex-row gap-2 '>
-          <SiGooglemessages size={30} className='text-white'/> 
-          <h1 className='text-white text-[17px]'>Messages</h1>
-          <FaArrowRightLong size={30} className='text-white self-end ml-[53%]'/>
-          </div>
-          <hr className='h-[4px] text-white mt-[7px] mb-[10px]'/>
-          <h1 className='text-center text-white text-[34px]'>10</h1>
-          <h1 className='text-start text-white text-[18px]'>You have 10 unread messages</h1>
-        </div>
-            {/* Upcomming Events */}
-        <div className='flex flex-col w-full p-5 bg-[#ad4315] rounded-[15px]'>
-          <div className='flex flex-row gap-2 '>
-          < FaUsers size={30} className='text-white'/> 
-          <h1 className='text-white text-[17px]'>Events</h1>
-          <FaArrowRightLong size={30} className='text-white self-end ml-[53%]'/>
-          </div>
-          <hr className='h-[4px] text-white mt-[7px] mb-[10px]'/>
-          <h1 className='text-center text-white text-[34px]'>10</h1>
-          <h1 className='text-start text-white text-[20px]'>Upcoming Events</h1>
-        </div>
-        </div>
 
        </div>
 
