@@ -440,10 +440,10 @@ const Signup = () => {
                previousEmployer: previousEmployer,
                gradYear: graduationYear,
                medicalSchool: school,
-               LicenseImage: medicalLicence,
+               //LicenseImage: medicalLicence,
                Bio: bio,
                Language: Languages,
-               Idimage: id,
+               //Idimage: id,
                phone: dPhone,
             })
         })
