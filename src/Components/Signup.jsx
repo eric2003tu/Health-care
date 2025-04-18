@@ -263,43 +263,61 @@ const Signup = () => {
             }
         }
         else if(pStep1){
+            const isPasswordValid = (password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password))
             const isPhoneValid = /^(?:\+?\d{1,3})?[-.\s]?\(?\d{1,4}\)?([-.\s]?\d{2,4}){2,3}$/.test(phone);
+
+            const isCheckPassValid = (checkPass.length >= 8 && /[a-z]/.test(checkPass) && /[A-Z]/.test(password) && /[0-9]/.test(checkPass) && /[!@#$%^&*(),.?":{}|<>]/.test(checkPass));
+
+
             
-            if(!isPhoneValid){
+            if(phone.length > 0 && !isPhoneValid){
                 setPhoneError('Invalid phone number')
                 setPNext(true)
                 setEmailError('')
                 setPasswordError('')
                 setErrorColor('red')
+                return
             }
-            else if( (password.length >1) && (!/[a-z]/.test(password)|| !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password))){
+            else if(isPhoneValid && phone.length >=10){
+                setPhoneError('Valid phone number')
+                setPNext(true)
+                setEmailError('')
+                setPasswordError('')
+                setErrorColor('green')
+                return
+            }
+            else if(!isPasswordValid && password.length >0){
                 setPhoneError('')
                 setPNext(true)
                 setEmailError('')
                 setPasswordError('Very week Password')
-                setErrorColor('red')
+                setErrorColor('orange')
+                return
             }
-            else if(password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/.test(password)){
+            else if(isPasswordValid){
                 setPhoneError('')
                 setPNext(true)
                 setEmailError('')
                 setPasswordError('Strong Password')
                 setErrorColor('green')
+                return
             }
              
-            else if(password !== checkPass){
+            else if((isPasswordValid !== isCheckPassValid) && checkPass.length > 0 ){
                 setPhoneError('')
                 setPNext(true)
                 setEmailError('')
                 setPasswordError('The passwords do not match')
                 setErrorColor('red')
+                return
             }
-            else if(password === checkPass){
+            else if((isPasswordValid === isCheckPassValid) && isCheckPassValid){
                 setPhoneError('')
                 setPNext(true)
                 setEmailError('')
                 setPasswordError('Passwords match')
                 setErrorColor('green')
+                return
             }
             else if (
                 !fName || !lName || !Email || !dates
@@ -312,6 +330,7 @@ const Signup = () => {
                 setPNext(true)
                 setEmailError('')
                 setPasswordError('')
+                return
             }
         }
     }, [FirstName, lastName, dEmail, dPassword, dConfirmPassword, dOb,dPhone, province,dstep1,specialization, employer, graduationYear, school, previousEmployer, medicalLicence,dstep2, bio,Languages,id,dstep3, fName,lName,Email,password,checkPass,dates,phone,pNext,pStep1]);
@@ -486,18 +505,23 @@ const Signup = () => {
   return (
     <div>
     <div className='w-full min-h-screen h-screen right-0 grid grid-cols-2'>
-        <div className='w-full h-full overflow-y-auto flex flex-col gap-5 bg-[#0dab66] text-white text-center '>
-        <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
-            <div className=' w-fit text-start self-center mb-[18%] mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
-            <h1 className='font-bold text-white text-start text-[34px] p-[5px]'>
+
+        {/* left nav */}
+
+        <div className='relative w-full h-full   overflow-y-hidden   grid items-center grid-cols-1 gap-5 bg-[#0dab66] text-white '>
+            <div className=' grid grid-cols-1   w-[70%] gap-6.5 text-start justify-items-start justify-self-center'>
+            <div className='grid grid-cols-1 gap-27'>
+            <div className='grid'>
+            <Link to ='/'><IoArrowBackCircle size={40} className='text-white mb-[3%] mt-[10%]'/></Link>
+            <h1 className='font-bold text-white text-[40px] leading-12 p-[5px]'>
                 Welcome to Baho Health
             </h1>
-            <p className='text-white text-start p-[5px] text-[19px]'>
+            <p className='text-white p-[5px] font-poppins font-thin text-[19px]'>
                 Where you can discover a wide range of healthcare
                  services to meet your needs
             </p>
             </div>
-            <div className=' w-fit text-start self-center mt-[7%]  mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
+            <div className='grid '>
                 <div className='flex flex-row gap-2.5'>
                     <FaStar size = {20} className = { 'text-orange-400'}/>
                     <FaStar size = {20} className = { 'text-orange-400'}/>
@@ -505,17 +529,19 @@ const Signup = () => {
                     <FaStar size = {20} className = { 'text-orange-400'}/>
                     <FaStar size = {20} className = { 'text-orange-400'}/>
                 </div>
-            <p className = 'text-white text-start p-[5px] text-[19px] mt-[7px]'>
+            <p className = 'text-white p-[5px] pl-0 text-[19px] font-thin mt-[7px]'>
                 <i>This is a good project cause it saved me a lot of times,
                  you are time saver. Very convenient to use.</i>
             </p>
             </div>
-            <div className='w-fit self-start mr-[10%] ml-[15% ] pl-[13%] pr-[13%]  grid grid-cols-2 gap-0'>
-                <img src={profile} className='w-[60px] self-start h-[60px] rounded-full'/>
-                <div className='ml-[-25px]'>
-                    <h1 className='font-bold text-[20px]'>Devon Lane</h1>
-                    <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
+            </div>
+            <div className='flex flex-row gap-4'>
+                <img src={profile} className='w-[60px] h-[60px] rounded-full'/>
+                <div className='ml-[0px]'>
+                    <h1 className='font-bold text-[20px] font-poppins'>Devon Lane</h1>
+                    <p className='text-[#dee2e6] text-[16px] font-bold font-poppins'>Patient</p>
                 </div>
+            </div>
             </div>
             </div>
 
@@ -524,8 +550,8 @@ const Signup = () => {
 
 
         <div className = { success ? ' flex flex-col h-full w-full bg-blue-200/60 overflow-y-auto ' : 'overflow-y-auto h-full flex flex-col'}>
-        <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr_4fr_1fr] gap-0' : 'w-full p-[15px] grid grid-cols-[1fr_4fr_1fr_4fr_1fr]'}>
-        <div className = {!role ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
+        <div className = { role === 'Doctor' ? 'w-full p-[15px] grid grid-cols-[0.2fr_4fr_0.2fr_4fr_0.2fr_4fr_0.2fr] gap-0' : 'w-full p-[15px] grid grid-cols-[0.2fr_4fr_0.2fr] gap-0'}>
+        <div className = {!role ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-full p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' :  ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-full p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
                 1
         </div>
         <div className={!step1 ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : 'w-full h-[5px] bg-[#1da857] mt-[30px] '}>
@@ -534,8 +560,8 @@ const Signup = () => {
 
             <div className = {pNext && dNext1 ? 'h-fit w-fit  bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
             2</div>
-            <div className ={pNext && dNext2 ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : 'w-full h-[5px] bg-[#1da857] mt-[30px]'}></div>
-            <div className = {!success && dnext3 ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
+            <div className ={pNext && dNext2 && role ==='Doctor' ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : role ==='' || role === 'Patient' ? 'hidden' : 'w-full h-[5px] bg-[#1da857] mt-[30px]'}></div>
+            <div className = {!success && dnext3 && role ==='Doctor' ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ': role ==='' || role === 'Patient' ? 'hidden' : ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]'}>
             3</div>
             <div className = {role ==='Doctor' && dnext3 ? 'w-full h-[5px] bg-gray-600 mt-[30px] ' : role ==='Doctor' && !dnext3 ? 'w-full h-[5px] bg-[#1da857] mt-[30px]':  'hidden'}></div>
             <div className = { role ==='Doctor' && !success ? 'h-fit w-fit   bg-gray-500 border-3  text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px] ' : role ==='Doctor' && success ? ' bg-[#1da857] h-fit w-fit border-3 text-center rounded-[30px] p-[10px] pl-[20px] pr-[20px] text-white font-bold text-[20px]' : 'hidden'}>
@@ -626,6 +652,7 @@ const Signup = () => {
           </div>
           </div>
           <div className='grid grid-cols-2 w-full gap-3'>
+            <div>
           <div className="relative flex flex-col">
           <label htmlFor='Password' className=' text-gray-600 text-start'>Password</label>
           <input type={showPassword ? "text" : "password"}  name='password' value={password} onChange={function(e){
@@ -635,8 +662,10 @@ const Signup = () => {
           onClick={() => setShowPassword(!showPassword)}>
             {(!showPassword || !password) ? <EyeOff/> : <Eye/>}
            </button>
-           <p style={{color : errorColor}}>{passwordError}</p>
           </div>
+          <p className='text-start' style={{color : errorColor}}>{passwordError}</p>
+          </div>
+          <div>
           <div className="relative flex flex-col">
           <label htmlFor='confirm assword' className=' text-gray-600 text-start'>confirm Password</label>
           <input type={confPassword ? "text" : "password"} name='confirm password' value={checkPass} onChange={function(e){
@@ -646,6 +675,8 @@ const Signup = () => {
           onClick={() => setConfPassword(!confPassword)}>
             {(!confPassword || !checkPass) ? <EyeOff/> : <Eye/>}
            </button>
+          </div>
+          <p className='text-start' style={{color : errorColor}}>{passwordError}</p>
           </div>
           </div>
           <div className='flex flex-col'>

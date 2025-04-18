@@ -216,20 +216,22 @@ const forget = function(event){
 }
 
   return (
-    <div className='w-full min-h-screen h-screen right-0 grid grid-cols-2'>
+    <div className='w-full  h-screen max-h-screen right-0 grid grid-cols-2'>
       {/* Left Side */}
-        <div className='relative w-full h-full overflow-y-auto flex flex-col gap-5 bg-[#0dab66] text-white text-center '>
-        <Link to ='/'><IoArrowBackCircle size={40} className='text-white'/></Link>
-            <div className=' w-fit text-start self-center mb-[18%] mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
-            <h1 className='font-bold text-white text-start text-[34px] p-[5px]'>
+        <div className='relative w-full h-full   overflow-y-hidden   grid items-center grid-cols-1 gap-5 bg-[#0dab66] text-white '>
+            <div className=' grid grid-cols-1   w-[70%] gap-6.5 text-start justify-items-start justify-self-center'>
+            <div className='grid grid-cols-1 gap-27'>
+            <div className='grid'>
+            <Link to ='/'><IoArrowBackCircle size={40} className='text-white mb-[3%] mt-[10%]'/></Link>
+            <h1 className='font-bold text-white text-[40px] leading-12 p-[5px]'>
                 Welcome to Baho Health
             </h1>
-            <p className='text-white text-start p-[5px] text-[19px]'>
+            <p className='text-white p-[5px] font-poppins font-thin text-[19px]'>
                 Where you can discover a wide range of healthcare
                  services to meet your needs
             </p>
             </div>
-            <div className=' w-fit text-start self-center mt-[7%]  mr-[10%] ml-[15% ] pl-[13%] pr-[13%]'>
+            <div className='grid '>
                 <div className='flex flex-row gap-2.5'>
                     <FaStar size = {20} className = { 'text-orange-400'}/>
                     <FaStar size = {20} className = { 'text-orange-400'}/>
@@ -237,26 +239,27 @@ const forget = function(event){
                     <FaStar size = {20} className = { 'text-orange-400'}/>
                     <FaStar size = {20} className = { 'text-orange-400'}/>
                 </div>
-            <p className = 'text-white text-start p-[5px] text-[19px] mt-[7px]'>
+            <p className = 'text-white p-[5px] pl-0 text-[19px] font-thin mt-[7px]'>
                 <i>This is a good project cause it saved me a lot of times,
                  you are time saver. Very convenient to use.</i>
             </p>
             </div>
-            <div className='w-fit self-start mr-[10%] ml-[15% ] pl-[13%] pr-[13%]  grid grid-cols-2 gap-0'>
-                <img src={profile} className='w-[60px] self-start h-[60px] rounded-full'/>
-                <div className='ml-[-25px]'>
-                    <h1 className='font-bold text-[20px]'>Devon Lane</h1>
-                    <p className='text-gray-700 text-[16px] font-bold'>Patient</p>
+            </div>
+            <div className='flex flex-row gap-4'>
+                <img src={profile} className='w-[60px] h-[60px] rounded-full'/>
+                <div className='ml-[0px]'>
+                    <h1 className='font-bold text-[20px] font-poppins'>Devon Lane</h1>
+                    <p className='text-[#dee2e6] text-[16px] font-bold font-poppins'>Patient</p>
                 </div>
             </div>
-            <div className='absolute rounded-l-full self-end top-[82%] w-[10px] h-[100px] border-l-3 border-white'></div>
+            </div>
             </div>
 
       {/* Right Side */}
-      <div className='w-full p-[10%] pt-[3.5%] pb-[3.5%] flex flex-col overflow-y-auto h-full'>
+      <div className='w-full p-[10%] pt-[10%]  flex flex-col overflow-y-hidden   h-full'>
         {!success ? (
-          <form className='w-full text-start pl-[10%] p-[4.0%] border rounded-[7px]' onSubmit={handleLogin}>
-            <h1 className='font-bold text-[25px] mb-[10px]'>Login</h1>
+          <form className='w-full text-start pl-[10%] pr-[1%] p-[4.0%] pt-0 rounded-[7px]' onSubmit={handleLogin}>
+            <h1 className='font-bold text-[30px] mb-[10px] text-[#0dab66]'>Login</h1>
             <p style={{color: errorColor}}>{submitError}</p>
             <p className='text-gray-400 mt-[5px] mb-[20px]'>
               Login with the credentials that you used while registering
@@ -270,14 +273,14 @@ const forget = function(event){
                 value={Email} 
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder='Type your Email address' 
-                className='w-full border border-gray-400 pl-[10px] p-[7px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'
+                className='w-full border border-[#0dab66] pl-[10px] p-[7px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400'
               />
-              <button type="button" className="absolute right-3 top-2/3 transform -translate-y-1/2 text-sm text-gray-600">
-                <Mail/>
+              <button type="button" className="absolute right-3 top-3/4 transform -translate-y-1/2 text-sm text-gray-400">
+                <Mail size={20}/>
               </button>
             </div>
 
-            <div className="relative flex flex-col gap-1 mt-[10px]">
+            <div className="relative flex flex-col  mt-[10px]">
               <label htmlFor='Password' className='text-gray-600 mb-[17px]'>Password</label>
               <input 
                 type={showPassword ? "text" : "password"}
@@ -285,28 +288,30 @@ const forget = function(event){
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='Type your password' 
-                className='w-full border border-gray-400 pl-[10px] p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'
+                className='w-full border border-[#0dab66] pl-[10px] p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'
               />
               <button 
                 type="button" 
-                className="absolute right-3 top-17 transform -translate-y-1/2 text-sm text-gray-600"
+                className="absolute right-3 top-17 transform -translate-y-1/2 text-sm text-gray-400"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff/> : <Eye/>}
+                {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
               </button>
             </div>
 
+            <div className="relative flex flex-col gap-1 mt-[10px]">
             <label htmlFor='Role' className='text-gray-600 mb-[17px]'>Role</label>
             <select 
               name='Role' 
               value={role} 
               onChange={(e) => setRole(e.target.value)}
-              className='w-full border border-gray-400 pl-[10px] p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'
+              className='w-full border border-[#0dab66] pl-[10px] p-[10px] rounded-[3px] bg-gray-100/50 text-blue-950 focus:border-b placeholder:text-gray-400 focus:ring-blue-500'
             >
               <option value='' disabled>Select role</option>
               <option value='Patient'>Patient</option>
               <option value='Doctor'>Doctor</option>
             </select>
+            </div>
 
             <div className='w-full mt-[20px] mb-[20px] flex gap-2'>
               <input 
@@ -317,7 +322,7 @@ const forget = function(event){
                 className='size-[20px] mt-[3px]'
               /> 
               <p className='text-gray-600'>Always remember me</p>
-              <button type='button' onClick={forget} className='text-green-500 ml-[40.8%]'>Forgot password?</button>
+              <button type='button' onClick={forget} className='text-green-500 ml-[30.8%]'>Forgot password?</button>
             </div>
 
             <button 
