@@ -449,24 +449,34 @@ const Signup = () => {
         })
         .then(function(response){
             if(!response.ok){
-                if(response.status === 404){
-                    setSubmitError('Invalid inputs')
-                    setErrorColor('red')
-                    setIsSubmitting(false);
-                    setTimeout(function(){
-                        setSubmitError('')
-                    },4000)
-                    throw new Error("Invalid inputs")
+                if (response.status === 404) {
+                    response.json().then(function(errorData) {
+                        const backendMessage = errorData.message || 'Invalid inputsss';
+                        setSubmitError(backendMessage);
+                        console.error('Internal server error:', backendMessage);
+                        setErrorColor('red');
+                        setIsSubmitting(false);
+                        setTimeout(function() {
+                            setSubmitError('');
+                        }, 4000);
+                        throw new Error(backendMessage);
+                    });
                 }
-                else if(response.status === 500){
-                    setSubmitError('Internal server error')
-                    setErrorColor('red')
-                    setIsSubmitting(false);
-                    setTimeout(function(){
-                        setSubmitError('')
-                    },4000)
-                    throw new Error('Internal server error')
+                
+                else if (response.status === 500) {
+                    response.json().then(function(errorData) {
+                        const backendMessage = errorData.message || 'Internal server errorsss';
+                        setSubmitError(backendMessage);
+                        console.error('Internal server error:', backendMessage);
+                        setErrorColor('red');
+                        setIsSubmitting(false);
+                        setTimeout(function() {
+                            setSubmitError('');
+                        }, 4000);
+                        throw new Error(backendMessage);
+                    });
                 }
+                
             }
             return response.json()
         })
@@ -490,15 +500,16 @@ const Signup = () => {
                 },4000)
             }
         })
-        .catch(function(error){
-            console.error('Failed to register the doctor, try again later: ', error)
-            setSubmitError('Failed to register the Doctor, try again later.')
-            setErrorColor('red')
+        .catch(function(error) {
+            console.error('Failed to register the doctor, try again later: ', error.message);
+            setSubmitError(error.message || 'Failed to register the Doctor, try again later.');
+            setErrorColor('red');
             setIsSubmitting(false);
-            setTimeout(function(){
-                setSubmitError('')
-            },4000)
-        })
+            setTimeout(function() {
+                setSubmitError('');
+            }, 4000);
+        });
+        
     }
     
 
